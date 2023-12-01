@@ -8,7 +8,7 @@ class SpecialTile(val type: TileType) {
         TRIPLE_WORD
     }
 
-    fun getScoreMultiplier(): Int {
+     fun getScoreMultiplier(): Int {
         return when (type) {
             TileType.DOUBLE_LETTER -> 2
             TileType.TRIPLE_LETTER -> 3
@@ -17,15 +17,15 @@ class SpecialTile(val type: TileType) {
         }
     }
 
-    fun isDoubleLetter(): Boolean = type == TileType.DOUBLE_LETTER
+     fun isDoubleLetter(): Boolean = type == TileType.DOUBLE_LETTER
 
-    fun isTripleLetter(): Boolean = type == TileType.TRIPLE_LETTER
+     fun isTripleLetter(): Boolean = type == TileType.TRIPLE_LETTER
 
-    fun isDoubleWord(): Boolean = type == TileType.DOUBLE_WORD
+     fun isDoubleWord(): Boolean = type == TileType.DOUBLE_WORD
 
-    fun isTripleWord(): Boolean = type == TileType.TRIPLE_WORD
+     fun isTripleWord(): Boolean = type == TileType.TRIPLE_WORD
 
-    fun applyMultiplier(score: Int): Int {
+     fun applyMultiplier(score: Int): Int {
         return score * getScoreMultiplier()
     }
 

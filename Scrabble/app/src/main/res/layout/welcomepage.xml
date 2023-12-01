@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+    <!-- Titre de l'application -->
+    <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scrabble"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"/>
+
+    <!-- Bouton Jouer -->
+    <Button
+            android:id="@+id/btnJouer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jouer"
+            android:layout_below="@id/tvTitle"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
+    <!-- Bouton Options -->
+    <Button
+            android:id="@+id/btnOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Options"
+            android:layout_below="@id/btnJouer"
+            android:layout_marginBottom="16dp"/>
+
+    <!-- Bouton Langues -->
+    <Button
+            android:id="@+id/btnLangues"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Langues"
+            android:layout_below="@id/btnOptions"
+            android:layout_marginBottom="16dp"/>
+
+    <!-- Croix pour quitter -->
+    <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"/>
+
+    <!-- Image d'arrière-plan -->
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher_background"
+            android:scaleType="centerCrop"/>
+
+</RelativeLayout>

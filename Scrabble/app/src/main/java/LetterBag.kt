@@ -20,7 +20,7 @@ class LetterBag {
         return letters.size
     }
 
-    fun drawLetter(): Letter? {
+     fun drawLetter(): Letter? {
         return if (letters.isNotEmpty()) {
             val randomIndex = Random.nextInt(letters.size)
             val drawnLetter = letters.removeAt(randomIndex)
@@ -30,16 +30,6 @@ class LetterBag {
         }
     }
 
-    fun drawMultipleLetters(count: Int): List<Letter>{
-        val drawnLetters = mutableListOf<Letter>()
-        repeat(count) {
-            val drawnLetter = drawLetter()
-            if (drawnLetter != null) {
-                drawnLetters.add(drawnLetter)
-            }
-        }
-        return drawnLetters
-    }
 
     fun exchangeLetters(lettersToExchange: List<Letter>): List<Letter> {
         val newLetters = mutableListOf<Letter>()

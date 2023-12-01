@@ -1,6 +1,7 @@
 package com.example.scrabble
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -17,32 +18,9 @@ import androidx.compose.ui.unit.dp
 import com.example.scrabble.ui.theme.ScrabbleTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            ScrabbleTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Column(
-                        modifier = Modifier
-                            .padding(16.dp) // Ajoute un espacement général
-                            .fillMaxSize(), // Remplit toute la hauteur et la largeur
-                        verticalArrangement = Arrangement.spacedBy(8.dp) // Ajoute un espacement vertical entre les composants
-                    ) {
-                        val letterBag = LetterBag()
-                        val initialLetters = letterBag.drawMultipleLetters(7)
-                        val initialNumberOfLetters = letterBag.getNumberOfLetters()
-
-                        Text(text = "Initial Letters: $initialLetters ")
-                        Text(text = "Initial Number of Letters: $initialNumberOfLetters")
-
-                        val newLetters = letterBag.exchangeLetters(initialLetters)
-                        val afterNumberOfLetters = letterBag.getNumberOfLetters()
-                        Text(text = "New Letters: $newLetters")
-                        Text(text = "After Number of Letters: $afterNumberOfLetters")
-                    }
-                }
-            }
-        }
+        setContentView(R.layout.welcomepage)
     }
 }

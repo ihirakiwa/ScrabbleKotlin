@@ -4,25 +4,16 @@ class Player(val name : String) {
     var score : Int = 0
         private set
 
-    val rack : MutableList<Letter> = mutableListOf()
 
-    fun addPoints(points: Int) {
+     fun addPoints(points: Int) {
         score += points
     }
 
-    fun drawLetterFromBag(letterBag: LetterBag) {
-        val letter: Letter? = letterBag.drawLetter()
-        if(letter != null) {
-            rack.add(letter)
-        }
+     fun removePoints(points: Int) {
+        score -= points
     }
-
-    fun exchangeLetters(letterBag: LetterBag, lettersToExchange: List<Letter>) {
-        for (letter in lettersToExchange) {
-            rack.remove(letter)
-        }
-
-        rack.addAll(letterBag.exchangeLetters(lettersToExchange))
+     fun resetScore() {
+        score = 0
     }
     // TODO: Implement playWord
     /*
@@ -30,7 +21,5 @@ class Player(val name : String) {
 
     } */
 
-    fun displayRack() {
-        println("$name's Rack: $rack")
-    }
+
 }
