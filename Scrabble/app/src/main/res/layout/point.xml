@@ -1,0 +1,28 @@
+<!-- activity_main.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <!-- Plateau de jeu -->
+    <GridView
+            android:id="@+id/gridViewBoard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="7"
+            android:stretchMode="columnWidth"/>
+
+    <!-- Tuiles de lettres (rack du joueur) -->
+    <RecyclerView
+            android:id="@+id/recyclerViewRack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gridViewBoard"/>
+
+    <!-- Score du joueur -->
+    <TextView
+            android:id="@+id/textViewScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recyclerViewRack"
+            android:text="Score: 0"/>
+</RelativeLayout>

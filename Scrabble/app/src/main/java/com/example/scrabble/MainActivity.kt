@@ -24,9 +24,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.welcomepage)
         mediaPlayer = MediaPlayer.create(this, R.raw.mavie)
-
         // Démarrer automatiquement la lecture audio
         mediaPlayer?.start()
+        val jouerButton = findViewById<Button>(R.id.btnJouer)
+        jouerButton.setOnClickListener {
+            setContentView(R.layout.point)
+        }
     }
 
     override fun onDestroy() {
