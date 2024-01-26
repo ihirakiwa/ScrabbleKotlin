@@ -4,25 +4,29 @@
                 android:layout_height="match_parent">
 
     <!-- Plateau de jeu -->
+
+    <!-- Tuiles de lettres (rack du joueur) -->
     <GridView
             android:id="@+id/gridViewBoard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:numColumns="7"
-            android:stretchMode="columnWidth"/>
+            android:layout_marginTop="50dp"
+    />
 
-    <!-- Tuiles de lettres (rack du joueur) -->
-    <RecyclerView
+    <GridView
             android:id="@+id/recyclerViewRack"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/gridViewBoard"/>
+            android:layout_height="100dp"
+            android:numColumns="7"
+            android:layout_alignParentBottom="true"
+            />
 
     <!-- Score du joueur -->
     <TextView
             android:id="@+id/textViewScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/recyclerViewRack"
-            android:text="Score: 0"/>
+            android:layout_above="@id/recyclerViewRack"
+            android:text="Score: "/>
 </RelativeLayout>
