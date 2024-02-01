@@ -1,16 +1,22 @@
 package com.example.scrabble
 
-class Rack(val player: Player) {
+import java.util.Observable
+
+open class Rack(val player: Player) : Observable() {
     private val letters: MutableList<Letter> = mutableListOf()
 
     // Méthode pour ajouter une lettre au chevalet
      fun addLetter(letter: Letter) {
         letters.add(letter)
+        setChanged()
+        notifyObservers()
     }
 
     // Méthode pour retirer une lettre du chevalet
      fun removeLetter(letter: Letter) {
         letters.remove(letter)
+        setChanged()
+        notifyObservers()
     }
 
     // Méthode pour piocher une lettre du sac et l'ajouter au chevalet
@@ -19,15 +25,19 @@ class Rack(val player: Player) {
         if (letter != null) {
             addLetter(letter)
         }
+        setChanged()
+        notifyObservers()
     }
 
     // Méthode pour échanger des lettres avec le sac
      fun exchangeLetters(letterBag: LetterBag, lettersToExchange: List<Letter>) {
-        for (letter in lettersToExchange) {
-            removeLetter(letter)
-        }
-
-        letters.addAll(letterBag.exchangeLetters(lettersToExchange))
+         val lettersNb = lettersToExchange.size
+         letters.retainAll{letter -> !lettersToExchange.contains(letter)}
+         for(i in 1..lettersNb){
+             drawLetterFromBag(letterBag)
+         }
+         setChanged()
+         notifyObservers()
     }
 
      fun drawMultipleLetters(letterBag: LetterBag, numLetters: Int) {
@@ -37,6 +47,8 @@ class Rack(val player: Player) {
                 addLetter(letter)
             }
         }
+         setChanged()
+         notifyObservers()
     }
      fun getRack() : MutableList<Letter>{
         return letters

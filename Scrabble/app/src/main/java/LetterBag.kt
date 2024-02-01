@@ -30,15 +30,4 @@ class LetterBag {
         }
     }
 
-
-    fun exchangeLetters(lettersToExchange: List<Letter>): List<Letter> {
-        val newLetters = mutableListOf<Letter>()
-        for (letter in lettersToExchange) {
-            val drawnLetter = drawLetter()
-            if (drawnLetter != null) {
-                newLetters.add(drawnLetter)
-            }
-        }
-        return newLetters
-    }
 }
