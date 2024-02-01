@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="16dp">
 
     <!-- Image d'arrière-plan -->
     <ImageView
@@ -36,40 +37,48 @@
             android:scaleType="fitXY"/>
 
     <!-- Bouton Jouer -->
+
+    <!-- Bouton Langues -->
     <Button
             android:id="@+id/btnJouer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Jouer"
             android:layout_below="@id/ivUnderTitle"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="16dp"/>
-
-    <!-- Bouton Langues -->
     <Button
             android:id="@+id/btnLangues"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Langues"
             android:layout_below="@id/btnJouer"
-            android:layout_marginBottom="16dp"/>
+    />
+
+    <!-- Autres vues -->
+
+    <!-- Ajoutez le RackView avec l'ID rackView -->
+    <com.example.scrabble.RackView
+            android:id="@+id/rackView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
 
     <!-- Bouton Options -->
+
+    <!-- Croix pour quitter -->
     <Button
             android:id="@+id/btnOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Options"
-            android:layout_below="@id/btnLangues"
-            android:layout_marginBottom="16dp"/>
-
-    <!-- Croix pour quitter -->
-    <ImageButton
+    />
+    <ImageView
             android:id="@+id/ivClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:padding="5dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="16dp"/>
