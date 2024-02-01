@@ -1,6 +1,6 @@
 package com.example.scrabble
 
-class Player(val name : String) {
+public class Player(val name : String) {
     var score : Int = 0
         private set
 
