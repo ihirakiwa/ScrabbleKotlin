@@ -17,7 +17,7 @@
             android:background="#31D6FF"/>
     <!-- Image du scrabble -->
     <ImageView
-            android:id="@+id/ivUnderTitle"
+            android:id="@+id/emptyBoard"
             android:src="@drawable/emptyboard"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -40,33 +40,10 @@
             app:layout_constraintBottom_toBottomOf="@+id/guideline8"
 
     />
-    <!-- TextView pour afficher les lettres -->
-    <!--
-    <TextView
-            android:layout_width="387dp"
-            android:layout_height="129dp"
-            android:id="@+id/textView"
-            android:background="#1A0BA3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"/>
-    -->
-    <!-- TextView pour le fond bleu clair -->
-    <!--
-    <TextView
-            android:layout_width="387dp"
-            android:layout_height="53dp"
-            android:id="@+id/textView2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:background="#0B092B"/>
-    -->
+
     <!-- Bouton de rafraîchissement au centre -->
 
-    <!-- RackView avec l'ID rackView -->
+
     <Button
             android:id="@+id/btnRefresh"
             android:layout_width="wrap_content"
@@ -77,6 +54,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintVertical_bias="0.98"/>
+
+    <!-- RackView avec l'ID rackView -->
     <com.example.scrabble.RackView
             android:id="@+id/rackView"
             android:layout_width="0dp"
@@ -112,5 +91,33 @@
                                                 app:layout_constraintGuide_percent="0.86"
     />
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="0dp"
+                  android:layout_height="0dp"
+                  android:orientation="horizontal"
+                  app:layout_constraintStart_toStartOf="@id/guideline"
+                  app:layout_constraintEnd_toEndOf="@id/guideline2"
+                  app:layout_constraintTop_toTopOf="@id/guideline3"
+                  app:layout_constraintBottom_toBottomOf="@id/l1"
+    >
+
+        <ListView
+                android:id="@+id/listView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                app:layout_constraintTop_toTopOf="@id/guideline3"
+                app:layout_constraintBottom_toBottomOf="@id/l1" />
+
+    </LinearLayout>
+
+
+
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:id="@+id/l1" app:layout_constraintGuide_begin="20dp"
+                                                android:orientation="horizontal"
+                                                app:layout_constraintGuide_percent="0.233"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

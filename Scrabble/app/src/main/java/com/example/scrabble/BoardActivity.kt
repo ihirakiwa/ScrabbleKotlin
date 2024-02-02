@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.GridLayout
+import android.widget.GridView
+import android.widget.ListView
 
 class BoardActivity : AppCompatActivity() {
     private lateinit var rack: Rack
