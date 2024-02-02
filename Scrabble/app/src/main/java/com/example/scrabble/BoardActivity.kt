@@ -4,16 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.GridLayout
-import android.widget.GridView
-import android.widget.ListView
+import android.widget.*
 
 class BoardActivity : AppCompatActivity() {
     private lateinit var player1: Player
     private lateinit var player2: Player
     private lateinit var rack1: Rack
-
+    private lateinit var player1View: PlayerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,10 +20,10 @@ class BoardActivity : AppCompatActivity() {
         // Récupérer les joueurs de l'intent
         player1 = intent.getSerializableExtra("player1") as Player
         player2 = intent.getSerializableExtra("player2") as Player
-
         val rackView = findViewById<RackView>(R.id.rackView)
+        player1View = PlayerView(findViewById(R.id.textViewPlayer1ScoreandName))
+        player1View.updatePlayerScore(player1)
         val btnRefresh = findViewById<Button>(R.id.btnRefresh)
-
         val letterbag = LetterBag()
         rack1 = Rack(player1)
         rack1.drawMultipleLetters(LetterBag(), 7)
