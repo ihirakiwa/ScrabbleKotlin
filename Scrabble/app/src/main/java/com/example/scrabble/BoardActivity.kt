@@ -10,7 +10,12 @@ import android.widget.GridView
 import android.widget.ListView
 
 class BoardActivity : AppCompatActivity() {
+    private val player1 : Player = intent.getSerializableExtra("player1") as Player
+    private val player2 : Player = intent.getSerializableExtra("player2") as Player
     private lateinit var rack: Rack
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

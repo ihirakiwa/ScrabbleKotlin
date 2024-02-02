@@ -1,6 +1,8 @@
 package com.example.scrabble
 
-public class Player(val name : String) {
+import java.io.Serializable
+
+public class Player(val name : String) : Serializable{
     var score : Int = 0
         private set
 
