@@ -1,0 +1,73 @@
+Index: app/src/main/res/layout/activity_board.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout\n        xmlns:android=\"http://schemas.android.com/apk/res/android\"\n        xmlns:tools=\"http://schemas.android.com/tools\"\n        xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"match_parent\">\n\n    <!-- Image d'arrière-plan -->\n    <ImageView\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"match_parent\"\n            android:src=\"@drawable/background2\"\n            android:scaleType=\"fitXY\"\n            android:adjustViewBounds=\"true\"\n            android:cropToPadding=\"true\"\n            android:background=\"#31D6FF\"/>\n    <!-- Image du scrabble -->\n    <ImageView\n            android:id=\"@+id/ivUnderTitle\"\n            android:src=\"@drawable/emptyboard\"\n            android:layout_width=\"0dp\"\n            android:layout_height=\"0dp\"\n            android:scaleType=\"fitXY\"\n            app:layout_constraintStart_toStartOf=\"@id/guideline\"\n            app:layout_constraintEnd_toEndOf=\"@id/guideline2\"\n            app:layout_constraintTop_toTopOf=\"@id/guideline3\"\n            app:layout_constraintDimensionRatio=\"1:1\"\n    />\n\n    <ImageView\n            android:id=\"@+id/ivTitle\"\n            android:src=\"@drawable/rack\"\n            android:layout_width=\"0dp\"\n            android:layout_height=\"0dp\"\n            android:scaleType=\"fitXY\"\n            app:layout_constraintStart_toStartOf=\"@id/guideline\"\n            app:layout_constraintEnd_toEndOf=\"@id/guideline2\"\n            app:layout_constraintTop_toTopOf=\"@id/guideline9\"\n            app:layout_constraintBottom_toBottomOf=\"@+id/guideline8\"\n\n    />\n    <!-- TextView pour afficher les lettres -->\n    <!--\n    <TextView\n            android:layout_width=\"387dp\"\n            android:layout_height=\"129dp\"\n            android:id=\"@+id/textView\"\n            android:background=\"#1A0BA3\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintBottom_toBottomOf=\"parent\"\n            android:layout_marginBottom=\"8dp\"/>\n    -->\n    <!-- TextView pour le fond bleu clair -->\n    <!--\n    <TextView\n            android:layout_width=\"387dp\"\n            android:layout_height=\"53dp\"\n            android:id=\"@+id/textView2\"\n            app:layout_constraintBottom_toBottomOf=\"parent\"\n            android:layout_marginBottom=\"8dp\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            android:background=\"#0B092B\"/>\n    -->\n    <!-- Bouton de rafraîchissement au centre -->\n\n    <!-- RackView avec l'ID rackView -->\n    <Button\n            android:id=\"@+id/btnRefresh\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:text=\"Refresh\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintTop_toTopOf=\"parent\"\n            app:layout_constraintBottom_toBottomOf=\"parent\" app:layout_constraintHorizontal_bias=\"0.498\"\n            app:layout_constraintVertical_bias=\"0.98\"/>\n    <com.example.scrabble.RackView\n            android:id=\"@+id/rackView\"\n            android:layout_width=\"0dp\"\n            android:layout_height=\"0dp\"\n            app:layout_constraintTop_toTopOf=\"@+id/guideline9\"\n            app:layout_constraintBottom_toBottomOf=\"@+id/guideline10\"\n            app:layout_constraintStart_toStartOf=\"@id/guideline\"\n            app:layout_constraintEnd_toEndOf=\"@id/guideline2\"\n            android:visibility=\"invisible\"/>\n    <androidx.constraintlayout.widget.Guideline android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n                                                android:id=\"@+id/guideline\"\n                                                android:orientation=\"vertical\"\n                                                app:layout_constraintGuide_end=\"368dp\"/>\n    <androidx.constraintlayout.widget.Guideline android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n                                                android:id=\"@+id/guideline2\" app:layout_constraintGuide_begin=\"20dp\"\n                                                android:orientation=\"vertical\"\n                                                app:layout_constraintGuide_percent=\"0.90\"\n    />\n    <androidx.constraintlayout.widget.Guideline android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n                                                android:id=\"@+id/guideline3\"\n                                                android:orientation=\"horizontal\"\n                                                app:layout_constraintGuide_percent=\"0.20\"/>\n    <androidx.constraintlayout.widget.Guideline android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n                                                android:id=\"@+id/guideline8\" app:layout_constraintGuide_begin=\"20dp\"\n                                                android:orientation=\"horizontal\"\n                                                app:layout_constraintGuide_percent=\"0.90\"\n    />\n    <androidx.constraintlayout.widget.Guideline android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n                                                android:id=\"@+id/guideline9\" app:layout_constraintGuide_begin=\"20dp\"\n                                                android:orientation=\"horizontal\"\n                                                app:layout_constraintGuide_percent=\"0.75\"\n    />\n    <androidx.constraintlayout.widget.Guideline android:layout_width=\"wrap_content\" android:layout_height=\"wrap_content\"\n                                                android:id=\"@+id/guideline10\" app:layout_constraintGuide_begin=\"20dp\"\n                                                android:orientation=\"horizontal\"\n                                                app:layout_constraintGuide_percent=\"0.86\"\n    />\n\n\n</androidx.constraintlayout.widget.ConstraintLayout>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_board.xml b/app/src/main/res/layout/activity_board.xml
+--- a/app/src/main/res/layout/activity_board.xml	(revision 518bb24efcc27b75ccc02f9b657a3834ece5ad5d)
++++ b/app/src/main/res/layout/activity_board.xml	(date 1706814024604)
+@@ -43,14 +43,15 @@
+     <!-- TextView pour afficher les lettres -->
+     <!--
+     <TextView
+-            android:layout_width="387dp"
+-            android:layout_height="129dp"
++            android:layout_width="0dp"
++            android:layout_height="dp"
+             android:id="@+id/textView"
+             android:background="#1A0BA3"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintBottom_toBottomOf="parent"
+-            android:layout_marginBottom="8dp"/>
++            android:scaleType="fitXY"
++            app:layout_constraintStart_toStartOf="@id/guideline8"
++            app:layout_constraintEnd_toEndOf="@id/guideline9"
++            app:layout_constraintTop_toTopOf="@id/guideline10"
++    />
+     -->
+     <!-- TextView pour le fond bleu clair -->
+     <!--
+@@ -114,6 +115,21 @@
+                                                 android:orientation="horizontal"
+                                                 app:layout_constraintGuide_percent="0.86"
+     />
++    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
++                                                android:id="@+id/guideline8" app:layout_constraintGuide_begin="20dp"
++                                                android:orientation="vertical"
++                                                app:layout_constraintGuide_percent="0.03"
++    />
++    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
++                                                android:id="@+id/guideline9" app:layout_constraintGuide_begin="20dp"
++                                                android:orientation="vertical"
++                                                app:layout_constraintGuide_percent="0.97"
++    />
++    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
++                                                android:id="@+id/guideline10" app:layout_constraintGuide_begin="20dp"
++                                                android:orientation="horizontal"
++                                                app:layout_constraintGuide_percent="0.85"
++    />
+ 
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"deploymentTargetDropDown\">\n    <targetSelectedWithDropDown>\n      <Target>\n        <type value=\"QUICK_BOOT_TARGET\" />\n        <deviceKey>\n          <Key>\n            <type value=\"VIRTUAL_DEVICE_PATH\" />\n            <value value=\"$USER_HOME$/.android/avd/Pixel_2_API_29.avd\" />\n          </Key>\n        </deviceKey>\n      </Target>\n    </targetSelectedWithDropDown>\n    <timeTargetWasSelectedWithDropDown value=\"2024-02-01T17:01:04.748718211Z\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+--- a/.idea/deploymentTargetDropDown.xml	(revision 518bb24efcc27b75ccc02f9b657a3834ece5ad5d)
++++ b/.idea/deploymentTargetDropDown.xml	(date 1706814024612)
+@@ -12,6 +12,6 @@
+         </deviceKey>
+       </Target>
+     </targetSelectedWithDropDown>
+-    <timeTargetWasSelectedWithDropDown value="2024-02-01T17:01:04.748718211Z" />
++    <timeTargetWasSelectedWithDropDown value="2024-02-01T18:55:19.703093362Z" />
+   </component>
+ </project>
+\ No newline at end of file
