@@ -11,6 +11,7 @@ class BoardActivity : AppCompatActivity() {
     private lateinit var player2: Player
     private lateinit var rack1: Rack
     private lateinit var player1View: PlayerView
+    private lateinit var player2View: PlayerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,8 @@ class BoardActivity : AppCompatActivity() {
         val rackView = findViewById<RackView>(R.id.rackView)
         player1View = PlayerView(findViewById(R.id.textViewPlayer1ScoreandName),player1)
         player1View.updatePlayerScore()
+        player2View = PlayerView(findViewById(R.id.textViewPlayer2ScoreandName),player2)
+        player2View.updatePlayerScore()
         val btnRefresh = findViewById<Button>(R.id.btnRefresh)
         val letterbag = LetterBag()
         rack1 = Rack(player1)
