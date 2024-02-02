@@ -6,6 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
     <!-- Image d'arrière-plan -->
     <ImageView
             android:layout_width="match_parent"

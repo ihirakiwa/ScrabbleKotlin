@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.scrabble.com.example.scrabble.PlayersActivity
 import com.example.scrabble.ui.theme.ScrabbleTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.mavie)
         //mediaPlayer?.start()
         jouerButton.setOnClickListener {
-            startSecondActivity()
+            startFirstActivity()
 
         }
     }
@@ -41,6 +42,13 @@ class MainActivity : ComponentActivity() {
         val intent = Intent(this@MainActivity, BoardActivity::class.java)
         startActivity(intent)
     }
+
+    private fun startFirstActivity() {
+        val intent = Intent(this@MainActivity, PlayersActivity::class.java)
+        startActivity(intent)
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
         // Libérer les ressources du MediaPlayer lors de la fermeture de l'application

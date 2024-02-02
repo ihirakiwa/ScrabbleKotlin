@@ -19,6 +19,12 @@
         />
 
         <activity
+                android:name=".com.example.scrabble.PlayersActivity"
+                android:exported="false"
+                android:theme="@style/Theme.AppCompat"
+        />
+
+        <activity
                 android:name=".MainActivity"
                 android:exported="true"
                 android:label="@string/app_name"
