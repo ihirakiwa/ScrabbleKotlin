@@ -23,9 +23,12 @@ class BoardActivity : AppCompatActivity() {
         player2 = intent.getSerializableExtra("player2") as Player
         val rackView = findViewById<RackView>(R.id.rackView)
         player1View = PlayerView(findViewById(R.id.textViewPlayer1ScoreandName),player1)
+        player1.addPoints(10)
         player1View.updatePlayerScore()
         player2View = PlayerView(findViewById(R.id.textViewPlayer2ScoreandName),player2)
         player2View.updatePlayerScore()
+
+
         val btnRefresh = findViewById<Button>(R.id.btnRefresh)
         val letterbag = LetterBag()
         rack1 = Rack(player1)

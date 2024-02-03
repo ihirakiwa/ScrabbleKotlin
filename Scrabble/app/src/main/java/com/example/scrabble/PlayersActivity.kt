@@ -29,7 +29,7 @@ class PlayersActivity: AppCompatActivity(){
         // Récupérer les noms des joueurs depuis les champs de texte
         val player1Name = editTextPlayer1.text.toString().trim()
         val player2Name = editTextPlayer2.text.toString().trim()
-        if(!player1Name.isNullOrBlank() && !player2Name.isNullOrBlank() && player1Name != player2Name && player1Name.length <= 10 && player2Name.length <= 10){
+        if(!player1Name.isBlank() && !player2Name.isBlank() && player1Name != player2Name && player1Name.length <= 10 && player2Name.length <= 10){
             // Créer les joueurs
             val player1 = Player(player1Name)
             val player2 = Player(player2Name)
@@ -39,12 +39,12 @@ class PlayersActivity: AppCompatActivity(){
             startActivity(intent)
         }else{
             // Afficher un message d'erreur
-            if(player1Name.isNullOrBlank() || player2Name.isNullOrBlank())
+            if(player1Name.isBlank() || player2Name.isBlank())
                 Toast.makeText(this, "Veuillez saisir les noms des deux joueurs", Toast.LENGTH_SHORT).show()
             if(player1Name == player2Name)
                 Toast.makeText(this, "Les pseudos doivent être différents", Toast.LENGTH_SHORT).show()
-            if(player1Name.length > 10 || player2Name.length > 10)
-                Toast.makeText(this, "Les pseudos doivent être inférieur à 10 lettres", Toast.LENGTH_SHORT).show()
+            if(player1Name.length > 9 || player2Name.length > 9)
+                Toast.makeText(this, "Les pseudos doivent être inférieur à 9 lettres", Toast.LENGTH_SHORT).show()
 
         }
     }
