@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,6 +46,7 @@ fun ScrabbleCell(cellType: CellType) {
         modifier = Modifier
             .size(21.5.dp)
             .background(cellType.color)
+            .clip(RoundedCornerShape(4.dp))
     ) {
         Text(
             text = cellType.name,

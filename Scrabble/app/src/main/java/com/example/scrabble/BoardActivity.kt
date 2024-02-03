@@ -46,7 +46,7 @@ class BoardActivity : AppCompatActivity() {
         player2View.updatePlayerScore()
 
         val scrabbleGridComposeView = findViewById<ComposeView>(R.id.scrabbleGridComposeView)
-        scrabbleGridComposeView.setContent { ScrabbleGrid(GRID) }
+        scrabbleGridComposeView.setContent {GridSection()}
         val btnRefresh = findViewById<Button>(R.id.btnRefresh)
         val letterbag = LetterBag()
         rack1 = Rack(player1)
