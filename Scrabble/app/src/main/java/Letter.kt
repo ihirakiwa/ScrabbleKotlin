@@ -26,7 +26,9 @@ enum class Letter(val value: Char, val score: Int, val frequency: Int) {
     W('W', 4, 2),
     X('X', 8, 1),
     Y('Y', 4, 2),
-    Z('Z', 10, 1);
+    Z('Z', 10, 1),
+    BLANK('_',0,2);
+
 
     fun getAllLetters(): List<Letter> {
         return values().flatMap { letter -> List(letter.frequency) { letter } }

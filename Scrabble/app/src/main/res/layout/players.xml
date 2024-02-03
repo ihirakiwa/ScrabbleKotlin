@@ -68,7 +68,8 @@
             app:layout_constraintStart_toStartOf="@+id/v3"
             app:layout_constraintEnd_toEndOf="@+id/v4"
             app:layout_constraintTop_toTopOf="@+id/l4"
-            app:layout_constraintBottom_toBottomOf="@+id/l5"/>
+            app:layout_constraintBottom_toBottomOf="@+id/l5"
+            android:background="@drawable/rounded_button"
     />
     <EditText
             android:id="@+id/editTextPlayer2"

@@ -17,6 +17,7 @@
             android:cropToPadding="true"
             android:background="#31D6FF"/>
     <!-- Image du scrabble -->
+    <!--
     <ImageView
             android:id="@+id/emptyBoard"
             android:src="@drawable/emptyboard"
@@ -28,7 +29,7 @@
             app:layout_constraintTop_toTopOf="@id/guideline3"
             app:layout_constraintDimensionRatio="1:1"
     />
-
+    -->
     <ImageView
             android:id="@+id/ivTitle"
             android:src="@drawable/rack"
@@ -90,6 +91,28 @@
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="@id/guideline2"
             android:visibility="invisible"/>
+
+    <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/scrabbleGridComposeView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintDimensionRatio="1:1"
+    />
+    
+
+    <GridView
+            android:id="@+id/grid"
+            android:layout_width="0dp"    
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintTop_toTopOf="@id/guideline3"
+            app:layout_constraintBottom_toBottomOf="@id/guideline8"
+            android:visibility="invisible"
+    />
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guideline"
                                                 android:orientation="vertical"
@@ -115,28 +138,6 @@
                                                 android:orientation="horizontal"
                                                 app:layout_constraintGuide_percent="0.86"
     />
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="0dp"
-                  android:layout_height="0dp"
-                  android:orientation="horizontal"
-                  app:layout_constraintStart_toStartOf="@id/guideline"
-                  app:layout_constraintEnd_toEndOf="@id/guideline2"
-                  app:layout_constraintTop_toTopOf="@id/guideline3"
-                  app:layout_constraintBottom_toBottomOf="@id/l1"
-    >
-
-        <ListView
-                android:id="@+id/listView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintStart_toStartOf="@id/guideline"
-                app:layout_constraintEnd_toEndOf="@id/guideline2"
-                app:layout_constraintTop_toTopOf="@id/guideline3"
-                app:layout_constraintBottom_toBottomOf="@id/l1"/>
-
-    </LinearLayout>
-
 
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/l1" app:layout_constraintGuide_begin="20dp"
