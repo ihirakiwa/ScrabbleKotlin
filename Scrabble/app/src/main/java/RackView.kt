@@ -21,7 +21,7 @@ class RackView(context: Context, attrs: AttributeSet? = null) : LinearLayout(con
     }
 
     // Méthode pour mettre à jour la vue du chevalet avec les lettres actuelles
-    fun updateView(letters: List<Char>) {
+    fun updateView(letters: List<Letter>) {
         removeAllViews()
         rackTextViews.clear()
 
@@ -34,9 +34,9 @@ class RackView(context: Context, attrs: AttributeSet? = null) : LinearLayout(con
 
     // Méthode pour créer un TextView représentant une lettre
     @SuppressLint("ClickableViewAccessibility")
-    private fun createLetterTextView(letter: Char): TextView {
+    private fun createLetterTextView(letter: Letter): TextView {
         val textView = TextView(context)
-        textView.text = letter.toString()
+        textView.text = letter.displayName
         textView.textSize = 42f
         textView.setTextColor(Color.BLACK)
         val params = LayoutParams(

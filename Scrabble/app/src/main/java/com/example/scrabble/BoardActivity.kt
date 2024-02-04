@@ -38,7 +38,7 @@ class BoardActivity : AppCompatActivity() {
 
         player1 = intent.getSerializableExtra("player1") as Player
         player2 = intent.getSerializableExtra("player2") as Player
-        val rackView = findViewById<RackView>(R.id.rackView)
+        val rackView = findViewById<ComposeView>(R.id.rackView)
         player1View = PlayerView(findViewById(R.id.textViewPlayer1ScoreandName),player1)
         player1View.updatePlayerScore()
         player2View = PlayerView(findViewById(R.id.textViewPlayer2ScoreandName),player2)
@@ -50,13 +50,17 @@ class BoardActivity : AppCompatActivity() {
         val letterbag = LetterBag()
         rack1 = Rack(player1)
         rack1.drawMultipleLetters(LetterBag(), 7)
-        rackView.updateView(rack1.getRack())
-        rackView.visibility = View.VISIBLE
+        rackView.setContent {
+            PlayerTilesSection(rack1.getRack(), true, test)
+        }
         btnRefresh.setOnClickListener {
             rack1.exchangeLetters(letterbag, rack1.getRack())
-            rackView.updateView(rack1.getRack())
         }
 
+    }
+
+    fun test(boolean: Boolean) {
+        println(boolean)
     }
 
 

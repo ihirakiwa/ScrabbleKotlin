@@ -16,31 +16,6 @@
             android:cropToPadding="true"
             android:background="#424b5a"/>
     <!-- Image du scrabble -->
-    <!--
-    <ImageView
-            android:id="@+id/emptyBoard"
-            android:src="@drawable/emptyboard"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="fitXY"
-            app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintEnd_toEndOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="@id/guideline3"
-            app:layout_constraintDimensionRatio="1:1"
-    />
-    -->
-    <ImageView
-            android:id="@+id/ivTitle"
-            android:src="@drawable/rack"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="fitXY"
-            app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintEnd_toEndOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="@id/guideline9"
-            app:layout_constraintBottom_toBottomOf="@+id/guideline8"
-
-    />
 
     <TextView
             android:id="@+id/textViewPlayer1ScoreandName"
@@ -68,7 +43,6 @@
 
     <!-- Bouton de rafraîchissement au centre -->
 
-
     <Button
             android:id="@+id/btnRefresh"
             android:layout_width="wrap_content"
@@ -81,7 +55,7 @@
             app:layout_constraintVertical_bias="0.98"/>
 
     <!-- RackView avec l'ID rackView -->
-    <com.example.scrabble.RackView
+    <androidx.compose.ui.platform.ComposeView
             android:id="@+id/rackView"
             android:layout_width="0dp"
             android:layout_height="0dp"
