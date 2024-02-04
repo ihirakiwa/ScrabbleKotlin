@@ -11,11 +11,10 @@
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/background2"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
-            android:background="#31D6FF"/>
+            android:background="#424b5a"/>
     <!-- Image du scrabble -->
     <!--
     <ImageView

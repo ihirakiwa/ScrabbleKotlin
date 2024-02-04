@@ -10,12 +10,12 @@ import com.example.scrabble.CellType.TL
 import com.example.scrabble.CellType.TW
 
  enum class CellType(val color: Color) {
-    TW(Color(255, 74, 195)), // Triple word
-    TL(Color(37, 98, 250)), // Triple letter
-    DW(Color(255, 107, 74)), // Double word
-    DL(Color(177, 220, 252)), // Double letter
-    BL(Color(192, 193, 194)), // Blank
-    ST(Color(20, 66, 112)), // Start
+    TW(Color(180, 180, 180)), // Triple word
+    TL(Color(46, 60, 166)), // Triple letter
+    DW(Color(170, 22, 18)), // Double word
+    DL(Color(98, 138, 169)), // Double letter
+    BL(Color(40, 40, 40)), // Blank
+    ST(Color(22, 142, 212)), // Start
 }
 
  val GRID = arrayOf(
