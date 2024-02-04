@@ -51,17 +51,18 @@ class BoardActivity : AppCompatActivity() {
         rack1 = Rack(player1)
         rack1.drawMultipleLetters(LetterBag(), 7)
         rackView.setContent {
-            PlayerTilesSection(rack1.getRack(), true, test)
+            PlayerTilesSection(rack1.getRack(), true, ::test)
         }
         btnRefresh.setOnClickListener {
             rack1.exchangeLetters(letterbag, rack1.getRack())
         }
-
     }
 
-    fun test(boolean: Boolean) {
-        println(boolean)
+    fun test(bool: Boolean) {
+        if (bool) {
+            println("true")
+        } else {
+            println("false")
+        }
     }
-
-
 }
