@@ -45,8 +45,8 @@ fun PlayerScoresSection(
 }
 
 private val SCORE_PADDING = 2.dp
-private val SCORE_FONT_SIZE = 24.sp
-private val PLAYER_FONT_SIZE = 19.sp
+private val SCORE_FONT_SIZE = 17.sp
+private val PLAYER_FONT_SIZE = 15.sp
 private val INTERNAL_PADDING = 8.dp
 
 
@@ -66,7 +66,7 @@ private fun PlayerScore(
             // and border behavior by changing just a single value.
             .then(if (isCurrentTurnPlayer) Modifier.background(Color(31, 220, 34)) else Modifier)
             .padding(SCORE_PADDING)
-            .background(Color.White)
+            .background(Color(200,200,200))
             .border(2.dp, Color.Black)
     ) {
         if(left) {

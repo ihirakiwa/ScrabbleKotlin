@@ -58,12 +58,4 @@ class BoardActivity : AppCompatActivity() {
             }
         }
     }
-
-    fun test(bool: Boolean) {
-        if (bool) {
-            println("true")
-        } else {
-            println("false")
-        }
-    }
 }
