@@ -17,29 +17,16 @@
             android:background="#424b5a"/>
     <!-- Image du scrabble -->
 
-    <TextView
-            android:id="@+id/textViewPlayer1ScoreandName"
+    <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/playerScoresComposeView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text=""
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/c1p1"
-            app:layout_constraintEnd_toEndOf="@id/c2p1"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
             app:layout_constraintTop_toTopOf="@id/l1p1"
             app:layout_constraintBottom_toBottomOf="@id/l2p1"
     />
 
-    <TextView
-            android:id="@+id/textViewPlayer2ScoreandName"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text=""
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/c1p1"
-            app:layout_constraintEnd_toEndOf="@id/c2p1"
-            app:layout_constraintTop_toTopOf="@id/l2p1"
-            app:layout_constraintBottom_toBottomOf="@id/l3p2"
-          />
 
     <!-- Bouton de rafraîchissement au centre -->
 
@@ -54,6 +41,15 @@
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintVertical_bias="0.98"/>
 
+    <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/scrabbleGridComposeView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/guideline3"
+                app:layout_constraintDimensionRatio="1:1"
+        />
     <!-- RackView avec l'ID rackView -->
     <androidx.compose.ui.platform.ComposeView
             android:id="@+id/rackView"
@@ -65,27 +61,9 @@
             app:layout_constraintEnd_toEndOf="@id/guideline2"
             android:visibility="visible"/>
 
-    <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/scrabbleGridComposeView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintEnd_toEndOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline3"
-            app:layout_constraintDimensionRatio="1:1"
-    />
+
     
 
-    <GridView
-            android:id="@+id/grid"
-            android:layout_width="0dp"    
-            android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintEnd_toEndOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="@id/guideline3"
-            app:layout_constraintBottom_toBottomOf="@id/guideline8"
-            android:visibility="invisible"
-    />
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/guideline"
                                                 android:orientation="vertical"
@@ -138,7 +116,7 @@
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                                 android:id="@+id/l2p1" app:layout_constraintGuide_begin="20dp"
                                                 android:orientation="horizontal"
-                                                app:layout_constraintGuide_percent="0.10"
+                                                app:layout_constraintGuide_percent="0.13"
 
     />
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
