@@ -9,7 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="version rack sans lettre" />
+    <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="meilleur version">
+      <change afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/DragContext.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerScoresSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerScoresSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/com/example/scrabble/BoardActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/com/example/scrabble/BoardActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/rounded_button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/rounded_button.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/layout/gamepage.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/layout/players.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/res/layout/players.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +44,13 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -69,6 +85,7 @@
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -78,6 +95,43 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="Scrabble.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="Scrabble.app.main" />
       <option name="DEPLOY" value="true" />
@@ -126,7 +180,20 @@
       <updated>1706809809725</updated>
       <workItem from="1706809813439" duration="233000" />
       <workItem from="1706810070709" duration="133000" />
-      <workItem from="1706810216657" duration="4092000" />
+      <workItem from="1706810216657" duration="9648000" />
+      <workItem from="1706915776794" duration="163000" />
+      <workItem from="1706975298024" duration="193000" />
+      <workItem from="1706975506736" duration="380000" />
+      <workItem from="1706979463608" duration="50000" />
+      <workItem from="1706982937389" duration="16000" />
+      <workItem from="1706984315100" duration="3133000" />
+      <workItem from="1707048684030" duration="285000" />
+      <workItem from="1707052401990" duration="15000" />
+      <workItem from="1707058230157" duration="219000" />
+      <workItem from="1707058460123" duration="528000" />
+      <workItem from="1707062731423" duration="72000" />
+      <workItem from="1707066082001" duration="13000" />
+      <workItem from="1707066188994" duration="5022000" />
     </task>
     <task id="LOCAL-00001" summary="version rack sans lettre">
       <option name="closed" value="true" />
@@ -152,7 +219,23 @@
       <option name="project" value="LOCAL" />
       <updated>1706813818008</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="meilleur version">
+      <option name="closed" value="true" />
+      <created>1706814462318</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706814462318</updated>
+    </task>
+    <task id="LOCAL-00005" summary="meilleur version">
+      <option name="closed" value="true" />
+      <created>1706814679779</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706814679779</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,6 +254,18 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="version rack sans lettre" />
-    <option name="LAST_COMMIT_MESSAGE" value="version rack sans lettre" />
+    <MESSAGE value="meilleur version" />
+    <option name="LAST_COMMIT_MESSAGE" value="meilleur version" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt</url>
+          <line>132</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

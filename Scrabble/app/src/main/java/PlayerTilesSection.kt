@@ -18,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
@@ -28,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
@@ -39,9 +41,11 @@ import kotlin.math.roundToInt
 
 private val TILES_ROW_BOTTOM_PADDING = 8.dp
 
+val LocalTileDragContext = compositionLocalOf { DragContext<Letter>() }
 @Composable
 fun PlayerTilesSection(
     tiles: List<Letter>,
+    isSubmitEnabled: Boolean,
     modifier: Modifier = Modifier
 ) {
     BoxWithConstraints(modifier) {
@@ -73,6 +77,9 @@ fun PlayerTilesSection(
                 tileOffsets = tileOffsets,
                 onNormalizeOffsets = ::normalizeOffsets,
                 modifier = Modifier.padding(bottom = TILES_ROW_BOTTOM_PADDING)
+            )
+            TileControls(
+                isSubmitEnabled = isSubmitEnabled
             )
         }
     }
@@ -140,8 +147,8 @@ private fun PlayerTiles(
         }
     }
 
-
-
+private const val TILE_DROP_SCALE_FACTOR = 0.5f
+private const val TILE_DRAG_SCALE_FACTOR = 0.5f
 // This value was somewhat arbitrarily chosen and happens to work well for this specific instance,
 // but it is obviously a coincidence based on the dimensions of the grid and number of player tiles.
 // In the future, the grid cell and tile sizes should probably be hard-coded instead of calculated
@@ -152,25 +159,73 @@ private val TILE_POINTS_PADDING = 2.dp
 
 @Composable
 private fun Tile(tile: Letter, tileSize: Dp, modifier: Modifier = Modifier)  {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .size(tileSize)
-            .background(Color(31, 220, 34))
-    ){
-          if (tile != Letter.BLANK) {
-              Text(
-                  text = tile.name,
-                  fontSize = TILE_LETTER_FONT_SIZE,
-                  fontWeight = FontWeight.Bold
-              )
-              Text(
-                text = tile.score.toString(),
-                fontSize = TILE_POINTS_FONT_SIZE,
-                fontWeight = FontWeight.Bold,
+    withDragContext(LocalTileDragContext.current) {
+        DragTarget(
+            data = tile,
+            options = DragOptions(
+                onDragScaleX = TILE_DRAG_SCALE_FACTOR,
+                onDragScaleY = TILE_DRAG_SCALE_FACTOR,
+                // Even though we set the tile's alpha to zero in a dropped state (see below), this
+                // scaling must still be applied so that the tile has the correct bounds in case it
+                // is dragged again in the future.
+                onDropScaleX = TILE_DROP_SCALE_FACTOR,
+                onDropScaleY = TILE_DROP_SCALE_FACTOR,
+                snapPosition = SnapPosition.CENTER
+            )
+        ) { dragStatus ->
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = modifier
+                    .size(tileSize)
+                    .alpha(if (dragStatus == DragTargetStatus.DROPPED) 0f else 1f)
+                    .background(Color(31, 220, 34))
+            ) {
+                if (tile != Letter.BLANK) {
+                    Text(
+                        text = tile.name,
+                        fontSize = TILE_LETTER_FONT_SIZE,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = tile.score.toString(),
+                        fontSize = TILE_POINTS_FONT_SIZE,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(TILE_POINTS_PADDING)
+                    )
+                }
+            }
+        }
+    }
+}
+
+val BUTTON_SPACING = 8.dp
+
+
+@Composable
+private fun TileControls(
+    isSubmitEnabled: Boolean,
+    modifier: Modifier = Modifier
+) {
+    val dragContext = LocalTileDragContext.current
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(BUTTON_SPACING),
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Button(
+            onClick = { },
+            modifier = Modifier.weight(1f),
+            enabled = isSubmitEnabled
+        ) {
+            Text("Submit")
+        }
+        Button(
+            onClick = { dragContext.resetDragTargets() },
+        ) {
+            Text(
+                "Reset",
                 modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(TILE_POINTS_PADDING)
             )
         }
     }

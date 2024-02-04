@@ -44,9 +44,10 @@ fun PlayerScoresSection(
     }
 }
 
-private val SCORE_PADDING = 8.dp
-private val SCORE_FONT_SIZE = 24.sp
-private val PLAYER_FONT_SIZE = 19.sp
+private val SCORE_PADDING = 2.dp
+private val SCORE_FONT_SIZE = 17.sp
+private val PLAYER_FONT_SIZE = 15.sp
+private val INTERNAL_PADDING = 8.dp
 @Composable
 private fun PlayerScore(
     left: Boolean,
@@ -63,23 +64,40 @@ private fun PlayerScore(
             // and border behavior by changing just a single value.
             .then(if (isCurrentTurnPlayer) Modifier.background(Color(31, 220, 34)) else Modifier)
             .padding(SCORE_PADDING)
-            .background(Color.White)
+            .background(Color(200, 200, 200))
             .border(2.dp, Color.Black)
     ) {
         if(left) {
-            Text(text = name, modifier = Modifier.align(Alignment.CenterStart), fontSize = PLAYER_FONT_SIZE)
+            Text(
+                text = name,
+                fontSize = PLAYER_FONT_SIZE,
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(INTERNAL_PADDING)
+            )
             Text(
                 text = score.toString(),
                 fontSize = SCORE_FONT_SIZE,
-                modifier = Modifier.align(Alignment.CenterEnd)
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(INTERNAL_PADDING)
+
             )
-            } else {
+        } else {
             Text(
                 text = score.toString(),
                 fontSize = SCORE_FONT_SIZE,
-                modifier = Modifier.align(Alignment.CenterStart)
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(INTERNAL_PADDING)
             )
-            Text(text = name,fontSize = PLAYER_FONT_SIZE, modifier = Modifier.align(Alignment.CenterEnd))
+            Text(
+                text = name,
+                fontSize = PLAYER_FONT_SIZE,
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(INTERNAL_PADDING)
+            )
             }
     }
 }
