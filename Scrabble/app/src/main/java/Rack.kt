@@ -3,18 +3,18 @@ package com.example.scrabble
 import java.util.Observable
 
 open class Rack(val player: Player) : Observable() {
-    private val letters: MutableList<Letter> = mutableListOf()
+    private val letters: MutableList<Char> = mutableListOf()
 
     // Méthode pour ajouter une lettre au chevalet
      fun addLetter(letter: Letter) {
-        letters.add(letter)
+        letters.add(letter.value)
         setChanged()
         notifyObservers()
     }
 
     // Méthode pour retirer une lettre du chevalet
      fun removeLetter(letter: Letter) {
-        letters.remove(letter)
+        letters.remove(letter.value)
         setChanged()
         notifyObservers()
     }
@@ -30,7 +30,7 @@ open class Rack(val player: Player) : Observable() {
     }
 
     // Méthode pour échanger des lettres avec le sac
-     fun exchangeLetters(letterBag: LetterBag, lettersToExchange: List<Letter>) {
+     fun exchangeLetters(letterBag: LetterBag, lettersToExchange: List<Char>) {
          val lettersNb = lettersToExchange.size
          letters.retainAll{letter -> !lettersToExchange.contains(letter)}
          for(i in 1..lettersNb){
@@ -50,7 +50,7 @@ open class Rack(val player: Player) : Observable() {
          setChanged()
          notifyObservers()
     }
-     fun getRack() : MutableList<Letter>{
+     fun getRack() : MutableList<Char>{
         return letters
     }
 
