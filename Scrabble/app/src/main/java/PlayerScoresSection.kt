@@ -44,9 +44,12 @@ fun PlayerScoresSection(
     }
 }
 
-private val SCORE_PADDING = 8.dp
+private val SCORE_PADDING = 2.dp
 private val SCORE_FONT_SIZE = 24.sp
 private val PLAYER_FONT_SIZE = 19.sp
+private val INTERNAL_PADDING = 8.dp
+
+
 @Composable
 private fun PlayerScore(
     left: Boolean,
@@ -67,19 +70,19 @@ private fun PlayerScore(
             .border(2.dp, Color.Black)
     ) {
         if(left) {
-            Text(text = name, modifier = Modifier.align(Alignment.CenterStart), fontSize = PLAYER_FONT_SIZE)
+            Text(text = name, modifier = Modifier.align(Alignment.CenterStart).padding(INTERNAL_PADDING), fontSize = PLAYER_FONT_SIZE)
             Text(
                 text = score.toString(),
                 fontSize = SCORE_FONT_SIZE,
-                modifier = Modifier.align(Alignment.CenterEnd)
+                modifier = Modifier.align(Alignment.CenterEnd).padding(INTERNAL_PADDING)
             )
             } else {
             Text(
                 text = score.toString(),
                 fontSize = SCORE_FONT_SIZE,
-                modifier = Modifier.align(Alignment.CenterStart)
+                modifier = Modifier.align(Alignment.CenterStart).padding(INTERNAL_PADDING)
             )
-            Text(text = name,fontSize = PLAYER_FONT_SIZE, modifier = Modifier.align(Alignment.CenterEnd))
+            Text(text = name,fontSize = PLAYER_FONT_SIZE, modifier = Modifier.align(Alignment.CenterEnd).padding(INTERNAL_PADDING))
             }
     }
 }
