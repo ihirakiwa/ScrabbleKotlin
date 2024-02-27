@@ -1,6 +1,7 @@
 package com.example.scrabble
 
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
@@ -117,19 +119,12 @@ private fun PlayerTiles(
                         // into a new graphics layer, which will obviously break UI functionality
                         shadowElevation = TILE_CONTAINER_SHADOW_ELEVATION
                     }
-                    .pointerInput(Unit) {
-                        detectDragGestures(
-                            onDragStart = { zIndices[index] = 1f },
-                            onDragEnd = {
-                                zIndices[index] = 0f
-                                onNormalizeOffsets()
-                            },
-                            onDrag = { change, dragAmount ->
-                                change.consume()
-                                tileOffsets[index] += dragAmount.x
-                            }
-                        )
-                    }
+                    .selectable(
+                        selected = true,
+                        onClick = {
+
+                        }
+                    )
                     .background(Color.White)
             ) {
                 Tile(
@@ -147,8 +142,7 @@ private fun PlayerTiles(
         }
     }
 
-private const val TILE_DROP_SCALE_FACTOR = 0.5f
-private const val TILE_DRAG_SCALE_FACTOR = 0.5f
+
 // This value was somewhat arbitrarily chosen and happens to work well for this specific instance,
 // but it is obviously a coincidence based on the dimensions of the grid and number of player tiles.
 // In the future, the grid cell and tile sizes should probably be hard-coded instead of calculated
@@ -159,46 +153,31 @@ private val TILE_POINTS_PADDING = 2.dp
 
 @Composable
 private fun Tile(tile: Letter, tileSize: Dp, modifier: Modifier = Modifier)  {
-    withDragContext(LocalTileDragContext.current) {
-        DragTarget(
-            data = tile,
-            options = DragOptions(
-                onDragScaleX = TILE_DRAG_SCALE_FACTOR,
-                onDragScaleY = TILE_DRAG_SCALE_FACTOR,
-                // Even though we set the tile's alpha to zero in a dropped state (see below), this
-                // scaling must still be applied so that the tile has the correct bounds in case it
-                // is dragged again in the future.
-                onDropScaleX = TILE_DROP_SCALE_FACTOR,
-                onDropScaleY = TILE_DROP_SCALE_FACTOR,
-                snapPosition = SnapPosition.CENTER
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .size(tileSize)
+            .alpha(1f)
+            .background(Color(31, 220, 34))
+    ) {
+        if (tile != Letter.BLANK) {
+            Text(
+                text = tile.name,
+                fontSize = TILE_LETTER_FONT_SIZE,
+                fontWeight = FontWeight.Bold
             )
-        ) { dragStatus ->
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = modifier
-                    .size(tileSize)
-                    .alpha(if (dragStatus == DragTargetStatus.DROPPED) 0f else 1f)
-                    .background(Color(31, 220, 34))
-            ) {
-                if (tile != Letter.BLANK) {
-                    Text(
-                        text = tile.name,
-                        fontSize = TILE_LETTER_FONT_SIZE,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = tile.score.toString(),
-                        fontSize = TILE_POINTS_FONT_SIZE,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(TILE_POINTS_PADDING)
-                    )
-                }
-            }
+            Text(
+                text = tile.score.toString(),
+                fontSize = TILE_POINTS_FONT_SIZE,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(TILE_POINTS_PADDING)
+            )
         }
     }
 }
+
 
 val BUTTON_SPACING = 8.dp
 
