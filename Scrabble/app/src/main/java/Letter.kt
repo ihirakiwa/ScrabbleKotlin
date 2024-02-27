@@ -1,5 +1,7 @@
 package com.example.scrabble
 
+import kotlin.system.exitProcess
+
 enum class Letter(val score: Int, val frequency: Int) {
     A( 1, 9),
     B( 3, 2),
@@ -31,4 +33,15 @@ enum class Letter(val score: Int, val frequency: Int) {
 
 
     val displayName: String get() = if (this == BLANK) "_" else name
+}
+private val stock = mutableListOf<Letter>()
+fun stockAdd(letter: Letter){
+    stock.clear()
+    stock.add(letter)
+}
+fun getLastLetter(): Letter{
+    if (stock.isEmpty()) {
+        exitProcess(1)
+    }
+    return stock[0]
 }
