@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
@@ -120,9 +121,10 @@ private fun PlayerTiles(
                         shadowElevation = TILE_CONTAINER_SHADOW_ELEVATION
                     }
                     .selectable(
-                        selected = true,
+                        selected = false,
                         onClick = {
-
+                            stockAdd(tile)
+                            Log.d("stock", getLastLetter().toString())
                         }
                     )
                     .background(Color.White)

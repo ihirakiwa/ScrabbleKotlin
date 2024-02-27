@@ -9,13 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="meilleur version" />
+    <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="meilleur version">
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_02_2024_18_36__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_02_2024_18_36__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/Letter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/Letter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\matth\.android\avd\Pixel_2_API_31.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\matth\.android\avd\Pixel_6_Pro_API_31.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Scrabble">
       <ProjectState />
@@ -46,7 +52,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Dev_Mat" />
+        <entry key="$PROJECT_DIR$" value="juste-pour-voir" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -70,7 +76,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "e8859ada",
+    "git-widget-placeholder": "Dev__Mat",
     "last_opened_file_path": "C:/Users/matth/Documents/Intellij/APPLICATIONINFO2",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -299,16 +305,5 @@
     <MESSAGE value="version rack sans lettre" />
     <MESSAGE value="meilleur version" />
     <option name="LAST_COMMIT_MESSAGE" value="meilleur version" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt</url>
-          <line>132</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
