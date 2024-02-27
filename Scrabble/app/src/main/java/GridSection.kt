@@ -2,7 +2,6 @@ package com.example.scrabble
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -12,14 +11,13 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,9 +26,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.scrabble.CellType
-import com.example.scrabble.GRID
-import com.example.scrabble.Letter
 
 
 
@@ -76,7 +71,6 @@ import com.example.scrabble.Letter
         }
     }
 
-    private val HOVERED_BORDER_WIDTH = 2.dp
 
     @Composable
     private fun GridCell(
@@ -89,20 +83,30 @@ import com.example.scrabble.Letter
         onRemoveTile: (row: Int, column: Int) -> Unit,
         modifier: Modifier = Modifier
     ) {
-        modifier.toggleable(
-            value = false,
-            onValueChange = { isSelected ->
-                if (isSelected) {
-                    val tile = getLastLetter()
-                    onSetTile(tile,row, column)
-                    Log.d("Placed", tile.toString())
-                }
-            })
         val placedTile = onGetTile(row, column)?.tile
-        if (placedTile == null) {
-            EmptyCell(cellType, cellSize)
-        } else {
-            TileCell(placedTile, cellSize)
+        var isSelected by remember { mutableStateOf(false) } // État de la cellule
+
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = modifier
+                .toggleable(value = isSelected, onValueChange = {
+                    isSelected = it
+                    if (getLastLetter() != null){
+                        getLastLetter()?.let { it1 -> onSetTile(it1, row, column) }
+
+                    }
+                    Log.d("GridCell", "Cell at ($row, $column) is selected: ${getLastLetter()}")
+                    stockClear()
+                })
+                .size(cellSize)
+                .clip(RoundedCornerShape(TILE_ROUNDING))
+                .background(cellType.color)
+        ) {
+            if (placedTile == null) {
+                EmptyCell(cellType, cellSize)
+            } else {
+                TileCell(placedTile, cellSize)
+            }
         }
     }
 
