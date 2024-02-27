@@ -1,5 +1,6 @@
 package com.example.scrabble
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
@@ -36,7 +39,9 @@ import com.example.scrabble.Letter
 
     @Composable
      internal fun GridSection(
-
+        onGetTile: (row: Int, column: Int) -> PlacedTile?,
+        onSetTile: (tile: Letter, row: Int, column: Int) -> Unit,
+        onRemoveTile: (row: Int, column: Int) -> Unit,
          modifier: Modifier = Modifier
     ) {
         BoxWithConstraints(modifier) {
@@ -55,9 +60,13 @@ import com.example.scrabble.Letter
                         ) {
                             row.forEachIndexed { j, cellType ->
                                 GridCell(
+                                    row = i,
+                                    column = j,
                                     cellType = cellType,
                                     cellSize = cellSize,
-
+                                    onGetTile = onGetTile,
+                                    onSetTile = onSetTile,
+                                    onRemoveTile = onRemoveTile
                                 )
                             }
                         }
@@ -71,11 +80,30 @@ import com.example.scrabble.Letter
 
     @Composable
     private fun GridCell(
+        row: Int,
+        column: Int,
         cellType: CellType,
         cellSize: Dp,
+        onGetTile: (row: Int, column: Int) -> PlacedTile?,
+        onSetTile: (tile: Letter, row: Int, column: Int) -> Unit,
+        onRemoveTile: (row: Int, column: Int) -> Unit,
         modifier: Modifier = Modifier
     ) {
-        EmptyCell(cellType, cellSize)
+        modifier.toggleable(
+            value = false,
+            onValueChange = { isSelected ->
+                if (isSelected) {
+                    val tile = getLastLetter()
+                    onSetTile(tile,row, column)
+                    Log.d("Placed", tile.toString())
+                }
+            })
+        val placedTile = onGetTile(row, column)?.tile
+        if (placedTile == null) {
+            EmptyCell(cellType, cellSize)
+        } else {
+            TileCell(placedTile, cellSize)
+        }
     }
 
     private val EMPTY_CELL_FONT_SIZE = 8.sp
