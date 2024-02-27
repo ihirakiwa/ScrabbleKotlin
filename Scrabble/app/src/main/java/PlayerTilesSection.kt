@@ -120,11 +120,13 @@ private fun PlayerTiles(
                         // into a new graphics layer, which will obviously break UI functionality
                         shadowElevation = TILE_CONTAINER_SHADOW_ELEVATION
                     }
-                    .selectable(
-                        selected = false,
-                        onClick = {
-                            stockAdd(tile)
-                            Log.d("stock", getLastLetter().toString())
+                    .toggleable(
+                        value = false,
+                        onValueChange = { isToggled ->
+                            if (isToggled) {
+                                stockAdd(tile)
+                                Log.d("stock", getLastLetter().toString())
+                            }
                         }
                     )
                     .background(Color.White)

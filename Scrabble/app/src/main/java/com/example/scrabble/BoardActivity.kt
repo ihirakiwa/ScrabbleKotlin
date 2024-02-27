@@ -4,6 +4,7 @@ import android.os.Bundle
 
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
 
 class BoardActivity : AppCompatActivity() {
@@ -27,7 +28,11 @@ class BoardActivity : AppCompatActivity() {
             PlayerScoresSection(player1, player2, player1.name)
         }
         val scrabbleGridComposeView = findViewById<ComposeView>(R.id.scrabbleGridComposeView)
-        scrabbleGridComposeView.setContent {GridSection()}
+        scrabbleGridComposeView.setContent {
+            GridSection(onGetTile = remember { GridViewModel()::getTile },
+                onSetTile = remember { GridViewModel()::setTile },
+                onRemoveTile = remember { GridViewModel()::removeTile })
+        }
         val btnRefresh = findViewById<Button>(R.id.btnRefresh)
         val letterBag = LetterBag()
         rack1 = Rack(player1)
@@ -43,3 +48,4 @@ class BoardActivity : AppCompatActivity() {
         }
     }
 }
+
