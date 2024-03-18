@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/APPLICATIONINFO2.iml" filepath="$PROJECT_DIR$/.idea/APPLICATIONINFO2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Scrabble.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Scrabble.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Scrabble.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Scrabble.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Scrabble.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Scrabble.app.unitTest.iml" />
     </modules>
