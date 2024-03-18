@@ -34,12 +34,13 @@ fun GameScreen(
         .background(
             color = Color(66,75,90) // Couleur de fond si l'image n'occupe pas toute la surface
         )) {
-        Column(modifier.padding(16.dp, 30.dp, 16.dp, 5.dp)) {
+        Column(modifier.padding(16.dp, 40.dp, 16.dp, 5.dp)) {
             PlayerScoresSection(
                 playerOneData = wordGameState.playerOneData,
                 playerTwoData = wordGameState.playerTwoData,
                 currentTurnPlayer = wordGameState.currentTurnPlayer
             )
+            Spacer(Modifier.size(30.dp))
             GridSection(
                 // Caveat: Passing in the view model directly causes Compose to always recompose
                 // GridSection any time that GameScreen is recomposed due to the view model being an
@@ -61,12 +62,14 @@ fun GameScreen(
                 onSetTile = remember { gridViewModel::setTile },
                 onRemoveTile = remember { gridViewModel::removeTile }
             )
+            Spacer(Modifier.size(20.dp))
             PlayerTilesSection(
                 tiles = wordGameState.currentTurnPlayerTiles,
                 tileVisibility = wordGameState.showUserTiles,
                 onTileVisibilityChanged = wordGameViewModel::setShowUserTiles,
                 isSubmitEnabled = gridState.isSubmitEnabled
             )
+            Spacer(Modifier.size(20.dp))
             ControlsSection()
         }
     }
