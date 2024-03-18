@@ -26,18 +26,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import model.PlacedTile
 
 
-
-
-    private val TILE_SPACING = 2.dp
+private val TILE_SPACING = 2.dp
 
     @Composable
      internal fun GridSection(
         onGetTile: (row: Int, column: Int) -> PlacedTile?,
         onSetTile: (tile: Letter, row: Int, column: Int) -> Unit,
         onRemoveTile: (row: Int, column: Int) -> Unit,
-         modifier: Modifier = Modifier
+        modifier: Modifier = Modifier
     ) {
         BoxWithConstraints(modifier) {
             val cellSize = (maxWidth - (TILE_SPACING * (GRID.size - 1))) / GRID.size

@@ -1,4 +1,3 @@
-package com.example.scrabble
 
 
 import android.util.Log
@@ -43,11 +42,11 @@ import com.example.scrabble.Letter
 import kotlin.math.roundToInt
 
 private val TILES_ROW_BOTTOM_PADDING = 8.dp
-
-val LocalTileDragContext = compositionLocalOf { DragContext<Letter>() }
 @Composable
 fun PlayerTilesSection(
     tiles: List<Letter>,
+    tileVisibility: Boolean,
+    onTileVisibilityChanged: (Boolean) -> Unit,
     isSubmitEnabled: Boolean,
     modifier: Modifier = Modifier
 ) {
@@ -74,10 +73,15 @@ fun PlayerTilesSection(
         }
 
         Column(modifier = modifier) {
+            TileVisibilitySwitch(
+                visibility = tileVisibility,
+                onVisibilityChanged = onTileVisibilityChanged
+            )
             PlayerTiles(
                 tiles = tiles,
                 tileSize = tileSize,
                 tileOffsets = tileOffsets,
+                tileVisibility = tileVisibility,
                 onNormalizeOffsets = ::normalizeOffsets,
                 modifier = Modifier.padding(bottom = TILES_ROW_BOTTOM_PADDING)
             )
@@ -87,8 +91,24 @@ fun PlayerTilesSection(
         }
     }
 }
-
-
+@Composable
+private fun TileVisibilitySwitch(
+    modifier: Modifier = Modifier,
+    visibility: Boolean,
+    onVisibilityChanged: (Boolean) -> Unit
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Text("Reveal tiles")
+        Switch(
+            checked = visibility,
+            onCheckedChange = onVisibilityChanged
+        )
+    }
+}
 
 private val TILE_SPACING = 8.dp
 private const val TILE_CONTAINER_SHADOW_ELEVATION = 10f
@@ -97,6 +117,7 @@ private const val TILE_CONTAINER_SHADOW_ELEVATION = 10f
 private fun PlayerTiles(
     tiles: List<Letter>,
     tileSize: Dp,
+    tileVisibility: Boolean,
     tileOffsets: SnapshotStateList<Float>,
     onNormalizeOffsets: () -> Unit,
     modifier: Modifier = Modifier
@@ -120,21 +141,28 @@ private fun PlayerTiles(
                         // into a new graphics layer, which will obviously break UI functionality
                         shadowElevation = TILE_CONTAINER_SHADOW_ELEVATION
                     }
-                    .toggleable(
-                        value = false,
-                        onValueChange = { isToggled ->
-                            if (isToggled) {
-                                stockAdd(tile)
-                                Log.d("stock", getLastLetter().toString())
+                    .pointerInput(Unit) {
+                        detectDragGestures(
+                            onDragStart = { zIndices[index] = 1f },
+                            onDragEnd = {
+                                zIndices[index] = 0f
+                                onNormalizeOffsets()
+                            },
+                            onDrag = { change, dragAmount ->
+                                change.consume()
+                                tileOffsets[index] += dragAmount.x
                             }
-                        }
-                    )
+                        )
+                    }
                     .background(Color.White)
             ) {
-                Tile(
-                    tile = tile,
-                    tileSize = tileSize
-                )
+                if (tileVisibility) {
+                    Tile(
+                        tile = tile,
+                        tileSize = tileSize
+                    )
+                } else {
+                    HiddenTile(tileSize)
                 }
                 Box(
                     contentAlignment = Alignment.Center,
@@ -145,42 +173,78 @@ private fun PlayerTiles(
             }
         }
     }
+}
 
 
-// This value was somewhat arbitrarily chosen and happens to work well for this specific instance,
-// but it is obviously a coincidence based on the dimensions of the grid and number of player tiles.
-// In the future, the grid cell and tile sizes should probably be hard-coded instead of calculated
-// based on the available screen width, as it is today.
+
+private const val TILE_DRAG_SCALE_FACTOR = 0.5f
+private const val TILE_DROP_SCALE_FACTOR = 0.5f
+
 private val TILE_LETTER_FONT_SIZE = 22.sp
 private val TILE_POINTS_FONT_SIZE = 10.sp
 private val TILE_POINTS_PADDING = 2.dp
 
 @Composable
-private fun Tile(tile: Letter, tileSize: Dp, modifier: Modifier = Modifier)  {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .size(tileSize)
-            .alpha(1f)
-            .background(Color(31, 220, 34))
-    ) {
-        if (tile != Letter.BLANK) {
-            Text(
-                text = tile.name,
-                fontSize = TILE_LETTER_FONT_SIZE,
-                fontWeight = FontWeight.Bold
+private fun Tile(tile: Letter, tileSize: Dp, modifier: Modifier = Modifier) {
+    withDragContext(LocalTileDragContext.current) {
+        DragTarget(
+            data = tile,
+            options = DragOptions(
+                onDragScaleX = TILE_DRAG_SCALE_FACTOR,
+                onDragScaleY = TILE_DRAG_SCALE_FACTOR,
+                // Even though we set the tile's alpha to zero in a dropped state (see below), this
+                // scaling must still be applied so that the tile has the correct bounds in case it
+                // is dragged again in the future.
+                onDropScaleX = TILE_DROP_SCALE_FACTOR,
+                onDropScaleY = TILE_DROP_SCALE_FACTOR,
+                snapPosition = SnapPosition.CENTER
             )
-            Text(
-                text = tile.score.toString(),
-                fontSize = TILE_POINTS_FONT_SIZE,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(TILE_POINTS_PADDING)
-            )
+        ) { dragStatus ->
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = modifier
+                    // It is the responsibility of the grid to display information for a placed tile
+                    // (vs simply keeping the placed tile visible at all times). This is because a
+                    // placed tile is susceptible to visual jitter if its parent composable were to
+                    // be moved, for example while rearranging or shuffling the tiles.
+                    .alpha(if (dragStatus == DragTargetStatus.DROPPED) 0f else 1f)
+                    .size(tileSize)
+                    .background(Color(31, 220, 34))
+            ) {
+                if (tile != Letter.BLANK) {
+                    Text(
+                        text = tile.name,
+                        fontSize = TILE_LETTER_FONT_SIZE,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = tile.score.toString(),
+                        fontSize = TILE_POINTS_FONT_SIZE,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(TILE_POINTS_PADDING)
+                    )
+                }
+            }
         }
     }
 }
+
+@Composable
+private fun HiddenTile(tileSize: Dp) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.size(tileSize).background(Color.LightGray)
+    ) {
+        Text(
+            text = "?",
+            fontSize = TILE_LETTER_FONT_SIZE,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
 
 
 val BUTTON_SPACING = 8.dp

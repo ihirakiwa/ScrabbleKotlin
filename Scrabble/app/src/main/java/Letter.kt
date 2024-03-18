@@ -1,6 +1,8 @@
 package com.example.scrabble
 
 enum class Letter(val score: Int, val frequency: Int) {
+
+
     A( 1, 9),
     B( 3, 2),
     C( 3, 2),
@@ -29,8 +31,15 @@ enum class Letter(val score: Int, val frequency: Int) {
     Z( 10, 1),
     BLANK(0,2);
 
-
+    fun displayLetter(): String {
+        return when (this) {
+            BLANK -> "_"
+            else -> this.name
+        }
+    }
 }
+
+
 private val stock = mutableListOf<Letter>()
 fun stockClear(){
     stock.clear()
