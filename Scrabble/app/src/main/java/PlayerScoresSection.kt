@@ -1,6 +1,7 @@
 package com.example.scrabble
 
 
+import PlayerData
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -12,14 +13,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.scrabble.Player
 
 private val SCORE_BOARD_HEIGHT = 60.dp
 
 @Composable
 fun PlayerScoresSection(
-    playerOneData: Player,
-    playerTwoData: Player,
+    playerOneData: PlayerData,
+    playerTwoData: PlayerData,
     currentTurnPlayer: String,
     modifier: Modifier = Modifier
 ) {
@@ -29,7 +29,7 @@ fun PlayerScoresSection(
         PlayerScore(
             left = true,
             name = playerOneData.name,
-            score = playerOneData.getScore(),
+            score = playerOneData.score,
             isCurrentTurnPlayer = playerOneData.name == currentTurnPlayer,
             modifier = Modifier.weight(1f)
         )
@@ -37,7 +37,7 @@ fun PlayerScoresSection(
         PlayerScore(
             left = false,
             name = playerTwoData.name,
-            score = playerTwoData.getScore(),
+            score = playerTwoData.score,
             isCurrentTurnPlayer = playerTwoData.name == currentTurnPlayer,
             modifier = Modifier.weight(1f)
         )

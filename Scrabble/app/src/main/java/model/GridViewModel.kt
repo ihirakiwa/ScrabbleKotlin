@@ -1,7 +1,9 @@
-package com.example.scrabble
+package model
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import com.example.scrabble.GRID
+import com.example.scrabble.Letter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
