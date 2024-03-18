@@ -31,14 +31,15 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
         }
 
         GameStatus.STARTED -> {
-            if (wordListProvider.wordListState != null) {
-                GameScreen(viewModel, uiState)
+            GameScreen(viewModel, uiState)
+            /*(if (wordListProvider.wordListState != null) {
+                // Allow interactions once the word list has been loaded
             } else {
                 // Prevent interactions until the word list has finished being loaded
                 Box(contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }
-            }
+            })*/
         }
 
         GameStatus.FINISHED -> {
