@@ -17,8 +17,6 @@ import com.example.scrabble.PlayerScoresSection
 import com.example.scrabble.R
 import model.GridViewModel
 
-private val HORIZONTAL_PADDING = PaddingValues(horizontal = 16.dp)
-
 // DragContext provides access to the DragTarget and DropTarget composables, which will register
 // their wrapped composables as valid targets for dragging and dropping, respectively.
 val LocalTileDragContext = compositionLocalOf { DragContext<Letter>() }
@@ -70,10 +68,6 @@ fun GameScreen(
                 isSubmitEnabled = gridState.isSubmitEnabled
             )
             ControlsSection()
-            RemainingTilesSection(
-                remainingTileCounts = wordGameState.remainingTileCounts,
-                remainingTileTypes = wordGameState.remainingTileTypes
-            )
         }
     }
 }
