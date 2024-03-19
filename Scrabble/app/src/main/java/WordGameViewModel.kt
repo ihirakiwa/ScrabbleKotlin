@@ -24,8 +24,7 @@ class WordGameViewModel {
                 tiles = getUserTiles(initialTiles)
             ),
             currentTurnPlayer = startPlayer,
-            gameStatus = GameStatus.STARTED,
-            remainingTiles = initialTiles
+            gameStatus = GameStatus.STARTED
         )
     }
 

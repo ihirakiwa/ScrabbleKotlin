@@ -62,9 +62,9 @@ class GridViewModel {
         }
     }
 
-    private fun getNewWords() = emptyList<String>()
+    private fun getNewWords() = emptyList<String>() //TODO: Implement this
 
-    private fun validateConfiguration() = true
+    private fun validateConfiguration() = true //TODO: Implement this
 
     private fun validateCoordinates(row: Int, column: Int) {
         val rowMax = placedTiles.size - 1
