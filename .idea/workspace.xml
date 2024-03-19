@@ -11,16 +11,14 @@
   <component name="ChangeListManager">
     <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="meilleur version">
       <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/ControlsSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/ControlsSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/ControlsSection.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/GameScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/GameScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/Grid.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/Grid.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/GridSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/GridSection.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/LandingScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/LandingScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerScoresSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerScoresSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/Letter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/Letter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordListProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordListProvider.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,24 +77,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.android.tools.idea.devicemanager.tab": "Physical",
-    "git-widget-placeholder": "Dev__Mat",
-    "last_opened_file_path": "C:/Users/matth/Documents/Intellij/APPLICATIONINFO2",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.android.tools.idea.devicemanager.tab&quot;: &quot;Physical&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Dev__Mat&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/matth/Documents/Intellij/APPLICATIONINFO2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\matth\Documents\Intellij\APPLICATIONINFO2\Scrabble\app\src\main\java" />
@@ -312,7 +310,9 @@
       <workItem from="1710778003396" duration="823000" />
       <workItem from="1710781814972" duration="6449000" />
       <workItem from="1710841097747" duration="2307000" />
-      <workItem from="1710843450415" duration="5918000" />
+      <workItem from="1710843450415" duration="7806000" />
+      <workItem from="1710852627609" duration="3809000" />
+      <workItem from="1710863121398" duration="12988000" />
     </task>
     <task id="LOCAL-00001" summary="version rack sans lettre">
       <option name="closed" value="true" />
@@ -418,7 +418,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710788069861</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="meilleur version">
+      <option name="closed" value="true" />
+      <created>1710849759618</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1710849759619</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

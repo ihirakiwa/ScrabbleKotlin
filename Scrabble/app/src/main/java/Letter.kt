@@ -1,8 +1,6 @@
 package com.example.scrabble
 
 enum class Letter(val score: Int, val frequency: Int) {
-
-
     A( 1, 9),
     B( 3, 2),
     C( 3, 2),

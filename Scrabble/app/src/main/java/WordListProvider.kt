@@ -5,8 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-//import org.jetbrains.compose.resources.ExperimentalResourceApi
-//import org.jetbrains.compose.resources.resource
+
 
 class WordListProvider(coroutineScope: CoroutineScope) {
     companion object {

@@ -36,7 +36,7 @@ fun GameScreen(
                 playerTwoData = wordGameState.playerTwoData,
                 currentTurnPlayer = wordGameState.currentTurnPlayer
             )
-            Spacer(Modifier.size(30.dp))
+            Spacer(Modifier.size(50.dp))
             GridSection(
                 onGetTile = remember { gridViewModel::getTile },
                 onSetTile = remember { gridViewModel::setTile },
@@ -50,7 +50,6 @@ fun GameScreen(
                 isSubmitEnabled = gridState.isSubmitEnabled
             )
             Spacer(Modifier.size(20.dp))
-            ControlsSection()
         }
     }
 }
