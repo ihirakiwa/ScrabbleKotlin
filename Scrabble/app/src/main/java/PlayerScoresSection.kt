@@ -62,7 +62,7 @@ private fun PlayerScore(
             // Originally, the border was implemented with a then() that conditionally returned
             // Modifier.border(). However, doing it the current way is ideal as we get both padding
             // and border behavior by changing just a single value.
-            .then(if (isCurrentTurnPlayer) Modifier.background(Color(31, 220, 34)) else Modifier)
+            .then(if (isCurrentTurnPlayer) Modifier.background(Color.LightGray) else Modifier)
             .padding(SCORE_PADDING)
             .background(Color(200, 200, 200))
             .border(2.dp, Color.Black)

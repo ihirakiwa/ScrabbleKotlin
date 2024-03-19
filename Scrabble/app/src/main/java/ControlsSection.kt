@@ -2,10 +2,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun ControlsSection(modifier: Modifier = Modifier) {
@@ -15,22 +17,31 @@ fun ControlsSection(modifier: Modifier = Modifier) {
             modifier = modifier.fillMaxWidth()
         ) {
             OutlinedButton(
-                onClick = { },
-                modifier = Modifier.weight(1f)
+                onClick = { },//TODO: Implement this
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = Color.White
+                )
             ) {
-                Text("Resign")
+                Text("Opt 1")
             }
             OutlinedButton(
-                onClick = { },
-                modifier = Modifier.weight(1f)
+                onClick = { },//TODO: Implement this
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = Color.White
+                )
             ) {
-                Text("Skip")
+                Text("Opt 2")
             }
             OutlinedButton(
-                onClick = { },
-                modifier = Modifier.weight(1f)
+                onClick = { },//TODO: Implement this
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = Color.White
+                )
             ) {
-                Text("Swap")
+                Text("Opt 3")
             }
         }
     }

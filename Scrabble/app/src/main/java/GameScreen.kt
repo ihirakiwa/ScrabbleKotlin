@@ -1,4 +1,4 @@
-import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -8,17 +8,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
 import com.example.scrabble.GridSection
 import com.example.scrabble.Letter
 import com.example.scrabble.PlayerScoresSection
-import com.example.scrabble.R
 import model.GridViewModel
 
-// DragContext provides access to the DragTarget and DropTarget composables, which will register
-// their wrapped composables as valid targets for dragging and dropping, respectively.
+
 val LocalTileDragContext = compositionLocalOf { DragContext<Letter>() }
 
 @Composable
@@ -42,22 +38,6 @@ fun GameScreen(
             )
             Spacer(Modifier.size(30.dp))
             GridSection(
-                // Caveat: Passing in the view model directly causes Compose to always recompose
-                // GridSection any time that GameScreen is recomposed due to the view model being an
-                // unstable type. Furthermore, any lambdas within GridSection that would reference the
-                // view model would themselves be considered unstable types, causing every grid cell to
-                // be recomposed with a new lambda instance. This breaks functionality because
-                // `rememberDropTargetState` in `DragContext` disposes of the previous drop target state
-                // whenever the configured lambdas change, causing the drag target to no longer be
-                // associated with the desired drop target.
-                // See https://developer.android.com/jetpack/compose/performance/stability
-                //
-                // The use of `remember` here is a performance optimization. Without caching these
-                // lambdas, even if each grid cell does not get recomposed on every recomposition of the
-                // UI, the grid itself would still go through recomposition because Compose detects that
-                // the lambdas being passed in the current recomposition are referentially different
-                // from the previous recomposition. Caching here ensures that `GridSection` does not
-                // get recomposed at all unless something in the grid has changed (e.g. tile placement).
                 onGetTile = remember { gridViewModel::getTile },
                 onSetTile = remember { gridViewModel::setTile },
                 onRemoveTile = remember { gridViewModel::removeTile }

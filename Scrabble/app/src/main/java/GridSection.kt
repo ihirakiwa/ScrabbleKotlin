@@ -1,7 +1,10 @@
 package com.example.scrabble
 
+import DragTargetStatus
+import LocalTileDragContext
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -27,6 +30,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import model.PlacedTile
+import withDragContext
 
 
 private val TILE_SPACING = 2.dp
@@ -82,33 +86,24 @@ private val TILE_SPACING = 2.dp
         onRemoveTile: (row: Int, column: Int) -> Unit,
         modifier: Modifier = Modifier
     ) {
-        val placedTile = onGetTile(row, column)?.tile
-        var isSelected by remember { mutableStateOf(false) } // État de la cellule
-
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = modifier
-                .toggleable(value = isSelected, onValueChange = {
-                    isSelected = it
-                    if (getLastLetter() != null){
-                        getLastLetter()?.let { it1 -> onSetTile(it1, row, column) }
-
-                    }
-                    Log.d("GridCell", "Cell at ($row, $column) is selected: ${getLastLetter()}")
-                    stockClear()
-                })
-                .size(cellSize)
-                .clip(RoundedCornerShape(TILE_ROUNDING))
-                .background(cellType.color)
-        ) {
-            if (placedTile == null) {
-                EmptyCell(cellType, cellSize)
-            } else {
-                TileCell(placedTile, cellSize)
+        withDragContext(LocalTileDragContext.current) {
+            DropTarget(
+                onDragTargetAdded = { onSetTile(it, row, column) },
+                onDragTargetRemoved = { onRemoveTile(row, column) }
+            ) { hovered ->
+                // Important: Observe the tile state here and not in `GridSection` in order to avoid
+                // recomposing the entire grid whenever the state of a single tile is updated (i.e.
+                // looping through every cell just to recompose the one cell whose data changed)
+                val placedTile = onGetTile(row, column)?.tile
+                if (placedTile == null) {
+                    EmptyCell(cellType, cellSize, hovered == DropTargetStatus.HOVERED, modifier)
+                } else {
+                    TileCell(placedTile, cellSize)
+                }
             }
         }
     }
-
+    private val HOVERED_BORDER_WIDTH = 2.dp
     private val EMPTY_CELL_FONT_SIZE = 8.sp
     private val TILE_ROUNDING = 4.dp
 
@@ -116,6 +111,7 @@ private val TILE_SPACING = 2.dp
     private fun EmptyCell(
         cellType: CellType,
         cellSize: Dp,
+        isHovered: Boolean,
         modifier: Modifier = Modifier
     ) {
         Box(
@@ -124,6 +120,13 @@ private val TILE_SPACING = 2.dp
                 .size(cellSize)
                 .clip(RoundedCornerShape(TILE_ROUNDING))
                 .background(cellType.color)
+                .then(
+                    if (isHovered) {
+                        Modifier.border(HOVERED_BORDER_WIDTH, Color.Red)
+                    } else {
+                        Modifier
+                    }
+                )
         ) {
             if (cellType == CellType.ST) {
                 Icon(Icons.Filled.Star, null, tint = Color.White)
@@ -149,7 +152,7 @@ private val TILE_SPACING = 2.dp
             modifier = modifier
                 .size(cellSize)
                 .clip(RoundedCornerShape(TILE_ROUNDING))
-                .background(Color.Yellow)
+                .background(Color.LightGray)
         ) {
             if (tile != Letter.BLANK) {
                 Text(

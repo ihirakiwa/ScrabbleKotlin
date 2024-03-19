@@ -15,10 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
@@ -102,10 +99,13 @@ private fun TileVisibilitySwitch(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier.fillMaxWidth()
     ) {
-        Text("Reveal tiles")
+        Text(text = "Afficher les lettres :", color = Color.White)
         Switch(
             checked = visibility,
-            onCheckedChange = onVisibilityChanged
+            onCheckedChange = onVisibilityChanged,
+            colors = SwitchDefaults.colors(
+                checkedTrackColor = Color(98, 138, 169)
+            )
         )
     }
 }
@@ -154,7 +154,7 @@ private fun PlayerTiles(
                             }
                         )
                     }
-                    .background(Color.White)
+                    .background(Color(40, 40, 40))
             ) {
                 if (tileVisibility) {
                     Tile(
@@ -209,7 +209,7 @@ private fun Tile(tile: Letter, tileSize: Dp, modifier: Modifier = Modifier) {
                     // be moved, for example while rearranging or shuffling the tiles.
                     .alpha(if (dragStatus == DragTargetStatus.DROPPED) 0f else 1f)
                     .size(tileSize)
-                    .background(Color(31, 220, 34))
+                    .background(Color.LightGray)
             ) {
                 if (tile != Letter.BLANK) {
                     Text(
@@ -235,12 +235,13 @@ private fun Tile(tile: Letter, tileSize: Dp, modifier: Modifier = Modifier) {
 private fun HiddenTile(tileSize: Dp) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.size(tileSize).background(Color.LightGray)
+        modifier = Modifier.size(tileSize).background(Color(40, 40, 40))
     ) {
         Text(
             text = "?",
             fontSize = TILE_LETTER_FONT_SIZE,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = Color.White
         )
     }
 }
@@ -261,19 +262,21 @@ private fun TileControls(
         modifier = modifier.fillMaxWidth()
     ) {
         Button(
-            onClick = { },
-            modifier = Modifier.weight(1f),
-            enabled = isSubmitEnabled
-        ) {
-            Text("Submit")
-        }
-        Button(
             onClick = { dragContext.resetDragTargets() },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(98, 138, 169)),
         ) {
             Text(
-                "Reset",
+                "Annuler",
                 modifier = Modifier
             )
+        }
+        Button(
+            onClick = { }, //TODO: Implement this
+            modifier = Modifier.weight(1f),
+            enabled = isSubmitEnabled,
+            colors = ButtonDefaults.buttonColors(containerColor = Color(98, 138, 169)),
+        ) {
+            Text("Envoyer")
         }
     }
 }
