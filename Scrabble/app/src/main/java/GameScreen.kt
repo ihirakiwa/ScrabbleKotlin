@@ -28,7 +28,7 @@ fun GameScreen(
     Box(modifier = Modifier
         .fillMaxSize()
         .background(
-            color = Color(66,75,90) // Couleur de fond si l'image n'occupe pas toute la surface
+            color = Color(66,75,90)
         )) {
         Column(modifier.padding(16.dp, 40.dp, 16.dp, 5.dp)) {
             PlayerScoresSection(

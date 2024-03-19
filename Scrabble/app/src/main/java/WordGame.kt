@@ -1,3 +1,5 @@
+import android.icu.util.Calendar
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -5,18 +7,21 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
+import com.example.scrabble.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 
-// FUTURE: Provide these via dependency injection
-private val globalScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-private val wordListProvider = WordListProvider(globalScope)
 
 @Composable
 fun WordGame(viewModel: WordGameViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
-
+    val context = LocalContext.current
+    val wordsArray = loadWordsAsArray(context)
+    for(i in 0 until 5){
+        //Log.d("WordGame", "Word: ${wordsArray?.get(i)}")
+    }
     when (uiState.gameStatus) {
         GameStatus.NOT_STARTED -> {
             LandingScreen(
@@ -31,15 +36,15 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
         }
 
         GameStatus.STARTED -> {
-            GameScreen(viewModel, uiState)
-            /*(if (wordListProvider.wordListState != null) {
-                // Allow interactions once the word list has been loaded
-            } else {
-                // Prevent interactions until the word list has finished being loaded
-                Box(contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator()
-                }
-            })*/
+            if (wordsArray != null) {
+                (if (wordsArray.size == context.resources.openRawResource(R.raw.wordlist).bufferedReader().readLines().size) {
+                    GameScreen(viewModel, uiState)
+                } else {
+                    Box(contentAlignment = Alignment.Center) {
+                            CircularProgressIndicator()
+                        }
+                })
+            }
         }
 
         GameStatus.FINISHED -> {
