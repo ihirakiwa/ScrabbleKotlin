@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.update
 data class PlacedTile(val tile: Letter, val isSubmitted: Boolean)
 
 data class GridState(
-    val adjacentTilesCount: Int = 0,
     val placedTileCount: Int = 0,
     val isSubmitEnabled: Boolean = false
 )
