@@ -29,26 +29,4 @@ enum class Letter(val score: Int, val frequency: Int) {
     Z( 10, 1),
     BLANK(0,2);
 
-    fun displayLetter(): String {
-        return when (this) {
-            BLANK -> "_"
-            else -> this.name
-        }
-    }
-}
-
-
-private val stock = mutableListOf<Letter>()
-fun stockClear(){
-    stock.clear()
-}
-fun stockAdd(letter: Letter){
-    stockClear()
-    stock.add(letter)
-}
-fun getLastLetter(): Letter?{
-    if (stock.isEmpty()) {
-        return null
-    }
-    return stock[0]
 }

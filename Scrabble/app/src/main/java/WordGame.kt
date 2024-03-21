@@ -18,9 +18,9 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
         val inputStream = context.resources.openRawResource(R.raw.wordlist)
         inputStream.reader().useLines { lines ->
             lines.forEach { line ->
-                val (word, countStr) = line.split(" ", limit = 2) // Sépare la ligne en deux parties (mot et compteur)
-                val count = countStr.trim().toInt() // Convertit la chaîne représentant un entier en Int
-                wordList[word.trim()] = count // Ajoute le mot et son compteur à la HashMap
+                val (word, countStr) = line.split(" ", limit = 2)
+                val count = countStr.trim().toInt()
+                wordList[word.trim()] = count
             }
         }
 
@@ -29,6 +29,9 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
     val wordList = createWordListFromFile(context)
 
     when (uiState.gameStatus) {
+        GameStatus.MENU -> {
+            //TODO: Add menu screen
+        }
         GameStatus.NOT_STARTED -> {
             LandingScreen(
                 onSubmitPlayerNames = { playerOneName, playerTwoName ->
@@ -43,15 +46,6 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
 
         GameStatus.STARTED -> {
             GameScreen(viewModel, uiState, wordList)
-            /*if (wordsArray != null) {
-                (if (wordsArray.size == context.resources.openRawResource(R.raw.wordlist).bufferedReader().readLines().size) {
-                    GameScreen(viewModel, uiState)
-                } else {
-                    Box(contentAlignment = Alignment.Center) {
-                            CircularProgressIndicator()
-                        }
-                })
-            }*/
         }
 
         GameStatus.FINISHED -> {
