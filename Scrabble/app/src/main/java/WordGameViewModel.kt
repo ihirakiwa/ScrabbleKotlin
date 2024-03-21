@@ -1,3 +1,4 @@
+import android.util.Log
 import com.example.scrabble.Letter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,6 +33,21 @@ class WordGameViewModel {
         _uiState.update { it.copy(showUserTiles = showUserTiles) }
     }
 
+    fun nextTurn() {
+        val currentPlayer = uiState.value.currentTurnPlayer
+        val nextPlayer = if (currentPlayer == uiState.value.playerOneData.name) {
+            uiState.value.playerTwoData.name
+        } else {
+            uiState.value.playerOneData.name
+        }
+
+        _uiState.update {
+            it.copy(
+                currentTurnPlayer = nextPlayer
+            )
+        }
+    }
+
     private fun getUserTiles(remainingTiles: MutableList<Letter>): List<Letter> {
         val userTiles = mutableListOf<Letter>()
         while (userTiles.size < TILES_PER_USER && remainingTiles.isNotEmpty()) {
@@ -44,4 +60,6 @@ class WordGameViewModel {
 
     private fun getInitialTiles() =
         Letter.values().flatMap { tile -> List(tile.frequency) { tile } }.toMutableList()
+
+
 }
