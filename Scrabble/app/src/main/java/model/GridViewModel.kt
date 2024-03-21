@@ -33,6 +33,16 @@ class GridViewModel {
 
     fun getTile(row: Int, column: Int) = placedTiles[row][column].value
 
+    fun getPlacing() = placing
+
+    fun setPlacingEmpty() {
+        placing.clear()
+    }
+
+    fun setAlreadyPlaced(list: List<Pair<Int, Int>>) {
+        alreadyPlaced.addAll(list)
+    }
+
     fun setTile(tile: Letter, row: Int, column: Int) {
         validateCoordinates(row, column)
 
@@ -66,6 +76,12 @@ class GridViewModel {
             )
         }
     }
+
+    fun submitWord() {
+
+    }
+
+    //OUTILS
 
     private fun getNewWords() = emptyList<String>() //TODO: Implement this
 
@@ -125,4 +141,6 @@ class GridViewModel {
             throw IllegalArgumentException("Tile coordinates must be between [0,0] and [$rowMax,$columnMax$]")
         }
     }
+
+
 }
