@@ -37,6 +37,10 @@ fun PlayerTilesSection(
     tileVisibility: Boolean,
     onTileVisibilityChanged: (Boolean) -> Unit,
     isSubmitEnabled: Boolean,
+    getPlacing: () -> List<Pair<Int, Int>>,
+    setPlacingEmpty: () -> Unit,
+    setAlreadyPlaced: (List<Pair<Int, Int>>) -> Unit,
+    onSubmit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     BoxWithConstraints(modifier) {
@@ -75,7 +79,11 @@ fun PlayerTilesSection(
                 modifier = Modifier.padding(bottom = TILES_ROW_BOTTOM_PADDING)
             )
             TileControls(
-                isSubmitEnabled = isSubmitEnabled
+                isSubmitEnabled = isSubmitEnabled,
+                getPlacing = getPlacing,
+                setPlacingEmpty = setPlacingEmpty,
+                setAlreadyPlaced = setAlreadyPlaced,
+                onSubmit = onSubmit
             )
         }
     }
@@ -251,6 +259,10 @@ val BUTTON_SPACING = 8.dp
 @Composable
 private fun TileControls(
     isSubmitEnabled: Boolean,
+    getPlacing: () -> List<Pair<Int, Int>>,
+    setPlacingEmpty: () -> Unit,
+    setAlreadyPlaced: (List<Pair<Int, Int>>) -> Unit,
+    onSubmit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val dragContext = LocalTileDragContext.current
@@ -268,7 +280,11 @@ private fun TileControls(
             )
         }
         Button(
-            onClick = { }, //TODO: Implement this
+            onClick = {
+                setAlreadyPlaced(getPlacing())
+                setPlacingEmpty()
+                onSubmit()
+            }, //TODO: Implement this
             modifier = Modifier.weight(1f),
             enabled = isSubmitEnabled,
             colors = ButtonDefaults.buttonColors(containerColor = Color(98, 138, 169)),

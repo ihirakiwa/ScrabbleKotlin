@@ -47,7 +47,13 @@ fun GameScreen(
                 tiles = wordGameState.currentTurnPlayerTiles,
                 tileVisibility = wordGameState.showUserTiles,
                 onTileVisibilityChanged = wordGameViewModel::setShowUserTiles,
-                isSubmitEnabled = gridState.isSubmitEnabled
+                isSubmitEnabled = gridState.isSubmitEnabled,
+                getPlacing = gridViewModel::getPlacing,
+                setPlacingEmpty = gridViewModel::setPlacingEmpty,
+                setAlreadyPlaced = gridViewModel::setAlreadyPlaced,
+                onSubmit = {
+                    //wordGameViewModel.submitWord(gridViewModel.getPlacing())
+                }
             )
             Spacer(Modifier.size(20.dp))
         }

@@ -19,9 +19,7 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
     val wordsArray = loadWordsAsArray(context)
-    for(i in 0 until 5){
-        //Log.d("WordGame", "Word: ${wordsArray?.get(i)}")
-    }
+
     when (uiState.gameStatus) {
         GameStatus.NOT_STARTED -> {
             LandingScreen(
