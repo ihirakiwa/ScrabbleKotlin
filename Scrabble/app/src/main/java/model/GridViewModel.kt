@@ -19,7 +19,7 @@ data class GridState(
 class GridViewModel {
 
     private val alreadyPlaced = mutableListOf<Pair<Int, Int>>()
-    private val listRowColonne = mutableListOf<Pair<Int, Int>>()
+    private val placing = mutableListOf<Pair<Int, Int>>()
     private val _gridState = MutableStateFlow(GridState())
     val gridState = _gridState.asStateFlow()
 
@@ -37,7 +37,7 @@ class GridViewModel {
         validateCoordinates(row, column)
 
         placedTiles[row][column].value = PlacedTile(tile, false)
-        listRowColonne.add(Pair(row, column))
+        placing.add(Pair(row, column))
         val newWords = getNewWords()
         _gridState.update { it.copy(placedTileCount = it.placedTileCount + 1)}
         val isValidConfiguration = validateConfiguration()
@@ -53,7 +53,7 @@ class GridViewModel {
         validateCoordinates(row, column)
 
         placedTiles[row][column].value = null
-        listRowColonne.remove(Pair(row, column))
+        placing.remove(Pair(row, column))
         val newWords = getNewWords()
 
         _gridState.update { it.copy(placedTileCount = it.placedTileCount - 1)}
@@ -74,52 +74,48 @@ class GridViewModel {
             return false
         }
 
-        val isHorizontal = listRowColonne.all { it.first == listRowColonne.first().first }
-        val isVertical = listRowColonne.all { it.second == listRowColonne.first().second }
+        val isHorizontal = placing.all { it.first == placing.first().first }
+        val isVertical = placing.all { it.second == placing.first().second }
 
         if (!isHorizontal && !isVertical) {
             return false
         }
-
-        // Vérifier si chaque mot formé est valide
-        if (!areTilesAdjacent()) {
-            return false
+        if(isHorizontal){
+            if (!row()){
+                return false
+            }
         }
-
-
-
-
-        // Toutes les conditions sont satisfaites, la configuration est valide
+        if(isVertical){
+            if (!column()){
+                return false
+            }
+        }
         return true
     }
 
-    private fun areTilesAdjacent(): Boolean {
-        for ((row, column) in listRowColonne) {
-            if (hasAdjacentTile(row, column) >= 2) {
-                _gridState.update { it.copy(adjacentTilesCount = it.adjacentTilesCount + 1)}
+
+    private fun row() : Boolean{
+        val placing_order = placing.sortedBy { it.second }
+        val number_of_tiles = placing_order.last().second - placing_order.first().second + 1
+        for (i in 0 until number_of_tiles){
+            if (placedTiles[placing_order.first().first][placing_order.first().second + i].value == null){
+                return false
             }
         }
-        return _gridState.value.adjacentTilesCount >= listRowColonne.size - 2
+        return true
     }
 
-    private fun hasAdjacentTile(row: Int, column: Int): Int {
-        // Compter le nombre de lettres adjacentes
-        var adjacentCount = 0
-        if (listRowColonne.contains(row - 1 to column)) {
-            adjacentCount++
+    private fun column() : Boolean{
+        val placing_order = placing.sortedBy { it.first }
+        val number_of_tiles = placing_order.last().first - placing_order.first().first + 1
+        for (i in 0 until number_of_tiles){
+            if (placedTiles[placing_order.first().first + i][placing_order.first().second].value == null){
+                return false
+            }
         }
-        if (listRowColonne.contains(row + 1 to column)) {
-            adjacentCount++
-        }
-        if (listRowColonne.contains(row to column - 1)) {
-            adjacentCount++
-        }
-        if (listRowColonne.contains(row to column + 1)) {
-            adjacentCount++
-        }
-        // Vérifier si le nombre de lettres adjacentes est suffisant
-        return adjacentCount
+        return true
     }
+
 
     private fun validateCoordinates(row: Int, column: Int) {
         val rowMax = placedTiles.size - 1
