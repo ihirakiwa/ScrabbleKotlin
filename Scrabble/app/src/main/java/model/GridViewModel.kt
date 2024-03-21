@@ -81,6 +81,14 @@ class GridViewModel {
         }
     }
 
+    fun letterFromListIndex(list: List<Pair<Int, Int>>): List<Letter> {
+        val letters = mutableListOf<Letter>()
+        for (pair in list) {
+            letters.add(placedTiles[pair.first][pair.second].value!!.tile)
+        }
+        return letters
+    }
+
     fun submitWord(): Boolean {
         val newWords = getNewWords()
         if (newWords.isEmpty()) {
