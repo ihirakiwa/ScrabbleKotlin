@@ -15,6 +15,7 @@ data class GridState(
     val placedTileCount: Int = 0,
     val isSubmitEnabled: Boolean = false
 )
+
 class GridViewModel {
 
     private val alreadyPlaced = mutableListOf<Pair<Int, Int>>()
@@ -22,8 +23,6 @@ class GridViewModel {
     private val _gridState = MutableStateFlow(GridState())
     val gridState = _gridState.asStateFlow()
 
-    // Keeping this state separate from GridState as we want to avoid copying this 2D array repeatedly
-    // every time a tile is placed or removed
     private val placedTiles = List<List<MutableState<PlacedTile?>>>(GRID.size) {
         MutableList(GRID.size) {
             mutableStateOf(null)
@@ -96,7 +95,11 @@ class GridViewModel {
 
     fun setTileSubmitted(list: List<Pair<Int, Int>>) {
         list.forEach { (row, column) ->
-            placedTiles[row][column].value = placedTiles[row][column].value?.copy(isSubmitted = true)
+            val currentPlacedTile = placedTiles[row][column].value
+            if (currentPlacedTile != null) {
+                val newPlacedTile = currentPlacedTile.copy(isSubmitted = true)
+                placedTiles[row][column].value = newPlacedTile
+            }
         }
     }
 
@@ -199,6 +202,11 @@ class GridViewModel {
         if ((placedTiles[7][7].value == null) || _gridState.value.placedTileCount < 2) {
             return false
         }
+        if(placing.size == 1){
+            if(!checkSurronding(placing.first().first,placing.first().second)){
+                return false
+            }
+        }
         val isHorizontal = placing.all { it.first == placing.first().first }
         val isVertical = placing.all { it.second == placing.first().second }
         if (!isHorizontal && !isVertical) {
@@ -228,9 +236,16 @@ class GridViewModel {
             if (placedTiles[placingOrder.first().first][placingOrder.first().second + i].value == null){
                 return false
             }
+            if(alreadyPlaced.contains(Pair(placingOrder.first().first,placingOrder.first().second + i))){
+                if(!checkSurronding(placingOrder.first().first,placingOrder.first().second + i)){
+                    return false
+                }
+            }
+
         }
         return true
     }
+
 
     private fun column() : Boolean{
         if (placing.isEmpty()){
@@ -242,10 +257,29 @@ class GridViewModel {
             if (placedTiles[placingOrder.first().first + i][placingOrder.first().second].value == null){
                 return false
             }
+            if(alreadyPlaced.contains(Pair(placingOrder.first().first + i,placingOrder.first().second))){
+                if(!checkSurronding(placingOrder.first().first + i,placingOrder.first().second)){
+                    return false
+                }
+            }
         }
         return true
     }
+    private fun checkSurronding(row:Int, column: Int) : Boolean{
+        val neighbors = listOf(
+            Pair(row - 1, column),
+            Pair(row + 1, column),
+            Pair(row, column - 1),
+            Pair(row, column + 1)
+        )
+        for ((neighborRow, neighborColumn) in neighbors) {
+            if (alreadyPlaced.contains(Pair(neighborRow, neighborColumn))) {
+                return true
+            }
+        }
 
+        return false
+    }
 
     private fun validateCoordinates(row: Int, column: Int) {
         val rowMax = placedTiles.size - 1

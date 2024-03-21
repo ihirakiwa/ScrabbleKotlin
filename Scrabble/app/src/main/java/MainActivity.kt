@@ -1,7 +1,3 @@
-package com.example.scrabble
-
-
-import WordGame
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent

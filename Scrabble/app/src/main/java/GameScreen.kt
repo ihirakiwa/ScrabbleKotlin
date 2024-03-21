@@ -16,7 +16,8 @@ import model.GridViewModel
 
 
 val LocalTileDragContext = compositionLocalOf { DragContext<Letter>() }
-
+@Composable
+private fun gridViewModel() = remember { GridViewModel() }
 @Composable
 fun GameScreen(
     wordGameViewModel: WordGameViewModel,
@@ -60,5 +61,3 @@ fun GameScreen(
     }
 }
 
-@Composable
-private fun gridViewModel() = remember { GridViewModel() }
