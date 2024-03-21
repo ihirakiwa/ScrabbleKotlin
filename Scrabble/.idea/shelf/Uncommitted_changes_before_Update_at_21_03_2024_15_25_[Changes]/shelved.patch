@@ -1,0 +1,171 @@
+Index: app/src/main/java/model/GridViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/model/GridViewModel.kt b/app/src/main/java/GridViewModel.kt
+rename from app/src/main/java/model/GridViewModel.kt
+rename to app/src/main/java/GridViewModel.kt
+--- a/app/src/main/java/model/GridViewModel.kt	(revision 599c3843b6c1a41b3812edc49476fce846b233f8)
++++ b/app/src/main/java/GridViewModel.kt	(date 1711030685371)
+@@ -1,5 +1,3 @@
+-package model
+-
+ import android.util.Log
+ import androidx.compose.runtime.MutableState
+ import androidx.compose.runtime.mutableStateOf
+@@ -15,6 +13,7 @@
+     val placedTileCount: Int = 0,
+     val isSubmitEnabled: Boolean = false
+ )
++
+ class GridViewModel {
+ 
+     private val alreadyPlaced = mutableListOf<Pair<Int, Int>>()
+@@ -22,8 +21,6 @@
+     private val _gridState = MutableStateFlow(GridState())
+     val gridState = _gridState.asStateFlow()
+ 
+-    // Keeping this state separate from GridState as we want to avoid copying this 2D array repeatedly
+-    // every time a tile is placed or removed
+     private val placedTiles = List<List<MutableState<PlacedTile?>>>(GRID.size) {
+         MutableList(GRID.size) {
+             mutableStateOf(null)
+@@ -91,7 +88,11 @@
+ 
+     fun setTileSubmitted(list: List<Pair<Int, Int>>) {
+         list.forEach { (row, column) ->
+-            placedTiles[row][column].value = placedTiles[row][column].value?.copy(isSubmitted = true)
++            val currentPlacedTile = placedTiles[row][column].value
++            if (currentPlacedTile != null) {
++                val newPlacedTile = currentPlacedTile.copy(isSubmitted = true)
++                placedTiles[row][column].value = newPlacedTile
++            }
+         }
+         list.forEach {  (row, column) ->
+             Log.d("GridViewModel", "isSubmitted: ${placedTiles[row][column].value?.isSubmitted}")
+Index: app/src/main/java/GameScreen.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\nimport androidx.compose.foundation.background\nimport androidx.compose.foundation.layout.*\nimport androidx.compose.runtime.Composable\nimport androidx.compose.runtime.collectAsState\nimport androidx.compose.runtime.compositionLocalOf\nimport androidx.compose.runtime.getValue\nimport androidx.compose.runtime.remember\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.graphics.Color\nimport androidx.compose.ui.unit.dp\nimport com.example.scrabble.GridSection\nimport com.example.scrabble.Letter\nimport com.example.scrabble.PlayerScoresSection\nimport model.GridViewModel\n\n\nval LocalTileDragContext = compositionLocalOf { DragContext<Letter>() }\n\n@Composable\nfun GameScreen(\n    wordGameViewModel: WordGameViewModel,\n    wordGameState: WordGameState,\n    gridViewModel: GridViewModel = gridViewModel(),\n    modifier: Modifier = Modifier\n) {\n    val gridState by gridViewModel.gridState.collectAsState()\n    Box(modifier = Modifier\n        .fillMaxSize()\n        .background(\n            color = Color(66,75,90)\n        )) {\n        Column(modifier.padding(16.dp, 40.dp, 16.dp, 5.dp)) {\n            PlayerScoresSection(\n                playerOneData = wordGameState.playerOneData,\n                playerTwoData = wordGameState.playerTwoData,\n                currentTurnPlayer = wordGameState.currentTurnPlayer\n            )\n            Spacer(Modifier.size(50.dp))\n            GridSection(\n                onGetTile = remember { gridViewModel::getTile },\n                onSetTile = remember { gridViewModel::setTile },\n                onRemoveTile = remember { gridViewModel::removeTile }\n            )\n            Spacer(Modifier.size(20.dp))\n            PlayerTilesSection(\n                tiles = wordGameState.currentTurnPlayerTiles,\n                tileVisibility = wordGameState.showUserTiles,\n                onTileVisibilityChanged = wordGameViewModel::setShowUserTiles,\n                isSubmitEnabled = gridState.isSubmitEnabled,\n                getPlacing = gridViewModel::getPlacing,\n                setPlacingEmpty = gridViewModel::setPlacingEmpty,\n                setAlreadyPlaced = gridViewModel::setAlreadyPlaced,\n                setTileSubmitted = gridViewModel::setTileSubmitted,\n                onSubmit = gridViewModel::submitWord,\n                nextTurn = wordGameViewModel::nextTurn\n            )\n            Spacer(Modifier.size(20.dp))\n        }\n    }\n}\n\n@Composable\nprivate fun gridViewModel() = remember { GridViewModel() }
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/GameScreen.kt b/app/src/main/java/GameScreen.kt
+--- a/app/src/main/java/GameScreen.kt	(revision 599c3843b6c1a41b3812edc49476fce846b233f8)
++++ b/app/src/main/java/GameScreen.kt	(date 1711030874872)
+@@ -9,14 +9,13 @@
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.unit.dp
+-import com.example.scrabble.GridSection
+ import com.example.scrabble.Letter
+ import com.example.scrabble.PlayerScoresSection
+-import model.GridViewModel
+ 
+ 
+ val LocalTileDragContext = compositionLocalOf { DragContext<Letter>() }
+-
++@Composable
++private fun gridViewModel() = remember { GridViewModel() }
+ @Composable
+ fun GameScreen(
+     wordGameViewModel: WordGameViewModel,
+@@ -60,5 +59,3 @@
+     }
+ }
+ 
+-@Composable
+-private fun gridViewModel() = remember { GridViewModel() }
+\ No newline at end of file
+Index: app/src/main/java/GridSection.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.scrabble\n\nimport DragTargetStatus\nimport LocalTileDragContext\nimport android.util.Log\nimport androidx.compose.foundation.background\nimport androidx.compose.foundation.border\nimport androidx.compose.foundation.layout.Arrangement\nimport androidx.compose.foundation.layout.Box\nimport androidx.compose.foundation.layout.BoxWithConstraints\nimport androidx.compose.foundation.layout.Column\nimport androidx.compose.foundation.layout.Row\nimport androidx.compose.foundation.layout.fillMaxHeight\nimport androidx.compose.foundation.layout.fillMaxWidth\nimport androidx.compose.foundation.layout.padding\nimport androidx.compose.foundation.layout.size\nimport androidx.compose.foundation.selection.toggleable\nimport androidx.compose.foundation.shape.RoundedCornerShape\nimport androidx.compose.material.icons.Icons\nimport androidx.compose.material.icons.filled.Star\nimport androidx.compose.material3.Icon\nimport androidx.compose.material3.Text\nimport androidx.compose.runtime.*\nimport androidx.compose.ui.Alignment\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.draw.clip\nimport androidx.compose.ui.graphics.Color\nimport androidx.compose.ui.text.font.FontWeight\nimport androidx.compose.ui.unit.Dp\nimport androidx.compose.ui.unit.dp\nimport androidx.compose.ui.unit.sp\nimport model.PlacedTile\nimport withDragContext\n\n\nprivate val TILE_SPACING = 2.dp\n\n    @Composable\n     internal fun GridSection(\n        onGetTile: (row: Int, column: Int) -> PlacedTile?,\n        onSetTile: (tile: Letter, row: Int, column: Int) -> Unit,\n        onRemoveTile: (row: Int, column: Int) -> Unit,\n        modifier: Modifier = Modifier\n    ) {\n        BoxWithConstraints(modifier) {\n            val cellSize = (maxWidth - (TILE_SPACING * (GRID.size - 1))) / GRID.size\n\n            // Assuming we are in portrait mode, the board is a square that is width * width in size\n            Box(Modifier.size(maxWidth)) {\n                Column(\n                    modifier = Modifier.fillMaxHeight(),\n                    verticalArrangement = Arrangement.SpaceBetween\n                ) {\n                    GRID.forEachIndexed { i, row ->\n                        Row(\n                            modifier = Modifier.fillMaxWidth(),\n                            horizontalArrangement = Arrangement.SpaceBetween\n                        ) {\n                            row.forEachIndexed { j, cellType ->\n                                GridCell(\n                                    row = i,\n                                    column = j,\n                                    cellType = cellType,\n                                    cellSize = cellSize,\n                                    onGetTile = onGetTile,\n                                    onSetTile = onSetTile,\n                                    onRemoveTile = onRemoveTile\n                                )\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n\n\n    @Composable\n    private fun GridCell(\n        row: Int,\n        column: Int,\n        cellType: CellType,\n        cellSize: Dp,\n        onGetTile: (row: Int, column: Int) -> PlacedTile?,\n        onSetTile: (tile: Letter, row: Int, column: Int) -> Unit,\n        onRemoveTile: (row: Int, column: Int) -> Unit,\n        modifier: Modifier = Modifier\n    ) {\n        withDragContext(LocalTileDragContext.current) {\n            DropTarget(\n                onDragTargetAdded = { onSetTile(it, row, column) },\n                onDragTargetRemoved = { onRemoveTile(row, column) }\n            ) { hovered ->\n                // Important: Observe the tile state here and not in `GridSection` in order to avoid\n                // recomposing the entire grid whenever the state of a single tile is updated (i.e.\n                // looping through every cell just to recompose the one cell whose data changed)\n                val placedTile = onGetTile(row, column)?.tile\n                if (placedTile == null) {\n                    EmptyCell(cellType, cellSize, hovered == DropTargetStatus.HOVERED, modifier)\n                } else {\n                    TileCell(placedTile, cellSize)\n                }\n            }\n        }\n    }\n    private val HOVERED_BORDER_WIDTH = 2.dp\n    private val EMPTY_CELL_FONT_SIZE = 8.sp\n    private val TILE_ROUNDING = 4.dp\n\n    @Composable\n    private fun EmptyCell(\n        cellType: CellType,\n        cellSize: Dp,\n        isHovered: Boolean,\n        modifier: Modifier = Modifier\n    ) {\n        Box(\n            contentAlignment = Alignment.Center,\n            modifier = modifier\n                .size(cellSize)\n                .clip(RoundedCornerShape(TILE_ROUNDING))\n                .background(cellType.color)\n                .then(\n                    if (isHovered) {\n                        Modifier.border(HOVERED_BORDER_WIDTH, Color.Red)\n                    } else {\n                        Modifier\n                    }\n                )\n        ) {\n            if (cellType == CellType.ST) {\n                Icon(Icons.Filled.Star, null, tint = Color.White)\n            } else {\n                Text(\n                    cellType.name,\n                    fontSize = EMPTY_CELL_FONT_SIZE,\n                    fontWeight = FontWeight.Bold,\n                    color = Color.White\n                )\n            }\n        }\n    }\n\n    private val TILE_LETTER_FONT_SIZE = 10.sp\n    private val TILE_POINTS_FONT_SIZE = 6.sp\n    private val TILE_POINTS_PADDING = 2.dp\n\n    @Composable\n    private fun TileCell(tile: Letter, cellSize: Dp, modifier: Modifier = Modifier) {\n        Box(\n            contentAlignment = Alignment.Center,\n            modifier = modifier\n                .size(cellSize)\n                .clip(RoundedCornerShape(TILE_ROUNDING))\n                .background(Color.LightGray)\n        ) {\n            if (tile != Letter.BLANK) {\n                Text(\n                    text = tile.name,\n                    fontSize = TILE_LETTER_FONT_SIZE,\n                    fontWeight = FontWeight.Bold\n                )\n                Text(\n                    text = tile.score.toString(),\n                    fontSize = TILE_POINTS_FONT_SIZE,\n                    fontWeight = FontWeight.Bold,\n                    modifier = Modifier\n                        .align(Alignment.BottomEnd)\n                        .padding(TILE_POINTS_PADDING)\n                )\n            }\n        }\n    }\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/GridSection.kt b/app/src/main/java/GridSection.kt
+--- a/app/src/main/java/GridSection.kt	(revision 599c3843b6c1a41b3812edc49476fce846b233f8)
++++ b/app/src/main/java/GridSection.kt	(date 1711030874844)
+@@ -1,8 +1,3 @@
+-package com.example.scrabble
+-
+-import DragTargetStatus
+-import LocalTileDragContext
+-import android.util.Log
+ import androidx.compose.foundation.background
+ import androidx.compose.foundation.border
+ import androidx.compose.foundation.layout.Arrangement
+@@ -14,7 +9,6 @@
+ import androidx.compose.foundation.layout.fillMaxWidth
+ import androidx.compose.foundation.layout.padding
+ import androidx.compose.foundation.layout.size
+-import androidx.compose.foundation.selection.toggleable
+ import androidx.compose.foundation.shape.RoundedCornerShape
+ import androidx.compose.material.icons.Icons
+ import androidx.compose.material.icons.filled.Star
+@@ -29,12 +23,12 @@
+ import androidx.compose.ui.unit.Dp
+ import androidx.compose.ui.unit.dp
+ import androidx.compose.ui.unit.sp
+-import model.PlacedTile
+-import withDragContext
++import com.example.scrabble.CellType
++import com.example.scrabble.GRID
++import com.example.scrabble.Letter
+ 
+ 
+ private val TILE_SPACING = 2.dp
+-
+     @Composable
+      internal fun GridSection(
+         onGetTile: (row: Int, column: Int) -> PlacedTile?,
+@@ -91,9 +85,7 @@
+                 onDragTargetAdded = { onSetTile(it, row, column) },
+                 onDragTargetRemoved = { onRemoveTile(row, column) }
+             ) { hovered ->
+-                // Important: Observe the tile state here and not in `GridSection` in order to avoid
+-                // recomposing the entire grid whenever the state of a single tile is updated (i.e.
+-                // looping through every cell just to recompose the one cell whose data changed)
++
+                 val placedTile = onGetTile(row, column)?.tile
+                 if (placedTile == null) {
+                     EmptyCell(cellType, cellSize, hovered == DropTargetStatus.HOVERED, modifier)
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n          xmlns:tools=\"http://schemas.android.com/tools\">\n\n    <application\n            android:allowBackup=\"true\"\n            android:dataExtractionRules=\"@xml/data_extraction_rules\"\n            android:fullBackupContent=\"@xml/backup_rules\"\n            android:icon=\"@mipmap/ic_launcher\"\n            android:label=\"@string/app_name\"\n            android:roundIcon=\"@mipmap/ic_launcher_round\"\n            android:supportsRtl=\"true\"\n            android:theme=\"@style/ActiviteTheme\"\n            tools:targetApi=\"31\">\n\n        <activity\n                android:name=\".MainActivity\"\n                android:exported=\"true\"\n                android:theme=\"@style/ActiviteTheme\">\n            <intent-filter>\n                <action android:name=\"android.intent.action.MAIN\"/>\n\n                <category android:name=\"android.intent.category.LAUNCHER\"/>\n            </intent-filter>\n        </activity>\n    </application>\n\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 599c3843b6c1a41b3812edc49476fce846b233f8)
++++ b/app/src/main/AndroidManifest.xml	(date 1711030874860)
+@@ -14,7 +14,7 @@
+             tools:targetApi="31">
+ 
+         <activity
+-                android:name=".MainActivity"
++                android:name="MainActivity"
+                 android:exported="true"
+                 android:theme="@style/ActiviteTheme">
+             <intent-filter>
+Index: app/src/main/java/com/example/scrabble/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/scrabble/MainActivity.kt b/app/src/main/java/MainActivity.kt
+rename from app/src/main/java/com/example/scrabble/MainActivity.kt
+rename to app/src/main/java/MainActivity.kt
+--- a/app/src/main/java/com/example/scrabble/MainActivity.kt	(revision 599c3843b6c1a41b3812edc49476fce846b233f8)
++++ b/app/src/main/java/MainActivity.kt	(date 1711030887532)
+@@ -1,7 +1,3 @@
+-package com.example.scrabble
+-
+-
+-import WordGame
+ import android.os.Bundle
+ import androidx.appcompat.app.AppCompatActivity
+ import androidx.activity.compose.setContent
