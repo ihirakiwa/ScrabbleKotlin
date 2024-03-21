@@ -3,6 +3,7 @@ import com.example.scrabble.Letter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import model.GridViewModel
 
 class WordGameViewModel {
     companion object {
@@ -34,19 +35,64 @@ class WordGameViewModel {
         _uiState.update { it.copy(showUserTiles = showUserTiles) }
     }
 
-    fun nextTurn() {
+    fun nextTurn(list: List<Letter>) {
+        val player1 = uiState.value.playerOneData
+        val player2 = uiState.value.playerTwoData
         val currentPlayer = uiState.value.currentTurnPlayer
-        val nextPlayer = if (currentPlayer == uiState.value.playerOneData.name) {
-            uiState.value.playerTwoData.name
+        val nextPlayer = if (currentPlayer == player1.name) {
+            player2.name
         } else {
-            uiState.value.playerOneData.name
+            player1.name
         }
         setShowUserTiles(false)
-        setUserTiles(currentPlayer, uiState.value.remainingTiles)
+
+        if  (uiState.value.remainingTiles.size < TILES_PER_USER) {
+            _uiState.update {
+                it.copy(
+                    gameStatus = GameStatus.FINISHED,
+                    currentTurnPlayer = nextPlayer
+                )
+            }
+            return
+        }
+
+        val oldRack = mutableListOf<Letter>()
+        if (currentPlayer == player1.name){
+            player1.tiles.forEach {
+                if (!list.contains(it)){
+                    oldRack.add(it)
+                }
+            }
+        } else {
+            player2.tiles.forEach {
+                if (!list.contains(it)){
+                    oldRack.add(it)
+                }
+            }
+        }
+
+        // Distribuer de nouvelles lettres pour le prochain tour
+        while (oldRack.size < TILES_PER_USER) {
+            val randomTile = uiState.value.remainingTiles.random()
+            uiState.value.remainingTiles.remove(randomTile)
+            oldRack.add(randomTile)
+        }
+
+
 
         _uiState.update {
             it.copy(
-                currentTurnPlayer = nextPlayer
+                currentTurnPlayer = nextPlayer,
+                playerOneData = if (currentPlayer == it.playerOneData.name) {
+                    it.playerOneData.copy(tiles = oldRack)
+                } else {
+                    it.playerOneData
+                },
+                playerTwoData = if (currentPlayer == it.playerTwoData.name) {
+                    it.playerTwoData.copy(tiles = oldRack)
+                } else {
+                    it.playerTwoData
+                }
             )
         }
     }
@@ -64,14 +110,5 @@ class WordGameViewModel {
     private fun getInitialTiles() =
         Letter.values().flatMap { tile -> List(tile.frequency) { tile } }.toMutableList()
 
-    private fun setUserTiles(playerName: String, remainingTiles: MutableList<Letter>) {
-        val list = getUserTiles(remainingTiles)
-        _uiState.update {
-            when (playerName) {
-                it.playerOneData.name -> it.copy(playerOneData = it.playerOneData.copy(tiles = getUserTiles(remainingTiles)))
-                it.playerTwoData.name -> it.copy(playerTwoData = it.playerTwoData.copy(tiles = getUserTiles(remainingTiles)))
-                else -> throw IllegalStateException("Invalid player: $playerName")
-            }
-        }
-    }
+
 }
