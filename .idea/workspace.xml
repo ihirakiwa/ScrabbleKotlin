@@ -9,13 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="meilleur version">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/GameScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/GameScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" afterDir="false" />
-    </list>
+    <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="meilleur version" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -309,7 +303,7 @@
       <workItem from="1710852627609" duration="3809000" />
       <workItem from="1710863121398" duration="13274000" />
       <workItem from="1710886139285" duration="353000" />
-      <workItem from="1711018620360" duration="16667000" />
+      <workItem from="1711018620360" duration="16998000" />
     </task>
     <task id="LOCAL-00001" summary="version rack sans lettre">
       <option name="closed" value="true" />
@@ -455,7 +449,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711031087367</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="meilleur version">
+      <option name="closed" value="true" />
+      <created>1711035843773</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1711035843773</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
