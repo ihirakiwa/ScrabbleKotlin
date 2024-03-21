@@ -119,14 +119,72 @@ class GridViewModel {
         val isVertical = placing.all { it.second == placing.first().second }
         if (isHorizontal) {
             newWords.addAll(getNewWordInRow())
-            //newWords.addAll(getNewWordsInColumn())
+            newWords.addAll(getNewWordsInColumn())
         }
         if (isVertical) {
             newWords.addAll(getNewWordInColumn())
-            //newWords.addAll(getNewWordsInRow())
+            newWords.addAll(getNewWordsInRow())
         }
-        return newWords
+        val filteredWords = newWords.filter { it.length > 1 }.distinct()
+        return filteredWords
     }
+
+    private fun getNewWordsInRow(): List<String> {
+        val rowWords = mutableListOf<String>()
+        if (placing.isEmpty()) {
+            return emptyList()
+        }
+        val rowsWithPlacedLetters = placing.map { it.first }.distinct()
+        for (row in rowsWithPlacedLetters) {
+            val rowWordBuilder = StringBuilder()
+            var wordStarted = false
+            for (column in 0 until GRID.size) {
+                val tile = placedTiles[row][column].value
+                if (tile != null) {
+                    rowWordBuilder.append(tile.tile)
+                    wordStarted = true
+                } else if (wordStarted) {
+                    rowWords.add(rowWordBuilder.toString())
+                    rowWordBuilder.clear()
+                    wordStarted = false
+                }
+            }
+            if (wordStarted) {
+                rowWords.add(rowWordBuilder.toString())
+            }
+        }
+
+        return rowWords
+    }
+
+
+    private fun getNewWordsInColumn(): List<String> {
+        val columnWords = mutableListOf<String>()
+        if (placing.isEmpty()) {
+            return emptyList()
+        }
+        val columnsWithPlacedLetters = placing.map { it.second }.distinct()
+        for (column in columnsWithPlacedLetters) {
+            val columnWordBuilder = StringBuilder()
+            var wordStarted = false
+            for (row in 0 until GRID.size) {
+                val tile = placedTiles[row][column].value
+                if (tile != null) {
+                    columnWordBuilder.append(tile.tile)
+                    wordStarted = true
+                } else if (wordStarted) {
+                    columnWords.add(columnWordBuilder.toString())
+                    columnWordBuilder.clear()
+                    wordStarted = false
+                }
+            }
+            if (wordStarted) {
+                columnWords.add(columnWordBuilder.toString())
+            }
+        }
+        return columnWords
+    }
+
 
     private fun getNewWordInRow(): List<String> {
         val rowWords = mutableListOf<String>()
