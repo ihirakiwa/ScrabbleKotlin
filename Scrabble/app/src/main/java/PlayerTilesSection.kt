@@ -40,7 +40,9 @@ fun PlayerTilesSection(
     getPlacing: () -> List<Pair<Int, Int>>,
     setPlacingEmpty: () -> Unit,
     setAlreadyPlaced: (List<Pair<Int, Int>>) -> Unit,
-    onSubmit: () -> Unit,
+    setTileSubmitted: (List<Pair<Int, Int>>) -> Unit,
+    onSubmit: () -> Boolean,
+    nextTurn: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     BoxWithConstraints(modifier) {
@@ -83,7 +85,9 @@ fun PlayerTilesSection(
                 getPlacing = getPlacing,
                 setPlacingEmpty = setPlacingEmpty,
                 setAlreadyPlaced = setAlreadyPlaced,
-                onSubmit = onSubmit
+                setTileSubmitted = setTileSubmitted,
+                onSubmit = onSubmit,
+                nextTurn = nextTurn
             )
         }
     }
@@ -262,7 +266,9 @@ private fun TileControls(
     getPlacing: () -> List<Pair<Int, Int>>,
     setPlacingEmpty: () -> Unit,
     setAlreadyPlaced: (List<Pair<Int, Int>>) -> Unit,
-    onSubmit: () -> Unit,
+    setTileSubmitted: (List<Pair<Int, Int>>) -> Unit,
+    onSubmit: () -> Boolean,
+    nextTurn: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val dragContext = LocalTileDragContext.current
@@ -281,10 +287,14 @@ private fun TileControls(
         }
         Button(
             onClick = {
-                setAlreadyPlaced(getPlacing())
-                setPlacingEmpty()
-                onSubmit()
-            }, //TODO: Implement this
+                if (onSubmit()) {
+                    setAlreadyPlaced(getPlacing())
+                    setTileSubmitted(getPlacing())
+                    //TODO: Mettre à jour les scores
+                    setPlacingEmpty()
+                    nextTurn()
+                }
+            },
             modifier = Modifier.weight(1f),
             enabled = isSubmitEnabled,
             colors = ButtonDefaults.buttonColors(containerColor = Color(98, 138, 169)),

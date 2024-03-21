@@ -76,8 +76,26 @@ class GridViewModel {
         }
     }
 
-    fun submitWord() {
+    fun submitWord(): Boolean {
+        val newWords = getNewWords()
+        if (newWords.isEmpty()) {
+            return false
+        }
+        for (word in newWords) {
+            /*if(!wordList.contains(word)){
+                return false
+            }*/
+        }
+        return true
+    }
 
+    fun setTileSubmitted(list: List<Pair<Int, Int>>) {
+        list.forEach { (row, column) ->
+            placedTiles[row][column].value = placedTiles[row][column].value?.copy(isSubmitted = true)
+        }
+        list.forEach {  (row, column) ->
+            Log.d("GridViewModel", "isSubmitted: ${placedTiles[row][column].value?.isSubmitted}")
+        }
     }
 
     //TOOLS
@@ -94,12 +112,15 @@ class GridViewModel {
             newWords.addAll(getNewWordInColumn())
             //newWords.addAll(getNewWordsInRow())
         }
-        Log.d("ici", "getNewWords: $newWords")
+        Log.d("GridViewModel", "newWords: $newWords")
         return newWords
     }
 
     private fun getNewWordInRow(): List<String> {
         val rowWords = mutableListOf<String>()
+        if (placing.isEmpty()){
+            return emptyList()
+        }
         val row = placing.first().first
         val rowTiles = placedTiles[row]
 
@@ -137,6 +158,9 @@ class GridViewModel {
 
     private fun getNewWordInColumn(): List<String> {
         val columnWords = mutableListOf<String>()
+        if (placing.isEmpty()){
+            return emptyList()
+        }
         val column = placing.first().second
         val columnTiles = (0 until GRID.size).map { row -> placedTiles[row][column].value }
         val allRows = (alreadyPlaced + placing).map { it.first }
@@ -194,6 +218,9 @@ class GridViewModel {
 
 
     private fun row() : Boolean{
+        if (placing.isEmpty()){
+            return false
+        }
         val placingOrder = placing.sortedBy { it.second }
         val numberOfTiles = placingOrder.last().second - placingOrder.first().second + 1
         for (i in 0 until numberOfTiles){
@@ -205,6 +232,9 @@ class GridViewModel {
     }
 
     private fun column() : Boolean{
+        if (placing.isEmpty()){
+            return false
+        }
         val placingOrder = placing.sortedBy { it.first }
         val numberOfTiles = placingOrder.last().first - placingOrder.first().first + 1
         for (i in 0 until numberOfTiles){

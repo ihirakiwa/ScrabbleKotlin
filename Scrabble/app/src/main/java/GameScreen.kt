@@ -51,9 +51,9 @@ fun GameScreen(
                 getPlacing = gridViewModel::getPlacing,
                 setPlacingEmpty = gridViewModel::setPlacingEmpty,
                 setAlreadyPlaced = gridViewModel::setAlreadyPlaced,
-                onSubmit = {
-                    //wordGameViewModel.submitWord(gridViewModel.getPlacing())
-                }
+                setTileSubmitted = gridViewModel::setTileSubmitted,
+                onSubmit = gridViewModel::submitWord,
+                nextTurn = wordGameViewModel::nextTurn
             )
             Spacer(Modifier.size(20.dp))
         }
