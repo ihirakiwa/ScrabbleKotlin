@@ -45,34 +45,39 @@ class GridViewModel {
     fun setTile(tile: Letter, row: Int, column: Int) {
         validateCoordinates(row, column)
 
-        placedTiles[row][column].value = PlacedTile(tile, false)
-        placing.add(Pair(row, column))
-        val newWords = getNewWords()
-        _gridState.update { it.copy(placedTileCount = it.placedTileCount + 1)}
-        val isValidConfiguration = validateConfiguration()
+        if (placedTiles[row][column].value?.isSubmitted != true) {
+            placedTiles[row][column].value = PlacedTile(tile, false)
+            placing.add(Pair(row, column))
+            val newWords = getNewWords()
+            _gridState.update { it.copy(placedTileCount = it.placedTileCount + 1)}
 
-        _gridState.update {
-            it.copy(
-                isSubmitEnabled = newWords.isNotEmpty() && isValidConfiguration
-            )
+            val isValidConfiguration = validateConfiguration()
+
+            _gridState.update {
+                it.copy(
+                    isSubmitEnabled = newWords.isNotEmpty() && isValidConfiguration
+                )
+            }
         }
     }
 
     fun removeTile(row: Int, column: Int) {
         validateCoordinates(row, column)
 
-        placedTiles[row][column].value = null
-        placing.remove(Pair(row, column))
-        val newWords = getNewWords()
+        if (placedTiles[row][column].value?.isSubmitted != true) {
+            placedTiles[row][column].value = null
+            placing.remove(Pair(row, column))
+            val newWords = getNewWords()
 
-        _gridState.update { it.copy(placedTileCount = it.placedTileCount - 1)}
+            _gridState.update { it.copy(placedTileCount = it.placedTileCount - 1)}
 
-        val isValidConfiguration = validateConfiguration()
+            val isValidConfiguration = validateConfiguration()
 
-        _gridState.update {
-            it.copy(
-                isSubmitEnabled = newWords.isNotEmpty() && isValidConfiguration
-            )
+            _gridState.update {
+                it.copy(
+                    isSubmitEnabled = newWords.isNotEmpty() && isValidConfiguration
+                )
+            }
         }
     }
 
@@ -93,9 +98,6 @@ class GridViewModel {
         list.forEach { (row, column) ->
             placedTiles[row][column].value = placedTiles[row][column].value?.copy(isSubmitted = true)
         }
-        list.forEach {  (row, column) ->
-            Log.d("GridViewModel", "isSubmitted: ${placedTiles[row][column].value?.isSubmitted}")
-        }
     }
 
     //TOOLS
@@ -112,7 +114,6 @@ class GridViewModel {
             newWords.addAll(getNewWordInColumn())
             //newWords.addAll(getNewWordsInRow())
         }
-        Log.d("GridViewModel", "newWords: $newWords")
         return newWords
     }
 

@@ -25,7 +25,8 @@ class WordGameViewModel {
                 tiles = getUserTiles(initialTiles)
             ),
             currentTurnPlayer = startPlayer,
-            gameStatus = GameStatus.STARTED
+            gameStatus = GameStatus.STARTED,
+            remainingTiles = initialTiles
         )
     }
 
@@ -40,6 +41,8 @@ class WordGameViewModel {
         } else {
             uiState.value.playerOneData.name
         }
+        setShowUserTiles(false)
+        setUserTiles(currentPlayer, uiState.value.remainingTiles)
 
         _uiState.update {
             it.copy(
@@ -61,5 +64,14 @@ class WordGameViewModel {
     private fun getInitialTiles() =
         Letter.values().flatMap { tile -> List(tile.frequency) { tile } }.toMutableList()
 
-
+    private fun setUserTiles(playerName: String, remainingTiles: MutableList<Letter>) {
+        val list = getUserTiles(remainingTiles)
+        _uiState.update {
+            when (playerName) {
+                it.playerOneData.name -> it.copy(playerOneData = it.playerOneData.copy(tiles = getUserTiles(remainingTiles)))
+                it.playerTwoData.name -> it.copy(playerTwoData = it.playerTwoData.copy(tiles = getUserTiles(remainingTiles)))
+                else -> throw IllegalStateException("Invalid player: $playerName")
+            }
+        }
+    }
 }

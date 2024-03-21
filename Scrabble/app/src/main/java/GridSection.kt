@@ -91,9 +91,7 @@ private val TILE_SPACING = 2.dp
                 onDragTargetAdded = { onSetTile(it, row, column) },
                 onDragTargetRemoved = { onRemoveTile(row, column) }
             ) { hovered ->
-                // Important: Observe the tile state here and not in `GridSection` in order to avoid
-                // recomposing the entire grid whenever the state of a single tile is updated (i.e.
-                // looping through every cell just to recompose the one cell whose data changed)
+
                 val placedTile = onGetTile(row, column)?.tile
                 if (placedTile == null) {
                     EmptyCell(cellType, cellSize, hovered == DropTargetStatus.HOVERED, modifier)
