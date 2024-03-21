@@ -17,12 +17,13 @@ import model.GridViewModel
 
 val LocalTileDragContext = compositionLocalOf { DragContext<Letter>() }
 @Composable
-private fun gridViewModel() = remember { GridViewModel() }
+private fun gridViewModel(wordList:HashMap<String,Int>) = remember { GridViewModel(wordList) }
 @Composable
 fun GameScreen(
     wordGameViewModel: WordGameViewModel,
     wordGameState: WordGameState,
-    gridViewModel: GridViewModel = gridViewModel(),
+    wordList: HashMap<String, Int>,
+    gridViewModel: GridViewModel = gridViewModel(wordList),
     modifier: Modifier = Modifier
 ) {
     val gridState by gridViewModel.gridState.collectAsState()

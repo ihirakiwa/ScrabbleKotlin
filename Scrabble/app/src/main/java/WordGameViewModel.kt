@@ -1,9 +1,7 @@
-import android.util.Log
 import com.example.scrabble.Letter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import model.GridViewModel
 
 class WordGameViewModel {
     companion object {

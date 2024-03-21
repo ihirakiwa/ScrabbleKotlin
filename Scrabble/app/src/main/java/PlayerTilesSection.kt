@@ -1,12 +1,10 @@
 
 
+import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -16,10 +14,10 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -274,6 +272,7 @@ private fun TileControls(
     letter: (List<Pair<Int, Int>>) -> List<Letter>,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     val dragContext = LocalTileDragContext.current
     Row(
         horizontalArrangement = Arrangement.spacedBy(BUTTON_SPACING),
@@ -296,6 +295,9 @@ private fun TileControls(
                     //TODO: Mettre à jour les scores
                     nextTurn(letter(getPlacing()))
                     setPlacingEmpty()
+                }else{
+                    val message = "Le mot n'est pas valide"
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier.weight(1f),

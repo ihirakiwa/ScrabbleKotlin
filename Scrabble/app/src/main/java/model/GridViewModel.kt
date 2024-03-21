@@ -16,8 +16,7 @@ data class GridState(
     val isSubmitEnabled: Boolean = false
 )
 
-class GridViewModel {
-
+class GridViewModel(private val wordList: HashMap<String, Int>) {
     private val alreadyPlaced = mutableListOf<Pair<Int, Int>>()
     private val placing = mutableListOf<Pair<Int, Int>>()
     private val _gridState = MutableStateFlow(GridState())
@@ -94,9 +93,10 @@ class GridViewModel {
             return false
         }
         for (word in newWords) {
-            /*if(!wordList.contains(word)){
+            Log.d("word", word.lowercase())
+            if(!wordList.contains(word.lowercase())){
                 return false
-            }*/
+            }
         }
         return true
     }

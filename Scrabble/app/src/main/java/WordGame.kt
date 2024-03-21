@@ -1,24 +1,32 @@
-import android.icu.util.Calendar
-import android.util.Log
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.CircularProgressIndicator
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import com.example.scrabble.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 
 
 @Composable
 fun WordGame(viewModel: WordGameViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
-    val wordsArray = loadWordsAsArray(context)
+
+    fun createWordListFromFile(context: Context): HashMap<String, Int> {
+        val wordList = HashMap<String, Int>()
+
+        val inputStream = context.resources.openRawResource(R.raw.wordlist)
+        inputStream.reader().useLines { lines ->
+            lines.forEach { line ->
+                val (word, countStr) = line.split(" ", limit = 2) // Sépare la ligne en deux parties (mot et compteur)
+                val count = countStr.trim().toInt() // Convertit la chaîne représentant un entier en Int
+                wordList[word.trim()] = count // Ajoute le mot et son compteur à la HashMap
+            }
+        }
+
+        return wordList
+    }
+    val wordList = createWordListFromFile(context)
 
     when (uiState.gameStatus) {
         GameStatus.NOT_STARTED -> {
@@ -34,7 +42,8 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
         }
 
         GameStatus.STARTED -> {
-            if (wordsArray != null) {
+            GameScreen(viewModel, uiState, wordList)
+            /*if (wordsArray != null) {
                 (if (wordsArray.size == context.resources.openRawResource(R.raw.wordlist).bufferedReader().readLines().size) {
                     GameScreen(viewModel, uiState)
                 } else {
@@ -42,7 +51,7 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
                             CircularProgressIndicator()
                         }
                 })
-            }
+            }*/
         }
 
         GameStatus.FINISHED -> {
