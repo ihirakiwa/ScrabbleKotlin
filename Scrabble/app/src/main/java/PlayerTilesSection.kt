@@ -41,6 +41,7 @@ fun PlayerTilesSection(
     setTileSubmitted: (List<Pair<Int, Int>>) -> Unit,
     onSubmit: () -> Boolean,
     nextTurn: (List<Letter>) -> Unit,
+    setSubmitEnabled: (Boolean) -> Unit,
     letter: (List<Pair<Int, Int>>) -> List<Letter>,
     modifier: Modifier = Modifier
 ) {
@@ -87,6 +88,7 @@ fun PlayerTilesSection(
                 setTileSubmitted = setTileSubmitted,
                 onSubmit = onSubmit,
                 nextTurn = nextTurn,
+                setSubmitEnabled = setSubmitEnabled,
                 letter = letter
             )
         }
@@ -269,6 +271,7 @@ private fun TileControls(
     setTileSubmitted: (List<Pair<Int, Int>>) -> Unit,
     onSubmit: () -> Boolean,
     nextTurn: (List<Letter>) -> Unit,
+    setSubmitEnabled: (Boolean) -> Unit,
     letter: (List<Pair<Int, Int>>) -> List<Letter>,
     modifier: Modifier = Modifier
 ) {
@@ -294,6 +297,7 @@ private fun TileControls(
                     setTileSubmitted(getPlacing())
                     //TODO: Mettre à jour les scores
                     nextTurn(letter(getPlacing()))
+                    setSubmitEnabled(false)
                     setPlacingEmpty()
                 }else{
                     val message = "Le mot n'est pas valide"

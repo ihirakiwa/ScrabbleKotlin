@@ -44,7 +44,7 @@ class WordGameViewModel {
         }
         setShowUserTiles(false)
 
-        if  (uiState.value.remainingTiles.size < TILES_PER_USER) {
+        if  (uiState.value.remainingTiles.size < TILES_PER_USER) { //TODO: Check condition d'arret
             _uiState.update {
                 it.copy(
                     gameStatus = GameStatus.FINISHED,

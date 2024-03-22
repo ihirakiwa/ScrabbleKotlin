@@ -89,11 +89,11 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
 
     fun submitWord(): Boolean {
         val newWords = getNewWords()
+
         if (newWords.isEmpty()) {
             return false
         }
         for (word in newWords) {
-            Log.d("word", word.lowercase())
             if(!wordList.contains(word.lowercase())){
                 return false
             }
@@ -111,6 +111,10 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
         }
     }
 
+    fun setSubmitEnabled(isEnabled: Boolean) {
+        _gridState.update { it.copy(isSubmitEnabled = isEnabled) }
+    }
+
     //TOOLS
 
     private fun getNewWords() : List<String> {
@@ -126,6 +130,7 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             newWords.addAll(getNewWordsInRow())
         }
         val filteredWords = newWords.filter { it.length > 1 }.distinct()
+        Log.d("newWords", filteredWords.toString())
         return filteredWords
     }
 
@@ -278,6 +283,9 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
         if (!isHorizontal && !isVertical) {
             return false
         }
+        if (placing.isEmpty()){
+            return false
+        }
         if(isHorizontal){
             if (!row()){
                 return false
@@ -288,14 +296,16 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
                 return false
             }
         }
+        if (alreadyPlaced.isNotEmpty()) {
+            if (!checkPlacing()){
+                return false
+            }
+        }
         return true
     }
 
 
     private fun row() : Boolean{
-        if (placing.isEmpty()){
-            return false
-        }
         val placingOrder = placing.sortedBy { it.second }
         val numberOfTiles = placingOrder.last().second - placingOrder.first().second + 1
         for (i in 0 until numberOfTiles){
@@ -314,9 +324,6 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
 
 
     private fun column() : Boolean{
-        if (placing.isEmpty()){
-            return false
-        }
         val placingOrder = placing.sortedBy { it.first }
         val numberOfTiles = placingOrder.last().first - placingOrder.first().first + 1
         for (i in 0 until numberOfTiles){
@@ -346,7 +353,18 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
 
         return false
     }
+    fun checkPlacing() : Boolean{
+        var hasTrue = false
 
+        for ((row, column) in placing) {
+            if (checkSurronding(row, column)) {
+                hasTrue = true
+                break
+            }
+        }
+
+        return hasTrue
+    }
     private fun validateCoordinates(row: Int, column: Int) {
         val rowMax = placedTiles.size - 1
         // Assume there is at least 1 row

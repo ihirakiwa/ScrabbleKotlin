@@ -56,6 +56,7 @@ fun GameScreen(
                 setTileSubmitted = gridViewModel::setTileSubmitted,
                 onSubmit = gridViewModel::submitWord,
                 nextTurn = wordGameViewModel::nextTurn,
+                setSubmitEnabled = gridViewModel::setSubmitEnabled,
                 letter = gridViewModel::letterFromListIndex
             )
             Spacer(Modifier.size(20.dp))
