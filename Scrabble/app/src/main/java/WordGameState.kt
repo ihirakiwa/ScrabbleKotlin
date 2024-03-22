@@ -1,6 +1,6 @@
 import com.example.scrabble.Letter
 data class WordGameState(
-    val gameStatus: GameStatus = GameStatus.NOT_STARTED,
+    val gameStatus: GameStatus = GameStatus.MENU,
     val playerOneData: PlayerData = PlayerData(),
     val playerTwoData: PlayerData = PlayerData(),
     val currentTurnPlayer: String = "",

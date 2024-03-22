@@ -11,6 +11,10 @@ class WordGameViewModel {
     private val _uiState = MutableStateFlow(WordGameState())
     val uiState = _uiState.asStateFlow()
 
+    fun start2v2Game(){
+        _uiState.update { it.copy(gameStatus = GameStatus.NOT_STARTED) }
+    }
+
     fun startNewGame(playerOneName: String, playerTwoName: String, startPlayer: String) {
         val initialTiles = getInitialTiles()
 
