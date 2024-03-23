@@ -112,5 +112,9 @@ class WordGameViewModel {
     private fun getInitialTiles() =
         Letter.values().flatMap { tile -> List(tile.frequency) { tile } }.toMutableList()
 
+    fun showRules() {
+        TODO("Not yet implemented")
+    }
+
 
 }

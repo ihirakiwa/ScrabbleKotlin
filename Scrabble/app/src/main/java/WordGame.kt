@@ -30,7 +30,7 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
 
     when (uiState.gameStatus) {
         GameStatus.MENU -> {
-            MenuScreen(viewModel::start2v2Game)
+            MenuScreen(viewModel::start2v2Game, viewModel::showRules)
         }
         GameStatus.NOT_STARTED -> {
             LandingScreen(

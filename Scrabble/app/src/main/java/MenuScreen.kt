@@ -1,7 +1,5 @@
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -9,7 +7,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
@@ -17,9 +14,10 @@ import com.example.scrabble.R
 
 private val HORIZONTAL_PADDING = 40.dp
 private val SPACER_SIZE = 40.dp
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuScreen(start2v2Game: () -> Unit){
+fun MenuScreen(start2v2Game: () -> Unit, regles: () -> Unit){
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -86,7 +84,7 @@ fun MenuScreen(start2v2Game: () -> Unit){
                 }
                 Spacer(Modifier.size(100.dp))
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { regles() },
                     modifier = Modifier.size(200.dp, 50.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
                     shape = MaterialTheme.shapes.small
@@ -97,3 +95,5 @@ fun MenuScreen(start2v2Game: () -> Unit){
         }
     }
 }
+
+
