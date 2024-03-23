@@ -46,8 +46,10 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
         if (placedTiles[row][column].value?.isSubmitted != true) {
             placedTiles[row][column].value = PlacedTile(tile, false)
             placing.add(Pair(row, column))
+
             val newWords = getNewWords()
-            _gridState.update { it.copy(placedTileCount = it.placedTileCount + 1)}
+
+            _gridState.update { it.copy(placedTileCount = it.placedTileCount + 1) }
 
             val isValidConfiguration = validateConfiguration()
 
@@ -117,15 +119,18 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
 
     //TOOLS
 
+
     private fun getNewWords() : List<String> {
         val newWords = mutableListOf<String>()
         val isHorizontal = placing.all { it.first == placing.first().first }
         val isVertical = placing.all { it.second == placing.first().second }
         if (isHorizontal) {
+            Log.d("isHorizontal", "true")
             newWords.addAll(getNewWordInRow())
             newWords.addAll(getNewWordsInColumn())
         }
         if (isVertical) {
+            Log.d("isVertical", "true")
             newWords.addAll(getNewWordInColumn())
             newWords.addAll(getNewWordsInRow())
         }

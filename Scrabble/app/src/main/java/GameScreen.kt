@@ -9,7 +9,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.scrabble.GridSection
 import com.example.scrabble.Letter
 import com.example.scrabble.PlayerScoresSection
 import model.GridViewModel

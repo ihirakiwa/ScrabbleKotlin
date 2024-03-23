@@ -10,11 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="meilleur version">
-      <change afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/MenuScreen.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGame.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/GameScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/GameScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/GridSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/GridSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/background1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/boardimg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/emptyboard.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/rack.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/layout/welcomepage.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,25 +81,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.android.tools.idea.devicemanager.tab&quot;: &quot;Physical&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Dev__Mat&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/matth/Documents/Intellij/APPLICATIONINFO2&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.android.tools.idea.devicemanager.tab": "Physical",
+    "git-widget-placeholder": "Dev__Mat",
+    "last_opened_file_path": "C:/Users/matth/Documents/Intellij/APPLICATIONINFO2/Scrabble/app/src/main/res/drawable",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\matth\Documents\Intellij\APPLICATIONINFO2\Scrabble\app\src\main\res\drawable" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\matth\Documents\Intellij\APPLICATIONINFO2\Scrabble\app\src\main\res\raw" />
       <recent name="C:\Users\matth\Documents\Intellij\APPLICATIONINFO2\Scrabble\app\src\main\java" />
@@ -314,7 +325,9 @@
       <workItem from="1711046141027" duration="10636000" />
       <workItem from="1711098533690" duration="4448000" />
       <workItem from="1711105377594" duration="1452000" />
-      <workItem from="1711107209908" duration="31000" />
+      <workItem from="1711107209908" duration="987000" />
+      <workItem from="1711125940136" duration="236000" />
+      <workItem from="1711202284088" duration="8199000" />
     </task>
     <task id="LOCAL-00001" summary="version rack sans lettre">
       <option name="closed" value="true" />
@@ -500,7 +513,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711102431624</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="meilleur version">
+      <option name="closed" value="true" />
+      <created>1711107263790</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1711107263790</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
