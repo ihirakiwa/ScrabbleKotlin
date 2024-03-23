@@ -10,19 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="meilleur version">
-      <change afterPath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/GameScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/GameScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/GridSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/GridSection.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/background1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/boardimg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/emptyboard.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/drawable/rack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/layout/welcomepage.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/MenuScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/MenuScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +75,6 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "com.android.tools.idea.devicemanager.tab": "Physical",
     "git-widget-placeholder": "Dev__Mat",
     "last_opened_file_path": "C:/Users/matth/Documents/Intellij/APPLICATIONINFO2/Scrabble/app/src/main/res/drawable",
     "node.js.detected.package.eslint": "true",
@@ -327,7 +315,7 @@
       <workItem from="1711105377594" duration="1452000" />
       <workItem from="1711107209908" duration="987000" />
       <workItem from="1711125940136" duration="236000" />
-      <workItem from="1711202284088" duration="8199000" />
+      <workItem from="1711202284088" duration="9128000" />
     </task>
     <task id="LOCAL-00001" summary="version rack sans lettre">
       <option name="closed" value="true" />
@@ -521,7 +509,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711107263790</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="meilleur version">
+      <option name="closed" value="true" />
+      <created>1711211619596</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1711211619596</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

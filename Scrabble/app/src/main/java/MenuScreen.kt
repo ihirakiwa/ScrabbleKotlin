@@ -37,7 +37,7 @@ fun MenuScreen(start2v2Game: () -> Unit){
                 .background(
                     color = Color(66, 75, 90) // Couleur de fond si l'image n'occupe pas toute la surface
                 )
-                .padding(0.dp, 60.dp, 0.dp, 0.dp)
+                .padding(0.dp, 30.dp, 0.dp, 0.dp)
         ) {
             // Ajouter l'image de fond
             Image(
@@ -55,12 +55,14 @@ fun MenuScreen(start2v2Game: () -> Unit){
                     .fillMaxWidth()
             ) {
                 Text(text = "Bienvenue au Scrabble", color = Color.White, fontSize = 24.sp)
+                Spacer(Modifier.size(10.dp))
                 Text(text = "Veuillez choisir un mode de jeu :", color = Color.White, fontSize = 18.sp)
                 Spacer(Modifier.size(SPACER_SIZE))
                 Button(
                     onClick = { start2v2Game() },
                     modifier = Modifier.size(160.dp, 50.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
+                    shape = MaterialTheme.shapes.small
                 ) {
                     Text(text = "2 Joueurs", fontSize = 18.sp)
                 }
@@ -69,6 +71,7 @@ fun MenuScreen(start2v2Game: () -> Unit){
                     onClick = { /*TODO*/ },
                     modifier = Modifier.size(160.dp, 50.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
+                    shape = MaterialTheme.shapes.small
                 ) {
                     Text(text = "3 Joueurs", fontSize = 18.sp)
                 }
@@ -77,8 +80,18 @@ fun MenuScreen(start2v2Game: () -> Unit){
                     onClick = { /*TODO*/ },
                     modifier = Modifier.size(160.dp, 50.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
+                    shape = MaterialTheme.shapes.small
                 ) {
                     Text(text = "4 Joueurs", fontSize = 18.sp)
+                }
+                Spacer(Modifier.size(100.dp))
+                Button(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.size(200.dp, 50.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
+                    shape = MaterialTheme.shapes.small
+                ) {
+                    Text(text = "Règles du jeu", fontSize = 18.sp)
                 }
             }
         }
