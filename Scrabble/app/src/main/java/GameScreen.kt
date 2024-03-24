@@ -1,4 +1,5 @@
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -23,7 +24,7 @@ fun GameScreen(
     wordGameState: WordGameState,
     wordList: HashMap<String, Int>,
     gridViewModel: GridViewModel = gridViewModel(wordList),
-    modifier: Modifier = Modifier
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     val gridState by gridViewModel.gridState.collectAsState()
     Box(modifier = Modifier
@@ -56,7 +57,9 @@ fun GameScreen(
                 onSubmit = gridViewModel::submitWord,
                 nextTurn = wordGameViewModel::nextTurn,
                 setSubmitEnabled = gridViewModel::setSubmitEnabled,
-                letter = gridViewModel::letterFromListIndex
+                letter = gridViewModel::letterFromListIndex,
+                setScore = wordGameViewModel::setScore,
+                getScore = gridViewModel::getScore
             )
             Spacer(Modifier.size(20.dp))
         }

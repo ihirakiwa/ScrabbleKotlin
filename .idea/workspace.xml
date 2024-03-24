@@ -11,9 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="meilleur version">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/MenuScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/MenuScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGame.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGame.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/GameScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/GameScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/GridSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/GridSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/PlayerTilesSection.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/WordGameViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,7 +320,8 @@
       <workItem from="1711107209908" duration="987000" />
       <workItem from="1711125940136" duration="236000" />
       <workItem from="1711202284088" duration="9839000" />
-      <workItem from="1711213268494" duration="39000" />
+      <workItem from="1711213268494" duration="89000" />
+      <workItem from="1711288931585" duration="7423000" />
     </task>
     <task id="LOCAL-00001" summary="version rack sans lettre">
       <option name="closed" value="true" />
@@ -528,7 +531,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711212542165</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="meilleur version">
+      <option name="closed" value="true" />
+      <created>1711213347915</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1711213347915</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

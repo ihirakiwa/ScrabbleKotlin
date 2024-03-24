@@ -1,6 +1,5 @@
 package model
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.example.scrabble.GRID
@@ -117,6 +116,60 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
         _gridState.update { it.copy(isSubmitEnabled = isEnabled) }
     }
 
+    fun getScore(): Int {
+        /*var score = 0
+        var wordMultiplier = 1
+
+        // Parcourir les nouveaux mots formés
+        val newWords = getNewWords()
+        for (word in newWords) {
+            if (word.length > 1) { // Ne pas compter les mots d'une seule lettre
+                var wordScore = 0
+                var wordMultiplierTemp = 1 // Multiplicateur de mot temporaire pour chaque mot
+
+                for ((row, column) in placing) {
+                    val placedTile = placedTiles[row][column].value
+                    Log.d("placedTile", placedTile.toString())
+                    if (placedTile != null && word.contains(placedTile.tile.toString(), ignoreCase = true)) {
+                        val tileScore = placedTile.tile.score
+                        Log.d("tileScore", tileScore.toString())
+
+                        // Vérifier s'il y a une case multiplicatrice pour la lettre
+                        val cellType = GRID[row][column]
+                        Log.d("cellType", cellType.toString())
+                        when (cellType) {
+                            CellType.LD -> wordScore += tileScore * 2 // Lettre double
+                            CellType.LT -> wordScore += tileScore * 3 // Lettre triple
+                            CellType.MD -> {wordMultiplierTemp *= 2
+                                wordScore += tileScore}// Mot double
+                            CellType.MT -> {wordMultiplierTemp *= 3
+                                wordScore += tileScore}// Mot triple
+                            CellType.BL, CellType.ST -> wordScore += tileScore // Aucun multiplicateur
+                        }
+                    }
+                }
+
+                // Appliquer le score et le multiplicateur du mot
+                score += wordScore
+                Log.d("Score", score.toString())
+                wordMultiplier *= wordMultiplierTemp
+                Log.d("WordMultiplier", wordMultiplier.toString())
+            }
+        }
+
+        // Appliquer le multiplicateur de mot global
+        score *= wordMultiplier
+
+        // Appliquer le bonus Scrabble si toutes les tuiles ont été utilisées
+        if (placing.size == 7) {
+            score += 50
+        }
+
+        */
+        val score = 5
+        return score
+    }
+
     //TOOLS
 
 
@@ -125,18 +178,14 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
         val isHorizontal = placing.all { it.first == placing.first().first }
         val isVertical = placing.all { it.second == placing.first().second }
         if (isHorizontal) {
-            Log.d("isHorizontal", "true")
             newWords.addAll(getNewWordInRow())
             newWords.addAll(getNewWordsInColumn())
         }
         if (isVertical) {
-            Log.d("isVertical", "true")
             newWords.addAll(getNewWordInColumn())
             newWords.addAll(getNewWordsInRow())
         }
-        val filteredWords = newWords.filter { it.length > 1 }.distinct()
-        Log.d("newWords", filteredWords.toString())
-        return filteredWords
+        return newWords.filter { it.length > 1 }.distinct()
     }
 
     private fun getNewWordsInRow(): List<String> {
@@ -279,7 +328,7 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             return false
         }
         if(placing.size == 1){
-            if(!checkSurronding(placing.first().first,placing.first().second)){
+            if(!checkSurrounding(placing.first().first,placing.first().second)){
                 return false
             }
         }
@@ -318,7 +367,7 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
                 return false
             }
             if(alreadyPlaced.contains(Pair(placingOrder.first().first,placingOrder.first().second + i))){
-                if(!checkSurronding(placingOrder.first().first,placingOrder.first().second + i)){
+                if(!checkSurrounding(placingOrder.first().first,placingOrder.first().second + i)){
                     return false
                 }
             }
@@ -336,14 +385,14 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
                 return false
             }
             if(alreadyPlaced.contains(Pair(placingOrder.first().first + i,placingOrder.first().second))){
-                if(!checkSurronding(placingOrder.first().first + i,placingOrder.first().second)){
+                if(!checkSurrounding(placingOrder.first().first + i,placingOrder.first().second)){
                     return false
                 }
             }
         }
         return true
     }
-    private fun checkSurronding(row:Int, column: Int) : Boolean{
+    private fun checkSurrounding(row:Int, column: Int) : Boolean{
         val neighbors = listOf(
             Pair(row - 1, column),
             Pair(row + 1, column),
@@ -362,7 +411,7 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
         var hasTrue = false
 
         for ((row, column) in placing) {
-            if (checkSurronding(row, column)) {
+            if (checkSurrounding(row, column)) {
                 hasTrue = true
                 break
             }

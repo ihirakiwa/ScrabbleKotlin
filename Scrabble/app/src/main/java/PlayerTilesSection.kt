@@ -43,6 +43,8 @@ fun PlayerTilesSection(
     nextTurn: (List<Letter>) -> Unit,
     setSubmitEnabled: (Boolean) -> Unit,
     letter: (List<Pair<Int, Int>>) -> List<Letter>,
+    setScore: (Int) -> Unit,
+    getScore: () -> Int,
     modifier: Modifier = Modifier
 ) {
     BoxWithConstraints(modifier) {
@@ -89,7 +91,9 @@ fun PlayerTilesSection(
                 onSubmit = onSubmit,
                 nextTurn = nextTurn,
                 setSubmitEnabled = setSubmitEnabled,
-                letter = letter
+                letter = letter,
+                setScore = setScore,
+                getScore = getScore
             )
         }
     }
@@ -273,6 +277,8 @@ private fun TileControls(
     nextTurn: (List<Letter>) -> Unit,
     setSubmitEnabled: (Boolean) -> Unit,
     letter: (List<Pair<Int, Int>>) -> List<Letter>,
+    setScore: (Int) -> Unit,
+    getScore: () -> Int,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -295,7 +301,10 @@ private fun TileControls(
                 if (onSubmit()) {
                     setAlreadyPlaced(getPlacing())
                     setTileSubmitted(getPlacing())
+                    val score = getScore()
                     //TODO: Mettre à jour les scores
+                    setScore(score)
+
                     nextTurn(letter(getPlacing()))
                     setSubmitEnabled(false)
                     setPlacingEmpty()

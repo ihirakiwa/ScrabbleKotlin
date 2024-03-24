@@ -1,8 +1,6 @@
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -109,9 +107,6 @@ private val TILE_SPACING = 2.dp
                 .size(cellSize)
                 .clip(RoundedCornerShape(TILE_ROUNDING))
                 .background(cellType.color)
-                .clickable {
-                    Log.d("GridEmpty", "Clicked on cell at $cellType")
-                }
                 .then(
                     if (isHovered) {
                         Modifier.border(HOVERED_BORDER_WIDTH, Color.Red)
@@ -145,7 +140,6 @@ private val TILE_SPACING = 2.dp
                 .size(cellSize)
                 .clip(RoundedCornerShape(TILE_ROUNDING))
                 .background(Color.LightGray)
-                .clickable { Log.d("GridTile", "Clicked on tile $tile")}
         ) {
             if (tile != Letter.BLANK) {
                 Text(

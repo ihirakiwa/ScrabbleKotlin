@@ -37,6 +37,16 @@ class WordGameViewModel {
         _uiState.update { it.copy(showUserTiles = showUserTiles) }
     }
 
+    fun setScore(score: Int) {
+        _uiState.update {
+            if (it.playerOneData.name == getCurrentTurnPlayer()) {
+                it.copy(playerOneData = it.playerOneData.copy(score = score + it.playerOneData.score))
+            } else {
+                it.copy(playerTwoData = it.playerTwoData.copy(score = score+ it.playerTwoData.score))
+            }
+        }
+    }
+
     fun nextTurn(list: List<Letter>) {
         val player1 = uiState.value.playerOneData
         val player2 = uiState.value.playerTwoData
@@ -97,6 +107,10 @@ class WordGameViewModel {
                 }
             )
         }
+    }
+
+    private fun getCurrentTurnPlayer(): String {
+        return uiState.value.currentTurnPlayer
     }
 
     private fun getUserTiles(remainingTiles: MutableList<Letter>): List<Letter> {
