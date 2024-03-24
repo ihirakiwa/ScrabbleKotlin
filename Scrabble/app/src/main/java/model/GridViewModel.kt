@@ -1,5 +1,6 @@
 package model
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.example.scrabble.GRID
@@ -173,153 +174,181 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
     //TOOLS
 
 
-    private fun getNewWords() : List<String> {
-        val newWords = mutableListOf<String>()
-        val isHorizontal = placing.all { it.first == placing.first().first }
-        val isVertical = placing.all { it.second == placing.first().second }
-        if (isHorizontal) {
-            newWords.addAll(getNewWordInRow())
-            newWords.addAll(getNewWordsInColumn())
+        private fun getNewWords() : List<String> {
+            val newWords = mutableListOf<String>()
+            val isHorizontal = placing.all { it.first == placing.first().first }
+            val isVertical = placing.all { it.second == placing.first().second }
+            if (isHorizontal) {
+                Log.d("test", "horizontal")
+                newWords.addAll(getNewWordInRow())
+                Log.d("ligne183", newWords.toString())
+                newWords.addAll(getNewWordsInColumn())
+                Log.d("ligne185", newWords.toString())
+            }
+            if (isVertical) {
+                Log.d("test", "vertical")
+                newWords.addAll(getNewWordInColumn())
+                Log.d("ligne190", newWords.toString())
+                newWords.addAll(getNewWordsInRow())
+                Log.d("ligne192", newWords.toString())
+            }
+            val test = newWords.filter { it.length > 1 }.distinct()
+            Log.d("newWords", test.toString())
+            return test
         }
-        if (isVertical) {
-            newWords.addAll(getNewWordInColumn())
-            newWords.addAll(getNewWordsInRow())
-        }
-        return newWords.filter { it.length > 1 }.distinct()
-    }
 
-    private fun getNewWordsInRow(): List<String> {
-        val rowWords = mutableListOf<String>()
-        if (placing.isEmpty()) {
-            return emptyList()
-        }
-        val rowsWithPlacedLetters = placing.map { it.first }.distinct()
-        for (row in rowsWithPlacedLetters) {
-            val rowWordBuilder = StringBuilder()
-            var wordStarted = false
-            for (column in 0 until GRID.size) {
-                val tile = placedTiles[row][column].value
-                if (tile != null) {
-                    rowWordBuilder.append(tile.tile)
-                    wordStarted = true
-                } else if (wordStarted) {
+        private fun getNewWordsInRow(): List<String> {
+            val rowWords = mutableListOf<String>()
+            if (placing.isEmpty()) {
+                return emptyList()
+            }
+            val rowsWithPlacedLetters = placing.map { it.first }.distinct()
+            for (row in rowsWithPlacedLetters) {
+                val rowWordBuilder = StringBuilder()
+                var wordStarted = false
+                for (column in 0 until GRID.size) {
+                    val tile = placedTiles[row][column].value
+                    if (tile != null) {
+                        rowWordBuilder.append(tile.tile)
+                        wordStarted = true
+                    } else if (wordStarted) {
+                        rowWords.add(rowWordBuilder.toString())
+                        rowWordBuilder.clear()
+                        wordStarted = false
+                    }
+                }
+                if (wordStarted) {
                     rowWords.add(rowWordBuilder.toString())
-                    rowWordBuilder.clear()
-                    wordStarted = false
                 }
             }
-            if (wordStarted) {
-                rowWords.add(rowWordBuilder.toString())
+
+            return rowWords
+        }
+
+        private fun getNewWordsInColumn(): List<String> {
+            val columnWords = mutableListOf<String>()
+            if (placing.isEmpty()) {
+                return emptyList()
             }
-        }
-
-        return rowWords
-    }
-
-
-    private fun getNewWordsInColumn(): List<String> {
-        val columnWords = mutableListOf<String>()
-        if (placing.isEmpty()) {
-            return emptyList()
-        }
-        val columnsWithPlacedLetters = placing.map { it.second }.distinct()
-        for (column in columnsWithPlacedLetters) {
-            val columnWordBuilder = StringBuilder()
-            var wordStarted = false
-            for (row in 0 until GRID.size) {
-                val tile = placedTiles[row][column].value
-                if (tile != null) {
-                    columnWordBuilder.append(tile.tile)
-                    wordStarted = true
-                } else if (wordStarted) {
+            val columnsWithPlacedLetters = placing.map { it.second }.distinct()
+            for (column in columnsWithPlacedLetters) {
+                val columnWordBuilder = StringBuilder()
+                var wordStarted = false
+                for (row in 0 until GRID.size) {
+                    val tile = placedTiles[row][column].value
+                    if (tile != null) {
+                        columnWordBuilder.append(tile.tile)
+                        wordStarted = true
+                    } else if (wordStarted) {
+                        columnWords.add(columnWordBuilder.toString())
+                        columnWordBuilder.clear()
+                        wordStarted = false
+                    }
+                }
+                if (wordStarted) {
                     columnWords.add(columnWordBuilder.toString())
-                    columnWordBuilder.clear()
-                    wordStarted = false
                 }
             }
-            if (wordStarted) {
-                columnWords.add(columnWordBuilder.toString())
+            return columnWords
+        }
+
+        private fun getNewWordInRow(): List<String> {
+            if (placing.isEmpty()) {
+                return emptyList()
             }
-        }
-        return columnWords
-    }
+            val row = placing.first().first
+            val rowTiles = placedTiles[row]
 
-
-    private fun getNewWordInRow(): List<String> {
-        val rowWords = mutableListOf<String>()
-        if (placing.isEmpty()){
-            return emptyList()
-        }
-        val row = placing.first().first
-        val rowTiles = placedTiles[row]
-
-        val allColumns = (alreadyPlaced + placing).map { it.second }
-
-        val allPlacingColumnsPresent = placing.all { it.second in allColumns }
-
-        if (!allPlacingColumnsPresent) {
-            return emptyList()
-        }
-        val placingColumns = placing.map { it.second }
-        var currentWord = ""
-        for (col in 0 until GRID.size) {
-            val tile = rowTiles[col].value
-            if (tile != null) {
-                if (col in placingColumns) {
-                    currentWord += tile.tile.toString()
-                }
-                else if (col in allColumns) {
-                    currentWord += tile.tile.toString()
-                } else {
-                    if (currentWord.isNotEmpty()) {
-                        rowWords.add(currentWord)
-                        currentWord = ""
-                    }
+            var firstTileIndex = rowTiles.indexOfFirst { (it.value != null) }
+            if (firstTileIndex == -1) {
+                return emptyList()
+            }
+            while (!placing.contains(Pair(row, firstTileIndex))) {
+                firstTileIndex += 1
+                if (firstTileIndex >= GRID.size) {
+                    return emptyList()
                 }
             }
+            return getWordAtPositionRow(row, firstTileIndex)
         }
-        // Ajoute le mot final si nécessaire
-        if (currentWord.isNotEmpty()) {
-            rowWords.add(currentWord)
-        }
-        return rowWords
-    }
 
-    private fun getNewWordInColumn(): List<String> {
-        val columnWords = mutableListOf<String>()
-        if (placing.isEmpty()){
-            return emptyList()
+        private fun getWordAtPositionRow(row: Int, column: Int): List<String> {
+            val tile = placedTiles[row][column].value?.tile ?: return emptyList()
+
+            val wordToLeft = getWordToLeft(row, column - 1)
+            val wordToRight = getWordToRight(row, column + 1)
+            val list = listOf(wordToLeft, tile.toString(), wordToRight).filter { it.isNotEmpty() }
+
+            return listOf(list.joinToString(""))
         }
-        val column = placing.first().second
-        val columnTiles = (0 until GRID.size).map { row -> placedTiles[row][column].value }
-        val allRows = (alreadyPlaced + placing).map { it.first }
-        val allPlacingRowsPresent = placing.all { it.first in allRows }
-        if (!allPlacingRowsPresent) {
-            return emptyList()
-        }
-        val placingRows = placing.map { it.first }
-        var currentWord = ""
-        for (row in 0 until GRID.size) {
-            val tile = columnTiles[row]
-            if (tile != null) {
-                if (row in placingRows) {
-                    currentWord += tile.tile.toString()
-                }
-                else if (row in allRows) {
-                    currentWord += tile.tile.toString()
-                } else {
-                    if (currentWord.isNotEmpty()) {
-                        columnWords.add(currentWord)
-                        currentWord = ""
-                    }
-                }
+
+        private fun getWordToLeft(row: Int, column: Int): String {
+            return if (column < 0 || placedTiles[row][column].value == null) {
+                ""
+            } else {
+                val tile = placedTiles[row][column].value!!.tile
+                getWordToLeft(row, column - 1) + tile.toString()
             }
         }
-        if (currentWord.isNotEmpty()) {
-            columnWords.add(currentWord)
+
+        private fun getWordToRight(row: Int, column: Int): String {
+            val rowTiles = placedTiles[row]
+            return if (column >= GRID.size || rowTiles[column].value == null) {
+                ""
+            } else {
+                val tile = rowTiles[column].value!!.tile
+                tile.toString() + getWordToRight(row, column + 1)
+            }
         }
-        return columnWords
-    }
+
+        private fun getNewWordInColumn(): List<String> {
+            if (placing.isEmpty()) {
+                return emptyList()
+            }
+            val column = placing.first().second
+
+            var firstTileIndex = (0 until GRID.size).indexOfFirst { row -> placedTiles[row][column].value != null }
+            if (firstTileIndex == -1) {
+                return emptyList()
+            }
+            while (!placing.contains(Pair(firstTileIndex, column))) {
+                firstTileIndex += 1
+                if (firstTileIndex >= GRID.size) {
+                    return emptyList()
+                }
+            }
+
+            return getWordAtPositionCol(firstTileIndex, column)
+        }
+
+        private fun getWordAtPositionCol(row: Int, column: Int): List<String> {
+            val tile = placedTiles[row][column].value?.tile ?: return emptyList()
+
+            val wordAbove = getWordAbove(row - 1, column)
+            val wordBelow = getWordBelow(row + 1, column)
+            val list = listOf(wordAbove, tile.toString(), wordBelow).filter { it.isNotEmpty() }
+
+            return listOf(list.joinToString(""))
+        }
+
+        private fun getWordAbove(row: Int, column: Int): String {
+            return if (row < 0 || placedTiles[row][column].value == null) {
+                ""
+            } else {
+                val tile = placedTiles[row][column].value!!.tile
+                getWordAbove(row - 1, column) + tile.toString()
+            }
+        }
+
+        private fun getWordBelow(row: Int, column: Int): String {
+            return if (row >= GRID.size || placedTiles[row][column].value == null) {
+                ""
+            } else {
+                val tile = placedTiles[row][column].value!!.tile
+                tile.toString() + getWordBelow(row + 1, column)
+            }
+        }
+
 
 
 
