@@ -1,3 +1,6 @@
+import android.content.Context
+import android.os.Environment
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,13 +14,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.scrabble.R
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 private val HORIZONTAL_PADDING = 40.dp
 private val SPACER_SIZE = 40.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuScreen(start2v2Game: () -> Unit, regles: () -> Unit){
+fun MenuScreen(start2v2Game: () -> Unit, context: Context){
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -84,7 +91,9 @@ fun MenuScreen(start2v2Game: () -> Unit, regles: () -> Unit){
                 }
                 Spacer(Modifier.size(100.dp))
                 Button(
-                    onClick = { regles() },
+                    onClick ={
+                        downloadPDF(context)
+                    },
                     modifier = Modifier.size(200.dp, 50.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
                     shape = MaterialTheme.shapes.small
@@ -96,4 +105,33 @@ fun MenuScreen(start2v2Game: () -> Unit, regles: () -> Unit){
     }
 }
 
+fun downloadPDF(context: Context) {
+    try {
+        val inputStream: InputStream = context.resources.openRawResource(R.raw.reglementscrabble)
 
+        val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val outputFile = File(directory, "reglementscrabble.pdf")
+
+        copyInputStreamToFile(inputStream, outputFile)
+
+        Toast.makeText(context, "PDF téléchargé dans Téléchargements", Toast.LENGTH_SHORT).show()
+    } catch (e: Exception) {
+        Toast.makeText(context, "Erreur lors du téléchargement", Toast.LENGTH_SHORT).show()
+        e.printStackTrace()
+    }
+}
+
+@Throws(IOException::class)
+private fun copyInputStreamToFile(inputStream: InputStream, file: File) {
+    val outputStream = FileOutputStream(file)
+    try {
+        val buffer = ByteArray(1024)
+        var bytesRead: Int
+        while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+            outputStream.write(buffer, 0, bytesRead)
+        }
+    } finally {
+        outputStream.close()
+        inputStream.close()
+    }
+}
