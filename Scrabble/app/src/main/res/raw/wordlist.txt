@@ -6590,7 +6590,6 @@ cavitation 15
 cavite 11
 cayeu 16
 cayuga 18
-ca�on 6
 cd 5
 ce 4
 ceanothe 13
@@ -10310,7 +10309,6 @@ cytosine 19
 cytotoxique 38
 czardas 19
 czimbalum 24
-dB 2
 da 3
 dacron 9
 dactyle 19
@@ -13125,7 +13123,6 @@ dystopie 20
 dystrophie 25
 dysurie 17
 dzeta 15
-eV 1
 eagle 6
 eau 3
 ebahir 11
@@ -18967,8 +18964,6 @@ gyrophare 24
 gyroscope 23
 gyroscopique 33
 gyrus 15
-hPa 5
-hW 4
 ha 5
 habanera 13
 habanero 13
@@ -20066,7 +20061,6 @@ hysteresis 22
 hysterie 20
 hysterique 29
 hysterographie 32
-iPad 4
 iambe 8
 iambique 18
 iatrogene 10
@@ -21968,7 +21962,6 @@ jainisme 16
 jais 11
 jalap 14
 jalapeno 17
-jalape�o 16
 jalon 12
 jalonnage 17
 jalonnement 19
@@ -22282,11 +22275,6 @@ juvenilite 20
 juxtapose 27
 juxtaposer 28
 juxtaposition 31
-kHz 20
-kPa 11
-kV 10
-kW 10
-kWh 14
 kabbale 20
 kabbaliste 23
 kabbalistique 33
@@ -23643,8 +23631,6 @@ lysimaque 26
 lysine 15
 lysosome 18
 lytique 23
-mA 2
-mV 2
 ma 3
 maboul 9
 macabre 12
@@ -27893,8 +27879,6 @@ oz 11
 ozone 14
 ozonisateur 20
 ozoniseur 18
-o� 1
-pH 3
 pacage 11
 pacager 12
 pacane 10
