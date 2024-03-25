@@ -1,0 +1,14 @@
+Index: app/src/main/java/MainActivity.kt
+===================================================================
+diff --git a/app/src/main/java/MainActivity.kt b/app/src/main/java/com/example/scrabble/MainActivity.kt
+rename from app/src/main/java/MainActivity.kt
+rename to app/src/main/java/com/example/scrabble/MainActivity.kt
+--- a/app/src/main/java/MainActivity.kt	
++++ b/app/src/main/java/com/example/scrabble/MainActivity.kt	
+@@ -1,3 +1,6 @@
++package com.example.scrabble
++
++import WordGame
+ import android.os.Bundle
+ import androidx.appcompat.app.AppCompatActivity
+ import androidx.activity.compose.setContent
