@@ -1,5 +1,3 @@
-package com.example.scrabble.ui.theme
-
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

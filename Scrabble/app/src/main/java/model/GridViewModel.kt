@@ -282,6 +282,9 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             if (!row()){
                 return false
             }
+            if(!counterRow()){
+                return false
+            }
         }
         if(isVertical){
             if (!column()){
@@ -297,16 +300,12 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             return false
         }
         val placingOrder = placing.sortedBy { it.second }
-        val numberOfTiles = placingOrder.last().second - placingOrder.first().second + 1
+        val numberOfTiles = (placingOrder.last().second - placingOrder.first().second) + 1
         for (i in 0 until numberOfTiles){
             if (placedTiles[placingOrder.first().first][placingOrder.first().second + i].value == null){
                 return false
             }
-            if(alreadyPlaced.contains(Pair(placingOrder.first().first,placingOrder.first().second + i))){
-                if(!checkSurronding(placingOrder.first().first,placingOrder.first().second + i)){
-                    return false
-                }
-            }
+
 
         }
         return true
@@ -323,14 +322,29 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             if (placedTiles[placingOrder.first().first + i][placingOrder.first().second].value == null){
                 return false
             }
-            if(alreadyPlaced.contains(Pair(placingOrder.first().first + i,placingOrder.first().second))){
-                if(!checkSurronding(placingOrder.first().first + i,placingOrder.first().second)){
-                    return false
-                }
-            }
+
         }
         return true
     }
+
+    private fun counterRow(): Boolean{
+        var counter = 0
+        if (placing.isEmpty()){
+            return false
+        }
+        val placingOrder = placing.sortedBy { it.second }
+        val numberOfTiles = (placingOrder.last().second - placingOrder.first().second) + 1
+        for (i in 0 until numberOfTiles){
+            if (!checkSurronding(placingOrder.first().first,placingOrder.first().second + i)){
+                counter++
+            }
+
+
+        }
+        Log.d("TAG", "counterRow: counter $counter")
+        return counter > 0
+    }
+
     private fun checkSurronding(row:Int, column: Int) : Boolean{
         val neighbors = listOf(
             Pair(row - 1, column),
