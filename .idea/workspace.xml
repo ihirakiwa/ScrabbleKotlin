@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c14b1d80-41c4-47a2-9603-28faa7af8a86" name="Changes" comment="meilleure version">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" afterDir="false" />
     </list>
@@ -43,8 +44,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="valueResourceFile" />
-        <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -55,6 +56,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KotlinCodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -319,7 +323,10 @@
       <workItem from="1711213268494" duration="89000" />
       <workItem from="1711288931585" duration="7523000" />
       <workItem from="1711314175494" duration="6676000" />
-      <workItem from="1711320971678" duration="36000" />
+      <workItem from="1711320971678" duration="325000" />
+      <workItem from="1711357170971" duration="19161000" />
+      <workItem from="1711406905010" duration="586000" />
+      <workItem from="1711476281939" duration="3712000" />
     </task>
     <task id="LOCAL-00001" summary="version rack sans lettre">
       <option name="closed" value="true" />
@@ -545,7 +552,31 @@
       <option name="project" value="LOCAL" />
       <updated>1711301647427</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="meilleure version">
+      <option name="closed" value="true" />
+      <created>1711321292119</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1711321292119</updated>
+    </task>
+    <task id="LOCAL-00030" summary="meilleure version">
+      <option name="closed" value="true" />
+      <created>1711360962156</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1711360962156</updated>
+    </task>
+    <task id="LOCAL-00031" summary="meilleure version">
+      <option name="closed" value="true" />
+      <created>1711377436729</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1711377436729</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -565,6 +596,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="version rack sans lettre" />
     <MESSAGE value="meilleur version" />
-    <option name="LAST_COMMIT_MESSAGE" value="meilleur version" />
+    <MESSAGE value="meilleure version" />
+    <option name="LAST_COMMIT_MESSAGE" value="meilleure version" />
   </component>
 </project>

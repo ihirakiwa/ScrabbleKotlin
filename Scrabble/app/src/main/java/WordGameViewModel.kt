@@ -1,17 +1,7 @@
-import android.content.Context
-import android.os.Environment
-import android.widget.Toast
-import androidx.compose.runtime.Composable
 import com.example.scrabble.Letter
-import com.example.scrabble.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.net.URL
 
 class WordGameViewModel {
     companion object {
@@ -135,38 +125,6 @@ class WordGameViewModel {
 
     private fun getInitialTiles() =
         Letter.values().flatMap { tile -> List(tile.frequency) { tile } }.toMutableList()
-
-
-    fun downloadPDF(context: Context) {
-        try {
-            val inputStream: InputStream = context.resources.openRawResource(R.raw.reglementscrabble)
-
-            val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val outputFile = File(directory, "reglementscrabbleeee.pdf")
-
-            copyInputStreamToFile(inputStream, outputFile)
-
-            Toast.makeText(context, "PDF téléchargé dans Téléchargements", Toast.LENGTH_SHORT).show()
-        } catch (e: Exception) {
-            Toast.makeText(context, "Erreur lors du téléchargement", Toast.LENGTH_SHORT).show()
-            e.printStackTrace()
-        }
-    }
-
-    @Throws(IOException::class)
-    private fun copyInputStreamToFile(inputStream: InputStream, file: File) {
-        val outputStream = FileOutputStream(file)
-        try {
-            val buffer = ByteArray(1024)
-            var bytesRead: Int
-            while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                outputStream.write(buffer, 0, bytesRead)
-            }
-        } finally {
-            outputStream.close()
-            inputStream.close()
-        }
-    }
 
 
 }
