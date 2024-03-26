@@ -164,53 +164,62 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             val newWords = mutableListOf<String>()
             val isHorizontal = placing.all { it.first == placing.first().first }
             val isVertical = placing.all { it.second == placing.first().second }
-            score = 0
-            if (isHorizontal) {
-                newWords.addAll(getNewWordInRow().first)
-                newWords.addAll(getNewWordsInColumn().first)
-                score += getNewWordInRow().second
+            var scoreInte = 0
+            var multi = 1
+            if (isHorizontal && isVertical) {
+                //TODO
+            }else {
+                if (isHorizontal) {
+                    val pairRowScore = getNewWordInRow(-1)
+                    multi = wordMultiplier
+                    Log.d("ligne168", pairRowScore.toString())
+                    scoreInte += pairRowScore.second
+                    newWords.addAll(pairRowScore.first)
+                    val pairColScore = getNewWordsInColumn()
+                    multi *= wordMultiplier
+                    Log.d("ligne169", pairColScore.toString())
+                    newWords.addAll(pairColScore.first)
+                    scoreInte += pairColScore.second
+                }
+                if (isVertical) {
+                    val pairColScore = getNewWordInColumn(-1)
+                    multi = wordMultiplier
+                    Log.d("ligne169", pairColScore.toString())
+                    newWords.addAll(pairColScore.first)
+                    scoreInte += pairColScore.second
+                    val pairRowScore = getNewWordsInRow()
+                    multi *= wordMultiplier
+                    Log.d("ligne168", pairRowScore.toString())
+                    newWords.addAll(pairRowScore.first)
+                    scoreInte += pairRowScore.second
+                }
             }
-            if (isVertical) {
-                newWords.addAll(getNewWordInColumn().first)
-                Log.d("ligne174", newWords.toString())
-                newWords.addAll(getNewWordsInRow())
-                Log.d("ligne176", newWords.toString())
-            }
+            wordMultiplier = multi
+            score = scoreInte
+            Log.d("ligne170", score.toString())
             val test = newWords.filter { it.length > 1 }.distinct()
             Log.d("ligne179", test.toString())
             return test
         }
 
-        private fun getNewWordsInRow(): List<String> {
+        private fun getNewWordsInRow(): Pair<List<String>,Int> {
             val rowWords = mutableListOf<String>()
             if (placing.isEmpty()) {
-                return emptyList()
+                return Pair(emptyList(),0)
             }
+            var scoreInte = 0
             val rowsWithPlacedLetters = placing.map { it.first }.distinct()
+            Log.d("ligne200", rowsWithPlacedLetters.toString())
             for (row in rowsWithPlacedLetters) {
-                val rowWordBuilder = StringBuilder()
-                var wordStarted = false
-                for (column in 0 until GRID.size) {
-                    val tile = placedTiles[row][column].value
-                    if (tile != null) {
-                        if (placedTiles[row][column].value!!.isSubmitted){
-                            score += tile.tile.score
-                        }else{
-                            scoreAdd(row, column, tile.tile)
-                        }
-                        rowWordBuilder.append(if(tile.tile == Letter.BLANK) "_" else tile.tile)
-                        wordStarted = true
-                    } else if (wordStarted) {
-                        rowWords.add(rowWordBuilder.toString())
-                        rowWordBuilder.clear()
-                        wordStarted = false
-                    }
-                }
-                if (wordStarted) {
-                    rowWords.add(rowWordBuilder.toString())
+                val pairRowScore = getNewWordInRow(row)
+                Log.d("ligne201", pairRowScore.toString())
+                if (pairRowScore.first[0].length > 1){
+                    scoreInte += pairRowScore.second
+                    rowWords.addAll(pairRowScore.first)
+                    Log.d("ScoreWords", scoreInte.toString())
                 }
             }
-            return rowWords.filter { it.length > 1 }
+            return Pair(rowWords.filter { it.length > 1 }, scoreInte)
         }
 
         private fun getNewWordsInColumn(): Pair<List<String>,Int> {
@@ -220,20 +229,27 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             }
             var scoreInte = 0
             val columnsWithPlacedLetters = placing.map { it.second }.distinct()
+            Log.d("ligne200", columnsWithPlacedLetters.toString())
             for (column in columnsWithPlacedLetters) {
-                if (getNewWordInColumn().first.size > 1){
-                    scoreInte += getNewWordInColumn().second
-                    columnWords.addAll(getNewWordInColumn().first)
+                val pairColScore = getNewWordInColumn(column)
+                Log.d("Col", pairColScore.toString())
+                if (pairColScore.first[0].length > 1){
+                    scoreInte += pairColScore.second
+                    columnWords.addAll(pairColScore.first)
+                    Log.d("ScoreWords", scoreInte.toString())
                 }
             }
             return Pair(columnWords.filter { it.length > 1 }, scoreInte)
         }
 
-        private fun getNewWordInRow(): Pair<List<String>,Int>{
+        private fun getNewWordInRow(rowInd: Int): Pair<List<String>,Int>{
             if (placing.isEmpty()) {
                 return Pair(emptyList(),0)
             }
-            val row = placing.first().first
+            var row = rowInd
+            if (row < 0){
+                row = placing.first().first
+            }
             val rowTiles = placedTiles[row]
 
             var firstTileIndex = rowTiles.indexOfFirst { (it.value != null) }
@@ -295,11 +311,14 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             }
         }
 
-        private fun getNewWordInColumn(): Pair<List<String>, Int> {
+        private fun getNewWordInColumn(columnInd: Int): Pair<List<String>, Int> {
             if (placing.isEmpty()) {
                 return Pair(emptyList(),0)
             }
-            val column = placing.first().second
+            var column = columnInd
+            if (column < 0){
+                column = placing.first().second
+            }
 
             var firstTileIndex = (0 until GRID.size).indexOfFirst { row -> placedTiles[row][column].value != null }
             if (firstTileIndex == -1) {
@@ -360,7 +379,7 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
         }
 
 
-    private fun scoreAdd(row: Int, column: Int, tile: Letter) {
+    private fun scoreAdd(row: Int, column: Int, tile: Letter){
         val cellType = GRID[row][column]
         when (cellType) {
             CellType.LD -> score += tile.score * 2

@@ -13,7 +13,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/java/model/GridViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scrabble/app/src/main/res/raw/wordlist.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Scrabble/app/src/main/res/raw/wordlist.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -325,7 +324,9 @@
       <workItem from="1711288931585" duration="7523000" />
       <workItem from="1711314175494" duration="6676000" />
       <workItem from="1711320971678" duration="325000" />
-      <workItem from="1711357170971" duration="19031000" />
+      <workItem from="1711357170971" duration="19161000" />
+      <workItem from="1711406905010" duration="586000" />
+      <workItem from="1711476281939" duration="3712000" />
     </task>
     <task id="LOCAL-00001" summary="version rack sans lettre">
       <option name="closed" value="true" />
@@ -567,7 +568,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711360962156</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="meilleure version">
+      <option name="closed" value="true" />
+      <created>1711377436729</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1711377436729</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
