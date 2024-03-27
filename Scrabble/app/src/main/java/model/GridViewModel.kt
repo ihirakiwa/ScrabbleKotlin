@@ -1,7 +1,9 @@
 package model
 
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.example.scrabble.CellType
@@ -18,9 +20,10 @@ data class GridState(
     val isSubmitEnabled: Boolean = false
 )
 
-class GridViewModel(private val wordList: HashMap<String, Int>) {
+class GridViewModel(private val wordList: HashMap<String, Int>, private val context: Context) {
     private val alreadyPlaced = mutableListOf<Pair<Int, Int>>()
     private val placing = mutableListOf<Pair<Int, Int>>()
+    private val jokerList = mutableListOf<Pair<Pair<Int,Int>,Letter>>()
     private val _gridState = MutableStateFlow(GridState())
     private var score = 0
     private var wordMultiplier = 1
@@ -128,6 +131,17 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
                 }
             }
         }
+        val letter = Letter.charToLetter(jokerLetter)
+        placing.forEach { (row, column) ->
+            val currentPlacedTile = placedTiles[row][column].value
+            if (currentPlacedTile != null) {
+                val tile = currentPlacedTile.tile
+                if (tile == Letter.BLANK) {
+                   jokerList.add(Pair(Pair(row,column),letter!!))
+                    Toast.makeText(context, "La valeur du joker est :$letter", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
         return true
     }
 
@@ -148,7 +162,6 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
     fun getScore(): Int {
         score *= wordMultiplier
 
-        // Appliquer le bonus Scrabble si toutes les tuiles ont été utilisées
         if (placing.size == 7) {
             score += 50
         }
@@ -165,7 +178,8 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             val isHorizontal = placing.all { it.first == placing.first().first }
             val isVertical = placing.all { it.second == placing.first().second }
             var scoreInte = 0
-            var multi = 1
+            wordMultiplier = 1
+            var multi = wordMultiplier
             val pairRowScore: Pair<List<String>,Int>
             val pairColScore: Pair<List<String>,Int>
             if (isHorizontal && isVertical) {
@@ -287,7 +301,14 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
 
             val wordToLeft = getWordToLeft(row, column - 1)
             val wordToRight = getWordToRight(row, column + 1)
-            val list = listOf(wordToLeft, if(tile == Letter.BLANK) "_" else tile.toString(), wordToRight).filter { it.isNotEmpty() }
+            val tileString = if (tile == Letter.BLANK) {
+                                val jokerTile = jokerList.find { it.first == Pair(row, column) }
+                                jokerTile?.second?.toString() ?: "_"
+                            } else {
+                                tile.toString()
+                            }
+
+            val list = listOf(wordToLeft, tileString, wordToRight).filter { it.isNotEmpty() }
 
             return Pair(listOf(list.joinToString("")),score)
         }
@@ -302,7 +323,13 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
                 }else{
                     scoreAdd(row, column, tile)
                 }
-                getWordToLeft(row, column - 1) + (if(tile == Letter.BLANK) "_" else tile.toString())
+                val tileString = if (tile == Letter.BLANK) {
+                    val jokerTile = jokerList.find { it.first == Pair(row, column) }
+                    jokerTile?.second?.toString() ?: "_"
+                } else {
+                    tile.toString()
+                }
+                getWordToLeft(row, column - 1) + tileString
             }
         }
 
@@ -317,7 +344,13 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
                 }else{
                     scoreAdd(row, column, tile)
                 }
-                (if(tile == Letter.BLANK) "_" else tile.toString()) + getWordToRight(row, column + 1)
+                val tileString = if (tile == Letter.BLANK) {
+                    val jokerTile = jokerList.find { it.first == Pair(row, column) }
+                    jokerTile?.second?.toString() ?: "_"
+                } else {
+                    tile.toString()
+                }
+                tileString + getWordToRight(row, column + 1)
             }
         }
 
@@ -353,9 +386,15 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             }else{
                 scoreAdd(row, column, tile)
             }
+            val tileString = if (tile == Letter.BLANK) {
+                val jokerTile = jokerList.find { it.first == Pair(row, column) }
+                jokerTile?.second?.toString() ?: "_"
+            } else {
+                tile.toString()
+            }
             val wordAbove = getWordAbove(row - 1, column)
             val wordBelow = getWordBelow(row + 1, column)
-            val list = listOf(wordAbove, if(tile == Letter.BLANK) "_" else tile.toString(), wordBelow).filter { it.isNotEmpty() }
+            val list = listOf(wordAbove, tileString, wordBelow).filter { it.isNotEmpty() }
 
             return Pair(listOf(list.joinToString("")),score)
         }
@@ -370,7 +409,13 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
                 }else{
                     scoreAdd(row, column, tile)
                 }
-                getWordAbove(row - 1, column) + (if(tile == Letter.BLANK) "_" else tile.toString())
+                val tileString = if (tile == Letter.BLANK) {
+                    val jokerTile = jokerList.find { it.first == Pair(row, column) }
+                    jokerTile?.second?.toString() ?: "_"
+                } else {
+                    tile.toString()
+                }
+                getWordAbove(row - 1, column) + tileString
             }
         }
 
@@ -384,7 +429,13 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
                 }else{
                     scoreAdd(row, column, tile)
                 }
-                (if(tile == Letter.BLANK) "_" else tile.toString() )+ getWordBelow(row + 1, column)
+                val tileString = if (tile == Letter.BLANK) {
+                    val jokerTile = jokerList.find { it.first == Pair(row, column) }
+                    jokerTile?.second?.toString() ?: "_"
+                } else {
+                    tile.toString()
+                }
+                tileString + getWordBelow(row + 1, column)
             }
         }
 

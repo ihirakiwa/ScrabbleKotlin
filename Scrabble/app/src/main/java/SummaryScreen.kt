@@ -69,7 +69,7 @@ fun SummaryScreen(playerOneData: PlayerData, playerTwoData: PlayerData, wordGame
                 PlayerSummary(playerTwoData)
                 Spacer(Modifier.size(100.dp))
                 Button(
-                    onClick = {wordGameViewModel.comeBackToMenu() }, //TODO: Add action
+                    onClick = {wordGameViewModel.comeBackToMenu() },
                     modifier = Modifier.size(200.dp, 50.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
                 ) {
@@ -87,7 +87,7 @@ fun PlayerSummary(playerData: PlayerData) {
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.LightGray
+            containerColor = Color.LightGray.copy(alpha = 0.9f),
         )
     ) {
         Column(

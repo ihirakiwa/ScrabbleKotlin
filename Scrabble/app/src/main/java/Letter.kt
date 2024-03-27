@@ -1,6 +1,6 @@
 package com.example.scrabble
 
-enum class Letter(val score: Int, val frequency: Int) {
+enum class Letter(var score: Int, val frequency: Int) {
     A( 1, 9),
     B( 3, 2),
     C( 3, 2),
@@ -29,4 +29,38 @@ enum class Letter(val score: Int, val frequency: Int) {
     Z( 10, 1),
     BLANK(0,2);
 
+    companion object{
+
+        fun charToLetter(char: Char?): Letter? {
+            return when (char?.uppercaseChar()) {
+                'A' -> A
+                'B' -> B
+                'C' -> C
+                'D' -> D
+                'E' -> E
+                'F' -> F
+                'G' -> G
+                'H' -> H
+                'I' -> I
+                'J' -> J
+                'K' -> K
+                'L' -> L
+                'M' -> M
+                'N' -> N
+                'O' -> O
+                'P' -> P
+                'Q' -> Q
+                'R' -> R
+                'S' -> S
+                'T' -> T
+                'U' -> U
+                'V' -> V
+                'W' -> W
+                'X' -> X
+                'Y' -> Y
+                'Z' -> Z
+                else -> null
+            }
+        }
+    }
 }

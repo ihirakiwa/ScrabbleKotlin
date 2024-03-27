@@ -1,5 +1,6 @@
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
@@ -12,14 +13,17 @@ import model.GridViewModel
 
 
 val LocalTileDragContext = compositionLocalOf { DragContext<Letter>() }
+
+
 @Composable
-private fun gridViewModel(wordList:HashMap<String,Int>) = remember { GridViewModel(wordList) }
+private fun gridViewModel(wordList:HashMap<String,Int>, context: Context) = remember { GridViewModel(wordList,context) }
 @Composable
 fun GameScreen(
     wordGameViewModel: WordGameViewModel,
     wordGameState: WordGameState,
     wordList: HashMap<String, Int>,
-    gridViewModel: GridViewModel = gridViewModel(wordList),
+    context: Context,
+    gridViewModel: GridViewModel = gridViewModel(wordList,context),
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     val gridState by gridViewModel.gridState.collectAsState()
