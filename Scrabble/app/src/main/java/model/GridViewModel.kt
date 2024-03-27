@@ -148,7 +148,6 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
     fun getScore(): Int {
         score *= wordMultiplier
 
-        // Appliquer le bonus Scrabble si toutes les tuiles ont été utilisées
         if (placing.size == 7) {
             score += 50
         }
@@ -504,7 +503,6 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
     }
     private fun validateCoordinates(row: Int, column: Int) {
         val rowMax = placedTiles.size - 1
-        // Assume there is at least 1 row
         val columnMax = placedTiles[0].size - 1
         if (row < 0 || row > rowMax || column < 0 || column > columnMax) {
             throw IllegalArgumentException("Tile coordinates must be between [0,0] and [$rowMax,$columnMax$]")

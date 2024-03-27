@@ -16,18 +16,14 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.scrabble.R
 
-
 private val HORIZONTAL_PADDING = 40.dp
 private val SPACER_SIZE = 200.dp
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LandingScreen(onSubmitPlayerNames: (String, String) -> Unit) {
     var playerOneName by remember { mutableStateOf("") }
     var playerTwoName by remember { mutableStateOf("") }
     val context = LocalContext.current
-
-
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(

@@ -21,7 +21,6 @@ import java.io.InputStream
 
 private val HORIZONTAL_PADDING = 40.dp
 private val SPACER_SIZE = 40.dp
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenuScreen(start2v2Game: () -> Unit, context: Context){
@@ -31,7 +30,6 @@ fun MenuScreen(start2v2Game: () -> Unit, context: Context){
                 modifier = Modifier.padding(0.dp, 20.dp, 0.dp, 0.dp),
                 title = { Text(text = "Scrabble", color = Color.White) },
                 colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color(66, 75, 90))
-
             )
         },
         contentColor = Color(66, 75, 90)
@@ -40,18 +38,16 @@ fun MenuScreen(start2v2Game: () -> Unit, context: Context){
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    color = Color(66, 75, 90) // Couleur de fond si l'image n'occupe pas toute la surface
+                    color = Color(66, 75, 90)
                 )
                 .padding(0.dp, 30.dp, 0.dp, 0.dp)
         ) {
-            // Ajouter l'image de fond
             Image(
                 painter = rememberImagePainter(R.drawable.background2),
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxSize()
             )
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
@@ -103,16 +99,12 @@ fun MenuScreen(start2v2Game: () -> Unit, context: Context){
         }
     }
 }
-
 fun downloadPDF(context: Context) {
     try {
         val inputStream: InputStream = context.resources.openRawResource(R.raw.reglementscrabble)
-
         val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         val outputFile = File(directory, "reglementscrabble.pdf")
-
         copyInputStreamToFile(inputStream, outputFile)
-
         Toast.makeText(context, "PDF téléchargé dans Téléchargements", Toast.LENGTH_SHORT).show()
     } catch (e: Exception) {
         Toast.makeText(context, "Erreur lors du téléchargement", Toast.LENGTH_SHORT).show()

@@ -60,7 +60,6 @@ fun GameScreen(
             Spacer(Modifier.size(20.dp))
             ControlsSection(wordGameViewModel,
                 gridViewModel,
-                wordGameState,
                 resign = wordGameViewModel::resign,
                 letter = gridViewModel::letterFromListIndex,
                 getPlacing = gridViewModel::getPlacing,)

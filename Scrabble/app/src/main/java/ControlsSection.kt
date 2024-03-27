@@ -15,7 +15,6 @@ import model.GridViewModel
 @Composable
 fun ControlsSection(wordGameViewModel: WordGameViewModel,
                     gridViewModel: GridViewModel,
-                    wordGameState: WordGameState,
                     resign: () -> Unit,
                     letter: (List<Pair<Int, Int>>) -> List<Letter>,
                     getPlacing: () -> List<Pair<Int, Int>>,

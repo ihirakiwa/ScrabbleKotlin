@@ -22,7 +22,6 @@ fun SummaryScreen(playerOneData: PlayerData, playerTwoData: PlayerData, wordGame
                 modifier = Modifier.padding(0.dp, 20.dp, 0.dp, 0.dp),
                 title = { Text(text = "Fin de partie", color = Color.White) },
                 colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color(66, 75, 90))
-
             )
         },
         contentColor = Color(66, 75, 90)
@@ -31,7 +30,7 @@ fun SummaryScreen(playerOneData: PlayerData, playerTwoData: PlayerData, wordGame
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    color = Color(66, 75, 90) // Couleur de fond si l'image n'occupe pas toute la surface
+                    color = Color(66, 75, 90)
                 )
         ) {
             Image(

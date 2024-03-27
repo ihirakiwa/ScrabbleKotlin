@@ -19,19 +19,19 @@ import com.example.scrabble.CellType.MT
 }
 
 val GRID = arrayOf(
-   arrayOf(MT, BL, BL, LD, BL, BL, BL, MT, BL, BL, BL, LD, BL, BL, MT), ////////
-   arrayOf(BL, MD, BL, BL, BL, LT, BL, BL, BL, LT, BL, BL, BL, MD, BL), ///////
-   arrayOf(BL, BL, MD, BL, BL, BL, LD, BL, LD, BL, BL, BL, MD, BL, BL), //////
-   arrayOf(LD, BL, BL, MD, BL, BL, BL, LD, BL, BL, BL, MD, BL, BL, LD), /////
-   arrayOf(BL, BL, BL, BL, MD, BL, BL, BL, BL, BL, MD, BL, BL, BL, BL), ////
-   arrayOf(BL, LT, BL, BL, BL, LT, BL, BL, BL, LT, BL, BL, BL, LT, BL), ///
-   arrayOf(BL, BL, LD, BL, BL, BL, LD, BL, LD, BL, BL, BL, LD, BL, BL), //
+   arrayOf(MT, BL, BL, LD, BL, BL, BL, MT, BL, BL, BL, LD, BL, BL, MT),
+   arrayOf(BL, MD, BL, BL, BL, LT, BL, BL, BL, LT, BL, BL, BL, MD, BL),
+   arrayOf(BL, BL, MD, BL, BL, BL, LD, BL, LD, BL, BL, BL, MD, BL, BL),
+   arrayOf(LD, BL, BL, MD, BL, BL, BL, LD, BL, BL, BL, MD, BL, BL, LD),
+   arrayOf(BL, BL, BL, BL, MD, BL, BL, BL, BL, BL, MD, BL, BL, BL, BL),
+   arrayOf(BL, LT, BL, BL, BL, LT, BL, BL, BL, LT, BL, BL, BL, LT, BL),
+   arrayOf(BL, BL, LD, BL, BL, BL, LD, BL, LD, BL, BL, BL, LD, BL, BL),
    arrayOf(MT, BL, BL, LD, BL, BL, BL, ST, BL, BL, BL, LD, BL, BL, MT),
-   arrayOf(BL, BL, LD, BL, BL, BL, LD, BL, LD, BL, BL, BL, LD, BL, BL), //
-   arrayOf(BL, LT, BL, BL, BL, LT, BL, BL, BL, LT, BL, BL, BL, LT, BL), ///
-   arrayOf(BL, BL, BL, BL, MD, BL, BL, BL, BL, BL, MD, BL, BL, BL, BL), ////
-   arrayOf(LD, BL, BL, MD, BL, BL, BL, LD, BL, BL, BL, MD, BL, BL, LD), /////
-   arrayOf(BL, BL, MD, BL, BL, BL, LD, BL, LD, BL, BL, BL, MD, BL, BL), //////
-   arrayOf(BL, MD, BL, BL, BL, LT, BL, BL, BL, LT, BL, BL, BL, MD, BL), ///////
-   arrayOf(MT, BL, BL, LD, BL, BL, BL, MT, BL, BL, BL, LD, BL, BL, MT), ////////
+   arrayOf(BL, BL, LD, BL, BL, BL, LD, BL, LD, BL, BL, BL, LD, BL, BL),
+   arrayOf(BL, LT, BL, BL, BL, LT, BL, BL, BL, LT, BL, BL, BL, LT, BL),
+   arrayOf(BL, BL, BL, BL, MD, BL, BL, BL, BL, BL, MD, BL, BL, BL, BL),
+   arrayOf(LD, BL, BL, MD, BL, BL, BL, LD, BL, BL, BL, MD, BL, BL, LD),
+   arrayOf(BL, BL, MD, BL, BL, BL, LD, BL, LD, BL, BL, BL, MD, BL, BL),
+   arrayOf(BL, MD, BL, BL, BL, LT, BL, BL, BL, LT, BL, BL, BL, MD, BL),
+   arrayOf(MT, BL, BL, LD, BL, BL, BL, MT, BL, BL, BL, LD, BL, BL, MT),
 )

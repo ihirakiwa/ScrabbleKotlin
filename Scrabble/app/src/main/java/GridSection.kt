@@ -21,7 +21,6 @@ import com.example.scrabble.GRID
 import com.example.scrabble.Letter
 import model.PlacedTile
 
-
 private val TILE_SPACING = 2.dp
 
     @Composable
@@ -33,8 +32,6 @@ private val TILE_SPACING = 2.dp
     ) {
         BoxWithConstraints(modifier) {
             val cellSize = (maxWidth - (TILE_SPACING * (GRID.size - 1))) / GRID.size
-
-            // Assuming we are in portrait mode, the board is a square that is width * width in size
             Box(Modifier.size(maxWidth)) {
                 Column(
                     modifier = Modifier.fillMaxHeight(),
@@ -62,8 +59,6 @@ private val TILE_SPACING = 2.dp
             }
         }
     }
-
-
     @Composable
     private fun GridCell(
         row: Int,
@@ -93,7 +88,6 @@ private val TILE_SPACING = 2.dp
     private val HOVERED_BORDER_WIDTH = 2.dp
     private val EMPTY_CELL_FONT_SIZE = 8.sp
     private val TILE_ROUNDING = 4.dp
-
     @Composable
     private fun EmptyCell(
         cellType: CellType,
@@ -127,11 +121,9 @@ private val TILE_SPACING = 2.dp
             }
         }
     }
-
     private val TILE_LETTER_FONT_SIZE = 10.sp
     private val TILE_POINTS_FONT_SIZE = 6.sp
     private val TILE_POINTS_PADDING = 2.dp
-
     @Composable
     private fun TileCell(tile: Letter, cellSize: Dp, modifier: Modifier = Modifier) {
         Box(
