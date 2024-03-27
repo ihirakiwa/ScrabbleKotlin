@@ -69,7 +69,7 @@ fun PlayerTilesSection(
             }
         }
 
-        Column(modifier = modifier.padding(top = 30.dp)) {
+        Column(modifier = modifier.padding(top = 10.dp)) {
             TileVisibilitySwitch(
                 visibility = tileVisibility,
                 onVisibilityChanged = onTileVisibilityChanged

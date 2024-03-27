@@ -2,11 +2,7 @@
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -38,7 +34,7 @@ fun GameScreen(
                 playerTwoData = wordGameState.playerTwoData,
                 currentTurnPlayer = wordGameState.currentTurnPlayer
             )
-            Spacer(Modifier.size(50.dp))
+            Spacer(Modifier.size(40.dp))
             GridSection(
                 onGetTile = remember { gridViewModel::getTile },
                 onSetTile = remember { gridViewModel::setTile },
@@ -62,6 +58,7 @@ fun GameScreen(
                 getScore = gridViewModel::getScore
             )
             Spacer(Modifier.size(20.dp))
+            ControlsSection()
         }
     }
 }

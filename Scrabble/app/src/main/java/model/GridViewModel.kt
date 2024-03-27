@@ -166,32 +166,42 @@ class GridViewModel(private val wordList: HashMap<String, Int>) {
             val isVertical = placing.all { it.second == placing.first().second }
             var scoreInte = 0
             var multi = 1
+            val pairRowScore: Pair<List<String>,Int>
+            val pairColScore: Pair<List<String>,Int>
             if (isHorizontal && isVertical) {
-                //TODO
-            }else {
-                if (isHorizontal) {
-                    val pairRowScore = getNewWordInRow(-1)
-                    multi = wordMultiplier
-                    Log.d("ligne168", pairRowScore.toString())
-                    scoreInte += pairRowScore.second
-                    newWords.addAll(pairRowScore.first)
-                    val pairColScore = getNewWordsInColumn()
-                    multi *= wordMultiplier
-                    Log.d("ligne169", pairColScore.toString())
-                    newWords.addAll(pairColScore.first)
+                pairRowScore = getNewWordInRow(-1)
+                multi = wordMultiplier
+                scoreInte += pairRowScore.second
+                newWords.addAll(pairRowScore.first)
+                pairColScore = getNewWordInColumn(-1)
+                newWords.addAll(pairColScore.first)
+                if (newWords.filter { it.length > 1 }.distinct().size > 1){
                     scoreInte += pairColScore.second
                 }
+            }else {
+                if (isHorizontal) {
+                    pairRowScore  = getNewWordInRow(-1)
+                    multi = wordMultiplier
+                    Log.d("ligne168", pairRowScore.toString())
+                    scoreInte += pairRowScore.second
+                    newWords.addAll(pairRowScore.first)
+                    val pairColScores = getNewWordsInColumn()
+                    multi *= wordMultiplier
+                    Log.d("ligne169", pairColScores.toString())
+                    newWords.addAll(pairColScores.first)
+                    scoreInte += pairColScores.second
+                }
                 if (isVertical) {
-                    val pairColScore = getNewWordInColumn(-1)
+                    pairColScore = getNewWordInColumn(-1)
                     multi = wordMultiplier
                     Log.d("ligne169", pairColScore.toString())
                     newWords.addAll(pairColScore.first)
                     scoreInte += pairColScore.second
-                    val pairRowScore = getNewWordsInRow()
+                    val pairRowScores = getNewWordsInRow()
                     multi *= wordMultiplier
-                    Log.d("ligne168", pairRowScore.toString())
-                    newWords.addAll(pairRowScore.first)
-                    scoreInte += pairRowScore.second
+                    Log.d("ligne168", pairRowScores.toString())
+                    newWords.addAll(pairRowScores.first)
+                    scoreInte += pairRowScores.second
                 }
             }
             wordMultiplier = multi
