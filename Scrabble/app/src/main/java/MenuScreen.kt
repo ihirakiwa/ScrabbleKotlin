@@ -59,7 +59,6 @@ fun MenuScreen(start2v2Game: () -> Unit, context: Context){
                     .padding(PaddingValues(horizontal = HORIZONTAL_PADDING))
                     .fillMaxWidth()
             ) {
-                Text(text = "Bienvenue au Scrabble", color = Color.White, fontSize = 24.sp)
                 Spacer(Modifier.size(10.dp))
                 Text(text = "Veuillez choisir un mode de jeu :", color = Color.White, fontSize = 18.sp)
                 Spacer(Modifier.size(SPACER_SIZE))

@@ -47,6 +47,18 @@ class WordGameViewModel {
         }
     }
 
+    fun setScoreBis(score: Int) {
+        _uiState.update {
+            if (it.playerOneData.name == getCurrentTurnPlayer()) {
+                it.copy(playerOneData = it.playerOneData.copy(score = score ))
+            } else {
+                it.copy(playerTwoData = it.playerTwoData.copy(score =  score))
+            }
+        }
+    }
+
+
+
     fun nextTurn(list: List<Letter>) {
         val player1 = uiState.value.playerOneData
         val player2 = uiState.value.playerTwoData
@@ -126,5 +138,17 @@ class WordGameViewModel {
     private fun getInitialTiles() =
         Letter.values().flatMap { tile -> List(tile.frequency) { tile } }.toMutableList()
 
+    fun resign() {
+        if(_uiState.value.currentTurnPlayer == _uiState.value.playerOneData.name){
+            setScoreBis( -1 )
 
+        } else {
+            setScoreBis( -1)
+        }
+        _uiState.update { it.copy(gameStatus = GameStatus.FINISHED) }
+    }
+
+    fun comeBackToMenu(){
+        _uiState.update { it.copy(gameStatus = GameStatus.MENU) }
+    }
 }

@@ -1,6 +1,5 @@
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -16,7 +15,7 @@ import com.example.scrabble.R
 private val HORIZONTAL_PADDING = 40.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SummaryScreen(playerOneData: PlayerData, playerTwoData: PlayerData) {
+fun SummaryScreen(playerOneData: PlayerData, playerTwoData: PlayerData, wordGameViewModel : WordGameViewModel) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -70,7 +69,7 @@ fun SummaryScreen(playerOneData: PlayerData, playerTwoData: PlayerData) {
                 PlayerSummary(playerTwoData)
                 Spacer(Modifier.size(100.dp))
                 Button(
-                    onClick = {}, //TODO: Add action
+                    onClick = {wordGameViewModel.comeBackToMenu() }, //TODO: Add action
                     modifier = Modifier.size(200.dp, 50.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
                 ) {

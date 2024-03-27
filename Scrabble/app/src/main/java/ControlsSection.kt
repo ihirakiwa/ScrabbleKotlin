@@ -3,36 +3,52 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import com.example.scrabble.Letter
+import model.GridViewModel
 
 @Composable
-fun ControlsSection(modifier: Modifier = Modifier) {
+fun ControlsSection(wordGameViewModel: WordGameViewModel,
+                    gridViewModel: GridViewModel,
+                    wordGameState: WordGameState,
+                    resign: () -> Unit,
+                    modifier: Modifier = Modifier) {
+    val dragContext = LocalTileDragContext.current
     Column(modifier = modifier) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(BUTTON_SPACING),
             modifier = modifier.fillMaxWidth()
         ) {
             OutlinedButton(
-                onClick = {/*TODO*/},
-                modifier = Modifier.weight(1f)
+
+                onClick = {resign() },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(98, 138, 169)),
+                modifier = Modifier.weight(1.2f)
             ) {
-                Text("Resign")
+                    Text("Céder")
+            }
+            OutlinedButton(
+                onClick = {
+                    dragContext.resetDragTargets()
+                    wordGameViewModel.nextTurn(gridViewModel.letterFromListIndex(gridViewModel.getPlacing())) },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(98, 138, 169)),
+                modifier = Modifier.weight(1.2f)
+            ) {
+                Text("Passer")
             }
             OutlinedButton(
                 onClick = {/*TODO*/},
-                modifier = Modifier.weight(1f)
+                colors = ButtonDefaults.buttonColors(containerColor = Color(98, 138, 169)),
+                modifier = Modifier.weight(1.2f)
             ) {
-                Text("Skip")
-            }
-            OutlinedButton(
-                onClick = {/*TODO*/},
-                modifier = Modifier.weight(1f)
-            ) {
-                Text("Swap")
+                Text("Changer")
             }
         }
     }
 }
+
