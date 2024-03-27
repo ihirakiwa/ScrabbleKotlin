@@ -58,7 +58,12 @@ fun GameScreen(
                 getScore = gridViewModel::getScore
             )
             Spacer(Modifier.size(20.dp))
-            ControlsSection(wordGameViewModel,gridViewModel,wordGameState,resign = wordGameViewModel::resign)
+            ControlsSection(wordGameViewModel,
+                gridViewModel,
+                wordGameState,
+                resign = wordGameViewModel::resign,
+                letter = gridViewModel::letterFromListIndex,
+                getPlacing = gridViewModel::getPlacing,)
         }
     }
 }
