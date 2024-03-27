@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 private val SCORE_BOARD_HEIGHT = 60.dp
-
 @Composable
 fun PlayerScoresSection(
     playerOneData: PlayerData,
@@ -43,7 +42,6 @@ fun PlayerScoresSection(
         )
     }
 }
-
 private val SCORE_PADDING = 2.dp
 private val SCORE_FONT_SIZE = 17.sp
 private val PLAYER_FONT_SIZE = 15.sp

@@ -15,8 +15,9 @@ import model.GridViewModel
 @Composable
 fun ControlsSection(wordGameViewModel: WordGameViewModel,
                     gridViewModel: GridViewModel,
-                    wordGameState: WordGameState,
                     resign: () -> Unit,
+                    letter: (List<Pair<Int, Int>>) -> List<Letter>,
+                    getPlacing: () -> List<Pair<Int, Int>>,
                     modifier: Modifier = Modifier) {
     val dragContext = LocalTileDragContext.current
     Column(modifier = modifier) {
@@ -42,7 +43,7 @@ fun ControlsSection(wordGameViewModel: WordGameViewModel,
                 Text("Passer")
             }
             OutlinedButton(
-                onClick = {/*TODO*/},
+                onClick = {wordGameViewModel.swapTiles(letter(getPlacing()))},
                 colors = ButtonDefaults.buttonColors(containerColor = Color(98, 138, 169)),
                 modifier = Modifier.weight(1.2f)
             ) {

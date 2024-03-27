@@ -11,10 +11,8 @@ import com.example.scrabble.R
 fun WordGame(viewModel: WordGameViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
-
     fun createWordListFromFile(context: Context): HashMap<String, Int> {
         val wordList = HashMap<String, Int>()
-
         val inputStream = context.resources.openRawResource(R.raw.wordlist)
         inputStream.reader().useLines { lines ->
             lines.forEach { line ->
@@ -23,7 +21,6 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
                 wordList[word.trim()] = count
             }
         }
-
         return wordList
     }
     val wordList = createWordListFromFile(context)
@@ -43,11 +40,9 @@ fun WordGame(viewModel: WordGameViewModel = viewModel()) {
                 }
             )
         }
-
         GameStatus.STARTED -> {
             GameScreen(viewModel, uiState, wordList,context)
         }
-
         GameStatus.FINISHED -> {
             SummaryScreen(
                 playerOneData = uiState.playerOneData,
