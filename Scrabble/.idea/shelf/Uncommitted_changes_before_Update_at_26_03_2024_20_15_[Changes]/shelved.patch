@@ -1,0 +1,135 @@
+Index: app/src/main/java/model/GridViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model\n\nimport android.util.Log\nimport androidx.compose.runtime.MutableState\nimport androidx.compose.runtime.mutableStateOf\nimport com.example.scrabble.GRID\nimport com.example.scrabble.Letter\nimport kotlinx.coroutines.flow.MutableStateFlow\nimport kotlinx.coroutines.flow.asStateFlow\nimport kotlinx.coroutines.flow.update\n\ndata class PlacedTile(val tile: Letter, val isSubmitted: Boolean)\n\ndata class GridState(\n    val placedTileCount: Int = 0,\n    val isSubmitEnabled: Boolean = false\n)\n\nclass GridViewModel(private val wordList: HashMap<String, Int>) {\n    private val alreadyPlaced = mutableListOf<Pair<Int, Int>>()\n    private val placing = mutableListOf<Pair<Int, Int>>()\n    private val _gridState = MutableStateFlow(GridState())\n    val gridState = _gridState.asStateFlow()\n\n    private val placedTiles = List<List<MutableState<PlacedTile?>>>(GRID.size) {\n        MutableList(GRID.size) {\n            mutableStateOf(null)\n        }\n    }\n\n    fun getTile(row: Int, column: Int) = placedTiles[row][column].value\n\n    fun getPlacing() = placing\n\n    fun setPlacingEmpty() {\n        placing.clear()\n    }\n\n    fun setAlreadyPlaced(list: List<Pair<Int, Int>>) {\n        alreadyPlaced.addAll(list)\n    }\n\n    fun setTile(tile: Letter, row: Int, column: Int) {\n        validateCoordinates(row, column)\n\n        if (placedTiles[row][column].value?.isSubmitted != true) {\n            placedTiles[row][column].value = PlacedTile(tile, false)\n            placing.add(Pair(row, column))\n\n            val newWords = getNewWords()\n\n            _gridState.update { it.copy(placedTileCount = it.placedTileCount + 1) }\n\n            val isValidConfiguration = validateConfiguration()\n\n            _gridState.update {\n                it.copy(\n                    isSubmitEnabled = newWords.isNotEmpty() && isValidConfiguration\n                )\n            }\n        }\n    }\n\n    fun removeTile(row: Int, column: Int) {\n        validateCoordinates(row, column)\n\n        if (placedTiles[row][column].value?.isSubmitted != true) {\n            placedTiles[row][column].value = null\n            placing.remove(Pair(row, column))\n            val newWords = getNewWords()\n\n            _gridState.update { it.copy(placedTileCount = it.placedTileCount - 1)}\n\n            val isValidConfiguration = validateConfiguration()\n\n            _gridState.update {\n                it.copy(\n                    isSubmitEnabled = newWords.isNotEmpty() && isValidConfiguration\n                )\n            }\n        }\n    }\n\n    fun letterFromListIndex(list: List<Pair<Int, Int>>): List<Letter> {\n        val letters = mutableListOf<Letter>()\n        for (pair in list) {\n            letters.add(placedTiles[pair.first][pair.second].value!!.tile)\n        }\n        return letters\n    }\n\n    fun submitWord(): Boolean {\n        val newWords = getNewWords()\n\n        if (newWords.isEmpty()) {\n            return false\n        }\n        for (word in newWords) {\n            if(!wordList.contains(word.lowercase())){\n                return false\n            }\n        }\n        return true\n    }\n\n    fun setTileSubmitted(list: List<Pair<Int, Int>>) {\n        list.forEach { (row, column) ->\n            val currentPlacedTile = placedTiles[row][column].value\n            if (currentPlacedTile != null) {\n                val newPlacedTile = currentPlacedTile.copy(isSubmitted = true)\n                placedTiles[row][column].value = newPlacedTile\n            }\n        }\n    }\n\n    fun setSubmitEnabled(isEnabled: Boolean) {\n        _gridState.update { it.copy(isSubmitEnabled = isEnabled) }\n    }\n\n    fun getScore(): Int {\n        /*var score = 0\n        var wordMultiplier = 1\n\n        // Parcourir les nouveaux mots formés\n        val newWords = getNewWords()\n        for (word in newWords) {\n            if (word.length > 1) { // Ne pas compter les mots d'une seule lettre\n                var wordScore = 0\n                var wordMultiplierTemp = 1 // Multiplicateur de mot temporaire pour chaque mot\n\n                for ((row, column) in placing) {\n                    val placedTile = placedTiles[row][column].value\n                    Log.d(\"placedTile\", placedTile.toString())\n                    if (placedTile != null && word.contains(placedTile.tile.toString(), ignoreCase = true)) {\n                        val tileScore = placedTile.tile.score\n                        Log.d(\"tileScore\", tileScore.toString())\n\n                        // Vérifier s'il y a une case multiplicatrice pour la lettre\n                        val cellType = GRID[row][column]\n                        Log.d(\"cellType\", cellType.toString())\n                        when (cellType) {\n                            CellType.LD -> wordScore += tileScore * 2 // Lettre double\n                            CellType.LT -> wordScore += tileScore * 3 // Lettre triple\n                            CellType.MD -> {wordMultiplierTemp *= 2\n                                wordScore += tileScore}// Mot double\n                            CellType.MT -> {wordMultiplierTemp *= 3\n                                wordScore += tileScore}// Mot triple\n                            CellType.BL, CellType.ST -> wordScore += tileScore // Aucun multiplicateur\n                        }\n                    }\n                }\n\n                // Appliquer le score et le multiplicateur du mot\n                score += wordScore\n                Log.d(\"Score\", score.toString())\n                wordMultiplier *= wordMultiplierTemp\n                Log.d(\"WordMultiplier\", wordMultiplier.toString())\n            }\n        }\n\n        // Appliquer le multiplicateur de mot global\n        score *= wordMultiplier\n\n        // Appliquer le bonus Scrabble si toutes les tuiles ont été utilisées\n        if (placing.size == 7) {\n            score += 50\n        }\n\n        */\n        val score = 5\n        return score\n    }\n\n    //TOOLS\n\n\n        private fun getNewWords() : List<String> {\n            val newWords = mutableListOf<String>()\n            val isHorizontal = placing.all { it.first == placing.first().first }\n            val isVertical = placing.all { it.second == placing.first().second }\n            if (isHorizontal) {\n                Log.d(\"test\", \"horizontal\")\n                newWords.addAll(getNewWordInRow())\n                Log.d(\"ligne183\", newWords.toString())\n                newWords.addAll(getNewWordsInColumn())\n                Log.d(\"ligne185\", newWords.toString())\n            }\n            if (isVertical) {\n                Log.d(\"test\", \"vertical\")\n                newWords.addAll(getNewWordInColumn())\n                Log.d(\"ligne190\", newWords.toString())\n                newWords.addAll(getNewWordsInRow())\n                Log.d(\"ligne192\", newWords.toString())\n            }\n            val test = newWords.filter { it.length > 1 }.distinct()\n            Log.d(\"newWords\", test.toString())\n            return test\n        }\n\n        private fun getNewWordsInRow(): List<String> {\n            val rowWords = mutableListOf<String>()\n            if (placing.isEmpty()) {\n                return emptyList()\n            }\n            val rowsWithPlacedLetters = placing.map { it.first }.distinct()\n            for (row in rowsWithPlacedLetters) {\n                val rowWordBuilder = StringBuilder()\n                var wordStarted = false\n                for (column in 0 until GRID.size) {\n                    val tile = placedTiles[row][column].value\n                    if (tile != null) {\n                        rowWordBuilder.append(tile.tile)\n                        wordStarted = true\n                    } else if (wordStarted) {\n                        rowWords.add(rowWordBuilder.toString())\n                        rowWordBuilder.clear()\n                        wordStarted = false\n                    }\n                }\n                if (wordStarted) {\n                    rowWords.add(rowWordBuilder.toString())\n                }\n            }\n\n            return rowWords\n        }\n\n        private fun getNewWordsInColumn(): List<String> {\n            val columnWords = mutableListOf<String>()\n            if (placing.isEmpty()) {\n                return emptyList()\n            }\n            val columnsWithPlacedLetters = placing.map { it.second }.distinct()\n            for (column in columnsWithPlacedLetters) {\n                val columnWordBuilder = StringBuilder()\n                var wordStarted = false\n                for (row in 0 until GRID.size) {\n                    val tile = placedTiles[row][column].value\n                    if (tile != null) {\n                        columnWordBuilder.append(tile.tile)\n                        wordStarted = true\n                    } else if (wordStarted) {\n                        columnWords.add(columnWordBuilder.toString())\n                        columnWordBuilder.clear()\n                        wordStarted = false\n                    }\n                }\n                if (wordStarted) {\n                    columnWords.add(columnWordBuilder.toString())\n                }\n            }\n            return columnWords\n        }\n\n        private fun getNewWordInRow(): List<String> {\n            if (placing.isEmpty()) {\n                return emptyList()\n            }\n            val row = placing.first().first\n            val rowTiles = placedTiles[row]\n\n            var firstTileIndex = rowTiles.indexOfFirst { (it.value != null) }\n            if (firstTileIndex == -1) {\n                return emptyList()\n            }\n            while (!placing.contains(Pair(row, firstTileIndex))) {\n                firstTileIndex += 1\n                if (firstTileIndex >= GRID.size) {\n                    return emptyList()\n                }\n            }\n            return getWordAtPositionRow(row, firstTileIndex)\n        }\n\n        private fun getWordAtPositionRow(row: Int, column: Int): List<String> {\n            val tile = placedTiles[row][column].value?.tile ?: return emptyList()\n\n            val wordToLeft = getWordToLeft(row, column - 1)\n            val wordToRight = getWordToRight(row, column + 1)\n            val list = listOf(wordToLeft, tile.toString(), wordToRight).filter { it.isNotEmpty() }\n\n            return listOf(list.joinToString(\"\"))\n        }\n\n        private fun getWordToLeft(row: Int, column: Int): String {\n            return if (column < 0 || placedTiles[row][column].value == null) {\n                \"\"\n            } else {\n                val tile = placedTiles[row][column].value!!.tile\n                getWordToLeft(row, column - 1) + tile.toString()\n            }\n        }\n\n        private fun getWordToRight(row: Int, column: Int): String {\n            val rowTiles = placedTiles[row]\n            return if (column >= GRID.size || rowTiles[column].value == null) {\n                \"\"\n            } else {\n                val tile = rowTiles[column].value!!.tile\n                tile.toString() + getWordToRight(row, column + 1)\n            }\n        }\n\n        private fun getNewWordInColumn(): List<String> {\n            if (placing.isEmpty()) {\n                return emptyList()\n            }\n            val column = placing.first().second\n\n            var firstTileIndex = (0 until GRID.size).indexOfFirst { row -> placedTiles[row][column].value != null }\n            if (firstTileIndex == -1) {\n                return emptyList()\n            }\n            while (!placing.contains(Pair(firstTileIndex, column))) {\n                firstTileIndex += 1\n                if (firstTileIndex >= GRID.size) {\n                    return emptyList()\n                }\n            }\n\n            return getWordAtPositionCol(firstTileIndex, column)\n        }\n\n        private fun getWordAtPositionCol(row: Int, column: Int): List<String> {\n            val tile = placedTiles[row][column].value?.tile ?: return emptyList()\n\n            val wordAbove = getWordAbove(row - 1, column)\n            val wordBelow = getWordBelow(row + 1, column)\n            val list = listOf(wordAbove, tile.toString(), wordBelow).filter { it.isNotEmpty() }\n\n            return listOf(list.joinToString(\"\"))\n        }\n\n        private fun getWordAbove(row: Int, column: Int): String {\n            return if (row < 0 || placedTiles[row][column].value == null) {\n                \"\"\n            } else {\n                val tile = placedTiles[row][column].value!!.tile\n                getWordAbove(row - 1, column) + tile.toString()\n            }\n        }\n\n        private fun getWordBelow(row: Int, column: Int): String {\n            return if (row >= GRID.size || placedTiles[row][column].value == null) {\n                \"\"\n            } else {\n                val tile = placedTiles[row][column].value!!.tile\n                tile.toString() + getWordBelow(row + 1, column)\n            }\n        }\n\n\n\n\n    private fun validateConfiguration(): Boolean {\n        if ((placedTiles[7][7].value == null) || _gridState.value.placedTileCount < 2) {\n            return false\n        }\n        if(placing.size == 1){\n            if(!checkSurrounding(placing.first().first,placing.first().second)){\n                return false\n            }\n        }\n        val isHorizontal = placing.all { it.first == placing.first().first }\n        val isVertical = placing.all { it.second == placing.first().second }\n        if (!isHorizontal && !isVertical) {\n            return false\n        }\n        if (placing.isEmpty()){\n            return false\n        }\n        if(isHorizontal){\n            if (!row()){\n                return false\n            }\n        }\n        if(isVertical){\n            if (!column()){\n                return false\n            }\n        }\n        if (alreadyPlaced.isNotEmpty()) {\n            if (!checkPlacing()){\n                return false\n            }\n        }\n        return true\n    }\n\n\n    private fun row() : Boolean{\n        val placingOrder = placing.sortedBy { it.second }\n        val numberOfTiles = placingOrder.last().second - placingOrder.first().second + 1\n        for (i in 0 until numberOfTiles){\n            if (placedTiles[placingOrder.first().first][placingOrder.first().second + i].value == null){\n                return false\n            }\n            if(alreadyPlaced.contains(Pair(placingOrder.first().first,placingOrder.first().second + i))){\n                if(!checkSurrounding(placingOrder.first().first,placingOrder.first().second + i)){\n                    return false\n                }\n            }\n\n        }\n        return true\n    }\n\n\n    private fun column() : Boolean{\n        val placingOrder = placing.sortedBy { it.first }\n        val numberOfTiles = placingOrder.last().first - placingOrder.first().first + 1\n        for (i in 0 until numberOfTiles){\n            if (placedTiles[placingOrder.first().first + i][placingOrder.first().second].value == null){\n                return false\n            }\n            if(alreadyPlaced.contains(Pair(placingOrder.first().first + i,placingOrder.first().second))){\n                if(!checkSurrounding(placingOrder.first().first + i,placingOrder.first().second)){\n                    return false\n                }\n            }\n        }\n        return true\n    }\n    private fun checkSurrounding(row:Int, column: Int) : Boolean{\n        val neighbors = listOf(\n            Pair(row - 1, column),\n            Pair(row + 1, column),\n            Pair(row, column - 1),\n            Pair(row, column + 1)\n        )\n        for ((neighborRow, neighborColumn) in neighbors) {\n            if (alreadyPlaced.contains(Pair(neighborRow, neighborColumn))) {\n                return true\n            }\n        }\n\n        return false\n    }\n    fun checkPlacing() : Boolean{\n        var hasTrue = false\n\n        for ((row, column) in placing) {\n            if (checkSurrounding(row, column)) {\n                hasTrue = true\n                break\n            }\n        }\n\n        return hasTrue\n    }\n    private fun validateCoordinates(row: Int, column: Int) {\n        val rowMax = placedTiles.size - 1\n        // Assume there is at least 1 row\n        val columnMax = placedTiles[0].size - 1\n        if (row < 0 || row > rowMax || column < 0 || column > columnMax) {\n            throw IllegalArgumentException(\"Tile coordinates must be between [0,0] and [$rowMax,$columnMax$]\")\n        }\n    }\n\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/model/GridViewModel.kt b/app/src/main/java/model/GridViewModel.kt
+--- a/app/src/main/java/model/GridViewModel.kt	(revision 72aebf1d2d6e91056bbe1c76651f10f4b916c3ef)
++++ b/app/src/main/java/model/GridViewModel.kt	(date 1711367128633)
+@@ -95,9 +95,31 @@
+         if (newWords.isEmpty()) {
+             return false
+         }
++        var jokerLetter: Char? = null
+         for (word in newWords) {
+-            if(!wordList.contains(word.lowercase())){
+-                return false
++            val jokerIndex = word.indexOf('_')
++            if (jokerIndex == -1) {
++                if (!wordList.contains(word.lowercase())) {
++                    return false
++                }
++            } else {
++                if (jokerLetter == null) {
++                    for (char in 'A'..'Z') {
++                        val replacedWord = word.substring(0, jokerIndex) + char + word.substring(jokerIndex + 1)
++                        if (wordList.contains(replacedWord.lowercase())) {
++                            jokerLetter = char
++                            break
++                        }
++                    }
++                    if (jokerLetter == null) {
++                        return false
++                    }
++                } else {
++                    val replacedWord = word.substring(0, jokerIndex) + jokerLetter + word.substring(jokerIndex + 1)
++                    if (!wordList.contains(replacedWord.lowercase())) {
++                        return false
++                    }
++                }
+             }
+         }
+         return true
+@@ -179,18 +201,12 @@
+             val isHorizontal = placing.all { it.first == placing.first().first }
+             val isVertical = placing.all { it.second == placing.first().second }
+             if (isHorizontal) {
+-                Log.d("test", "horizontal")
+                 newWords.addAll(getNewWordInRow())
+-                Log.d("ligne183", newWords.toString())
+                 newWords.addAll(getNewWordsInColumn())
+-                Log.d("ligne185", newWords.toString())
+             }
+             if (isVertical) {
+-                Log.d("test", "vertical")
+                 newWords.addAll(getNewWordInColumn())
+-                Log.d("ligne190", newWords.toString())
+                 newWords.addAll(getNewWordsInRow())
+-                Log.d("ligne192", newWords.toString())
+             }
+             val test = newWords.filter { it.length > 1 }.distinct()
+             Log.d("newWords", test.toString())
+@@ -209,7 +225,7 @@
+                 for (column in 0 until GRID.size) {
+                     val tile = placedTiles[row][column].value
+                     if (tile != null) {
+-                        rowWordBuilder.append(tile.tile)
++                        rowWordBuilder.append(if(tile.tile == Letter.BLANK) "_" else tile.tile)
+                         wordStarted = true
+                     } else if (wordStarted) {
+                         rowWords.add(rowWordBuilder.toString())
+@@ -237,7 +253,7 @@
+                 for (row in 0 until GRID.size) {
+                     val tile = placedTiles[row][column].value
+                     if (tile != null) {
+-                        columnWordBuilder.append(tile.tile)
++                        columnWordBuilder.append(if(tile.tile == Letter.BLANK) "_" else tile.tile)
+                         wordStarted = true
+                     } else if (wordStarted) {
+                         columnWords.add(columnWordBuilder.toString())
+@@ -277,7 +293,7 @@
+ 
+             val wordToLeft = getWordToLeft(row, column - 1)
+             val wordToRight = getWordToRight(row, column + 1)
+-            val list = listOf(wordToLeft, tile.toString(), wordToRight).filter { it.isNotEmpty() }
++            val list = listOf(wordToLeft, if(tile == Letter.BLANK) "_" else tile.toString(), wordToRight).filter { it.isNotEmpty() }
+ 
+             return listOf(list.joinToString(""))
+         }
+@@ -287,7 +303,7 @@
+                 ""
+             } else {
+                 val tile = placedTiles[row][column].value!!.tile
+-                getWordToLeft(row, column - 1) + tile.toString()
++                getWordToLeft(row, column - 1) + (if(tile == Letter.BLANK) "_" else tile.toString())
+             }
+         }
+ 
+@@ -297,7 +313,7 @@
+                 ""
+             } else {
+                 val tile = rowTiles[column].value!!.tile
+-                tile.toString() + getWordToRight(row, column + 1)
++                (if(tile == Letter.BLANK) "_" else tile.toString()) + getWordToRight(row, column + 1)
+             }
+         }
+ 
+@@ -326,7 +342,7 @@
+ 
+             val wordAbove = getWordAbove(row - 1, column)
+             val wordBelow = getWordBelow(row + 1, column)
+-            val list = listOf(wordAbove, tile.toString(), wordBelow).filter { it.isNotEmpty() }
++            val list = listOf(wordAbove, if(tile == Letter.BLANK) "_" else tile.toString(), wordBelow).filter { it.isNotEmpty() }
+ 
+             return listOf(list.joinToString(""))
+         }
+@@ -336,7 +352,7 @@
+                 ""
+             } else {
+                 val tile = placedTiles[row][column].value!!.tile
+-                getWordAbove(row - 1, column) + tile.toString()
++                getWordAbove(row - 1, column) + (if(tile == Letter.BLANK) "_" else tile.toString())
+             }
+         }
+ 
+@@ -345,7 +361,7 @@
+                 ""
+             } else {
+                 val tile = placedTiles[row][column].value!!.tile
+-                tile.toString() + getWordBelow(row + 1, column)
++                (if(tile == Letter.BLANK) "_" else tile.toString() )+ getWordBelow(row + 1, column)
+             }
+         }
+ 
