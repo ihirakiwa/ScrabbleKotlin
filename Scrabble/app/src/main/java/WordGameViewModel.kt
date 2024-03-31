@@ -39,12 +39,12 @@ class WordGameViewModel {
             }
         }
     }
-    fun setScoreBis(score: Int) {
+    private fun setScoreBis() {
         _uiState.update {
             if (it.playerOneData.name == getCurrentTurnPlayer()) {
-                it.copy(playerOneData = it.playerOneData.copy(score = score ))
+                it.copy(playerOneData = it.playerOneData.copy(score = -1 ))
             } else {
-                it.copy(playerTwoData = it.playerTwoData.copy(score =  score))
+                it.copy(playerTwoData = it.playerTwoData.copy(score =  -1))
             }
         }
     }
@@ -58,11 +58,10 @@ class WordGameViewModel {
             player1.name
         }
         setShowUserTiles(false)
-        if  (uiState.value.remainingTiles.size < TILES_PER_USER) {
+        if  (uiState.value.remainingTiles.size < TILES_PER_USER - list.size) {
             _uiState.update {
                 it.copy(
-                    gameStatus = GameStatus.FINISHED,
-                    currentTurnPlayer = nextPlayer
+                    gameStatus = GameStatus.FINISHED
                 )
             }
             return
@@ -121,9 +120,9 @@ class WordGameViewModel {
         Letter.values().flatMap { tile -> List(tile.frequency) { tile } }.toMutableList()
     fun resign() {
         if(_uiState.value.currentTurnPlayer == _uiState.value.playerOneData.name){
-            setScoreBis( -1 )
+            setScoreBis()
         } else {
-            setScoreBis( -1)
+            setScoreBis()
         }
         _uiState.update { it.copy(gameStatus = GameStatus.FINISHED) }
     }
@@ -143,8 +142,7 @@ class WordGameViewModel {
         if  (uiState.value.remainingTiles.size < list.size) {
             _uiState.update {
                 it.copy(
-                    gameStatus = GameStatus.FINISHED,
-                    currentTurnPlayer = nextPlayer
+                    gameStatus = GameStatus.FINISHED
                 )
             }
             return

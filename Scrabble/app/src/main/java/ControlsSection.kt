@@ -44,6 +44,7 @@ fun ControlsSection(wordGameViewModel: WordGameViewModel,
             }
             OutlinedButton(
                 onClick = {wordGameViewModel.swapTiles(letter(getPlacing()))},
+                enabled = gridViewModel.getPlacing().isNotEmpty(),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(98, 138, 169)),
                 modifier = Modifier.weight(1.2f)
             ) {

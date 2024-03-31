@@ -115,7 +115,6 @@ class GridViewModel(private val wordList: HashMap<String, Int>, private val cont
                         val replacedWord = word.substring(0, jokerIndex) + char + word.substring(jokerIndex + 1)
                         if (wordList.contains(replacedWord.lowercase())) {
                             jokerLetter = char
-                            Log.d("jokerLetter", jokerLetter.toString())
                             break
                         }
                     }
@@ -124,7 +123,6 @@ class GridViewModel(private val wordList: HashMap<String, Int>, private val cont
                     }
                 } else {
                     val replacedWord = word.substring(0, jokerIndex) + jokerLetter + word.substring(jokerIndex + 1)
-                    Log.d("replacedWord", replacedWord)
                     if (!wordList.contains(replacedWord.lowercase())) {
                         return false
                     }
@@ -196,34 +194,27 @@ class GridViewModel(private val wordList: HashMap<String, Int>, private val cont
                 if (isHorizontal) {
                     pairRowScore  = getNewWordInRow(-1)
                     multi = wordMultiplier
-                    Log.d("ligne168", pairRowScore.toString())
                     scoreInte += pairRowScore.second
                     newWords.addAll(pairRowScore.first)
                     val pairColScores = getNewWordsInColumn()
-                    multi *= wordMultiplier
-                    Log.d("ligne169", pairColScores.toString())
                     newWords.addAll(pairColScores.first)
                     scoreInte += pairColScores.second
                 }
                 if (isVertical) {
                     pairColScore = getNewWordInColumn(-1)
                     multi = wordMultiplier
-                    Log.d("ligne169", pairColScore.toString())
                     newWords.addAll(pairColScore.first)
                     scoreInte += pairColScore.second
                     val pairRowScores = getNewWordsInRow()
-                    multi *= wordMultiplier
-                    Log.d("ligne168", pairRowScores.toString())
                     newWords.addAll(pairRowScores.first)
                     scoreInte += pairRowScores.second
                 }
             }
             wordMultiplier = multi
             score = scoreInte
-            Log.d("ligne170", score.toString())
-            val test = newWords.filter { it.length > 1 }.distinct()
-            Log.d("ligne179", test.toString())
-            return test
+            val word = newWords.filter { it.length > 1 }.distinct()
+            Log.d("ligne179", word.toString())
+            return word
         }
 
         private fun getNewWordsInRow(): Pair<List<String>,Int> {
@@ -233,14 +224,11 @@ class GridViewModel(private val wordList: HashMap<String, Int>, private val cont
             }
             var scoreInte = 0
             val rowsWithPlacedLetters = placing.map { it.first }.distinct()
-            Log.d("ligne200", rowsWithPlacedLetters.toString())
             for (row in rowsWithPlacedLetters) {
                 val pairRowScore = getNewWordInRow(row)
-                Log.d("ligne201", pairRowScore.toString())
                 if (pairRowScore.first[0].length > 1){
                     scoreInte += pairRowScore.second
                     rowWords.addAll(pairRowScore.first)
-                    Log.d("ScoreWords", scoreInte.toString())
                 }
             }
             return Pair(rowWords.filter { it.length > 1 }, scoreInte)
@@ -253,14 +241,11 @@ class GridViewModel(private val wordList: HashMap<String, Int>, private val cont
             }
             var scoreInte = 0
             val columnsWithPlacedLetters = placing.map { it.second }.distinct()
-            Log.d("ligne200", columnsWithPlacedLetters.toString())
             for (column in columnsWithPlacedLetters) {
                 val pairColScore = getNewWordInColumn(column)
-                Log.d("Col", pairColScore.toString())
                 if (pairColScore.first[0].length > 1){
                     scoreInte += pairColScore.second
                     columnWords.addAll(pairColScore.first)
-                    Log.d("ScoreWords", scoreInte.toString())
                 }
             }
             return Pair(columnWords.filter { it.length > 1 }, scoreInte)
