@@ -187,7 +187,8 @@ class GridViewModel(private val wordList: HashMap<String, Int>, private val cont
                 newWords.addAll(pairRowScore.first)
                 pairColScore = getNewWordInColumn(-1)
                 newWords.addAll(pairColScore.first)
-                if (newWords.filter { it.length > 1 }.distinct().size > 1){
+                Log.d("newWords test" , newWords.toString())
+                if (newWords.filter { it.length > 1 }.distinct().isNotEmpty()){
                     scoreInte += pairColScore.second
                 }
             }else {
